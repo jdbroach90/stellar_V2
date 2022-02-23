@@ -1930,6 +1930,7 @@ input, select, textarea {
 		color: #ffffff !important;
 	}
 
+
 		input[type="submit"]:hover,
 		input[type="reset"]:hover,
 		input[type="button"]:hover,
@@ -2293,7 +2294,7 @@ input, select, textarea {
 			}
 
 		.icon.style1 {
-			color: #efa8b0;
+			color: #000000;
 		}
 
 		.icon.style2 {
@@ -2905,6 +2906,14 @@ input, select, textarea {
 				background-color: #8cc9f0;
 			}
 
+			.statistics li.black {
+				background-color: #000000;
+			}
+
+			.statistics li.red {
+				background-color: #BD1616;
+			}
+
 			.statistics li strong, .statistics li b {
 				display: block;
 				font-size: 2em;
@@ -3414,7 +3423,7 @@ input, select, textarea {
 			#main input[type="button"].primary,
 			#main button.primary,
 			#main .button.primary {
-				background-color: #398AB9;
+				background-color: #000000;
 				color: #ffffff !important;
 				box-shadow: none;
 			}
@@ -3791,3 +3800,8 @@ input, select, textarea {
 			}
 
 		}
+
+ .email-button{
+        size: large;
+        background-color: #000000;
+    }
