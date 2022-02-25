@@ -131,8 +131,8 @@
                 </header>
                 <footer class="major">
                     <ul class="actions special">
-                        <li><a href="#contact" class="button primary">Get Started</a></li>
-                        <li><a href="/generic" class="button">Learn More</a></li>
+                        <li><a href="#contact" class="button">Get Started</a></li>
+                        <li><a href="/generic" class="button">Learn More</a></li>S
                     </ul>
                 </footer>
             </section>
@@ -142,12 +142,15 @@
                 <form method="post" action="/send_email">
                     <div class="row gtr-uniform">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="name" id="demo-name" value="" placeholder="Name"/>
+                            <input type="text" name="first_name" id="first-name" value="" placeholder="First Name"/>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="last_name" id="last-name" value="" placeholder="Last Name"/>
                         </div>
                         <div class="col-6 col-12-xsmall">
                             <input type="email" name="email" id="demo-email" value="" placeholder="Email"/>
                         </div>
-                        <div class="col-12">
+                        <div class="col-6">
                             <select name="category" id="demo-category">
                                 <option value="">- Category -</option>
                                 <option value="Manufacturing">Manufacturing</option>
@@ -156,17 +159,15 @@
                                 <option value="Human Resources">Human Resources</option>
                             </select>
                         </div>
-                        <div class="col-6 col-12-small">
+                        <div class="col-12">
+                            <textarea name="message" id="demo-message" rows="6">Enter your message here...</textarea>
+                        </div>
+                        <div class="col-12 col-12-small">
                             <input type="checkbox" id="human" name="human">
                             <label for="human">Not a robot</label>
                         </div>
-                        <div class="col-12">
-                            <textarea name="message" id="demo-message" placeholder="Enter your message"
-                                      rows="6">
-                            </textarea>
-                        </div>
                         <div>
-                            <button class="button submit email-button" type="submit">Send Message</button>
+                            <button class="button submit email-button text-center" type="submit">Send Message</button>
                         </div>
                     </div>
                 </form>

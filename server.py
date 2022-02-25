@@ -27,12 +27,16 @@ def elements():
 def send_email():
     from_email = request.form["email"]
     email_message = request.form["message"]
-    user = request.form["name"]
+    first_name = request.form["first_name"]
+    last_name = request.form["last_name"]
     category = request.form["category"]
     smtp_email = os.getenv("my_email")
     smtp_pass = os.getenv("password")
-    if from_email == "" or user == "" or email_message == "":
-        return render_template("email_failure.html", email=from_email, name=user, message=email_message)
+    if from_email == "" or first_name == "" or first_name == "" or email_message == "":
+        return render_template("email_failure.html",
+                               email=from_email,
+                               name=f"{first_name} {last_name}",
+                               message=email_message)
     else:
         try:
             with SMTP("smtp.gmail.com", 587) as connection:
@@ -41,7 +45,7 @@ def send_email():
                 connection.sendmail(
                     from_addr=from_email,
                     to_addrs="aboyles05@gmail.com",
-                    msg=f"Subject: New Inquiry from {user} at {from_email}!\n\n  "
+                    msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"
                         f"Category: {category}\n"
                         f"{email_message}")
         except SMTPResponseException as e:
