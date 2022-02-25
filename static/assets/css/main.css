@@ -100,10 +100,10 @@ input, select, textarea {
 
 	body {
 		background-color: #ffffff;
-        background-image: url(""), -moz-linear-gradient(45deg, #D52027 70%, #ffffff 10%);
-		background-image: url(""), -webkit-linear-gradient(45deg, #D52027 70%, #ffffff 10%);
-		background-image: url(""), -ms-linear-gradient(45deg, #D52027 70%, #ffffff 10%);
-		background-image: url(""), linear-gradient(45deg, #D52027 70%, #ffffff 10%);
+        background-image: url(""), -moz-linear-gradient(45deg, #000000 70%, #ffffff 10%);
+		background-image: url(""), -webkit-linear-gradient(45deg, #000000 70%, #ffffff 10%);
+		background-image: url(""), -ms-linear-gradient(45deg, #000000 70%, #ffffff 10%);
+		background-image: url(""), linear-gradient(45deg, #000000 70%, #ffffff 10%);
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -2294,7 +2294,7 @@ input, select, textarea {
 			}
 
 		.icon.style1 {
-			color: #000000;
+			color: #D52027;
 		}
 
 		.icon.style2 {
@@ -3389,9 +3389,9 @@ input, select, textarea {
 		#main input[type="button"],
 		#main button,
 		#main .button {
-			background-color: transparent;
+			background-color: #000000;
 			box-shadow: inset 0 0 0 1px #dddddd;
-			color: #636363 !important;
+			color: white;
 		}
 
 			#main input[type="submit"]:hover,
@@ -3399,7 +3399,7 @@ input, select, textarea {
 			#main input[type="button"]:hover,
 			#main button:hover,
 			#main .button:hover {
-				background-color: rgba(222, 222, 222, 0.25);
+				background-color: #D52027;
 			}
 
 			#main input[type="submit"]:active,
@@ -3695,6 +3695,7 @@ input, select, textarea {
 /* Footer */
     .bolder-text {
         font-weight: 500;
+        color: #ffffff;
     }
 
 
