@@ -3808,3 +3808,13 @@ input, select, textarea {
  .header-white {
     color: white;
  }
+
+ .use-case-text {
+    padding-top: 30px;
+    font-weight: 400;
+ }
+
+ .email_header {
+    font-size: 3rem;
+    color: #636363;
+ }

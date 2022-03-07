@@ -25,18 +25,27 @@ def elements():
 
 @app.route('/send_email', methods=["POST"])
 def send_email():
+    # Gather info from form
     from_email = request.form["email"]
     email_message = request.form["message"]
     first_name = request.form["first_name"]
     last_name = request.form["last_name"]
     category = request.form["category"]
+
+    # test_email
     smtp_email = os.getenv("my_email")
     smtp_pass = os.getenv("password")
-    if from_email == "" or first_name == "" or first_name == "" or email_message == "":
+
+    # Prod email
+    smtp_email = os.getenv("codejet_email")
+    smtp_pass = os.getenv("codejet_password")
+
+    if from_email == "" or first_name == "" or first_name == "" or email_message == "" or category == "":
         return render_template("email_failure.html",
                                email=from_email,
                                name=f"{first_name} {last_name}",
-                               message=email_message)
+                               message=email_message
+                               )
     else:
         try:
             with SMTP("smtp.gmail.com", 587) as connection:
@@ -44,7 +53,7 @@ def send_email():
                 connection.login(user=smtp_email, password=smtp_pass)
                 connection.sendmail(
                     from_addr=from_email,
-                    to_addrs="aboyles05@gmail.com",
+                    to_addrs="codejetsmtp@gmail.com",
                     msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"
                         f"Category: {category}\n"
                         f"{email_message}")
