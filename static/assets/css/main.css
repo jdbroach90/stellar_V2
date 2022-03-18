@@ -2965,6 +2965,7 @@ input, select, textarea {
 
 				.statistics li .icon:before {
 					font-size: 3.75rem;
+					padding: 30px 0px 20px 0px;
 				}
 
 				.statistics li strong, .statistics li b {
@@ -3358,7 +3359,7 @@ input, select, textarea {
 		}
 
 		#main h1, #main h2, #main h3, #main h4, #main h5, #main h6 {
-			color: #636363;
+			color: #000000;
 		}
 
 		#main blockquote {
@@ -3384,7 +3385,6 @@ input, select, textarea {
 		#main button,
 		#main .button {
 			background-color: #000000;
-			box-shadow: inset 0 0 0 1px #dddddd;
 			color: white;
 		}
 
@@ -3688,7 +3688,7 @@ input, select, textarea {
 
 /* Footer */
     .bolder-text {
-        font-weight: 500;
+        font-weight: 600;
         color: #ffffff;
     }
 
@@ -3814,7 +3814,19 @@ input, select, textarea {
     font-weight: 400;
  }
 
+ .use_case_icon{
+    padding:30px 0px 20px 0px;
+ }
+
  .email_header {
     font-size: 3rem;
     color: #636363;
  }
+
+ .btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  width: 100px;
+}
