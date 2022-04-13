@@ -13,9 +13,9 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/generic')
-def generic():
-    return render_template('generic.html')
+# @app.route('/generic')
+# def generic():
+#     return render_template('generic.html')
 
 
 @app.route('/elements')
@@ -37,8 +37,8 @@ def send_email():
     smtp_pass = os.getenv("password")
 
     # Prod email
-    smtp_email = os.getenv("codejet_email")
-    smtp_pass = os.getenv("codejet_password")
+    # smtp_email = os.getenv("codejet_email")
+    # smtp_pass = os.getenv("codejet_password")
 
     if from_email == "" or first_name == "" or first_name == "" or email_message == "" or category == "":
         return render_template("email_failure.html",
@@ -53,12 +53,15 @@ def send_email():
                 connection.login(user=smtp_email, password=smtp_pass)
                 connection.sendmail(
                     from_addr=from_email,
-                    to_addrs="codejetsmtp@gmail.com",
+                    # test
+                    to_addrs=smtp_email,
+                    # prod
+                    # to_addrs="codejetsmtp@gmail.com",
                     msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"
                         f"Category: {category}\n"
                         f"{email_message}")
         except SMTPResponseException as e:
-            error_message = f"Sorry we could not complete the request due to{e.smtp_error}"
+            error_message = f"Sorry we could not complete the request due to {e.smtp_error}"
             return error_message
         else:
             message = "We will be in touch with you soon, " \
