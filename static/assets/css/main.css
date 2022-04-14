@@ -155,7 +155,6 @@ input, select, textarea {
 		-ms-transition: color 0.2s ease, border-bottom 0.2s ease;
 		transition: color 0.2s ease, border-bottom 0.2s ease;
 		text-decoration: none;
-		border-bottom: dotted 1px;
 		color: inherit;
 	}
 
@@ -3350,8 +3349,9 @@ input, select, textarea {
 			color: #636363;
 		}
 
+
 		#main a:hover {
-			color: #636363;
+			color: #949494;
 		}
 
 		#main strong, #main b {
