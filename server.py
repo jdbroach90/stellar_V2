@@ -30,17 +30,16 @@ def send_email():
     email_message = request.form["message"]
     first_name = request.form["first_name"]
     last_name = request.form["last_name"]
-    category = request.form["category"]
 
     # test_email
-    smtp_email = os.getenv("my_email")
+    smtp_email = os.getenv("email")
     smtp_pass = os.getenv("password")
 
     # Prod email
-    # smtp_email = os.getenv("codejet_email")
-    # smtp_pass = os.getenv("codejet_password")
+    # smtp_email = os.getenv("cj_email")
+    # smtp_pass = os.getenv("cj_password")
 
-    if from_email == "" or first_name == "" or first_name == "" or email_message == "" or category == "":
+    if from_email == "" or first_name == "" or first_name == "" or email_message == "":
         return render_template("email_failure.html",
                                email=from_email,
                                name=f"{first_name} {last_name}",
@@ -52,13 +51,12 @@ def send_email():
                 connection.starttls()
                 connection.login(user=smtp_email, password=smtp_pass)
                 connection.sendmail(
-                    from_addr=from_email,
+                    from_addr=smtp_email,
                     # test
                     to_addrs=smtp_email,
                     # prod
-                    # to_addrs="codejetsmtp@gmail.com",
-                    msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"
-                        f"Category: {category}\n"
+                    # to_addrs="jbroach@codejet.app",
+                    msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"                        
                         f"{email_message}")
         except SMTPResponseException as e:
             error_message = f"Sorry we could not complete the request due to {e.smtp_error}"
