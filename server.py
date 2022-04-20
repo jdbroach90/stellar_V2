@@ -32,12 +32,12 @@ def send_email():
     last_name = request.form["last_name"]
 
     # test_email
-    smtp_email = os.getenv("email")
-    smtp_pass = os.getenv("password")
+    # smtp_email = os.getenv("email")
+    # smtp_pass = os.getenv("password")
 
     # Prod email
-    # smtp_email = os.getenv("cj_email")
-    # smtp_pass = os.getenv("cj_password")
+    smtp_email = os.getenv("cj_email")
+    smtp_pass = os.getenv("cj_password")
 
     if from_email == "" or first_name == "" or first_name == "" or email_message == "":
         return render_template("email_failure.html",
@@ -53,9 +53,9 @@ def send_email():
                 connection.sendmail(
                     from_addr=smtp_email,
                     # test
-                    to_addrs=smtp_email,
+                    # to_addrs=smtp_email,
                     # prod
-                    # to_addrs="jbroach@codejet.app",
+                    to_addrs="jbroach@codejet.app",
                     msg=f"Subject: New Inquiry from {first_name} {last_name} at {from_email}!\n\n"                        
                         f"{email_message}")
         except SMTPResponseException as e:
