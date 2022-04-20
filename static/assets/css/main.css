@@ -3830,3 +3830,8 @@ input, select, textarea {
   display: none;
   width: 100px;
 }
+
+.footer_img {
+    width: 200px;
+    height: auto;
+}
