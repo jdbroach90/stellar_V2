@@ -37,7 +37,7 @@ def send_email():
 
     # Prod email
     smtp_email = os.getenv("cj_email")
-    smtp_pass = os.getenv("cj_key")
+    smtp_pass = os.getenv("cj_password")
 
     if from_email == "" or first_name == "" or first_name == "" or email_message == "":
         return render_template("email_failure.html",
