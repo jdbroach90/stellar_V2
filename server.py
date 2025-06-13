@@ -4,7 +4,7 @@ from smtplib import SMTP, SMTPResponseException, SMTPAuthenticationError
 from dotenv import load_dotenv
 import os
 
-load_dotenv()
+load_dotenv(dotenv_path=".env")
 app = Flask(__name__)
 
 
@@ -49,6 +49,9 @@ def send_email():
         try:
             with SMTP("smtp.gmail.com", 587) as connection:
                 connection.starttls()
+                # ✅ Debug prints
+                print("cj_email:", smtp_email)
+                print("cj_password (len):", len(smtp_pass) if smtp_pass else "None")
                 connection.login(user=smtp_email, password=smtp_pass)
                 connection.sendmail(
                     from_addr=smtp_email,
