@@ -18,6 +18,9 @@ SMTP_PASS = os.getenv("cj_password")
 def home():
     return render_template('index.html')
 
+@app.route('/demo')
+def demo():
+    return render_template('demo.html')
 
 @app.route('/elements')
 def elements():
