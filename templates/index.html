@@ -674,31 +674,194 @@
             }
         }
 
+
+        /* ===== Unified CodeJet red product header ===== */
+        .cj-product-header {
+            background: #d71920 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            min-height: 0 !important;
+            height: auto !important;
+            border: 0 !important;
+        }
+
+        .cj-product-header-inner {
+            width: min(1500px, calc(100% - 40px));
+            margin: 0 auto;
+            min-height: 118px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+
+        .cj-header-logo {
+            display: flex;
+            align-items: center;
+            flex: 0 0 auto;
+            text-decoration: none !important;
+            border: 0 !important;
+        }
+
+        .cj-header-logo img {
+            display: block;
+            width: 360px;
+            max-width: 38vw;
+            height: auto;
+            max-height: 94px;
+            object-fit: contain;
+            margin: 0;
+        }
+
+        /* Override the legacy sticky black navigation treatment. */
+        #nav.cj-product-nav {
+            position: static !important;
+            width: auto !important;
+            max-width: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: transparent !important;
+            border: 0 !important;
+            box-shadow: none !important;
+            text-align: right !important;
+        }
+
+        #nav.cj-product-nav ul {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: .35rem;
+            margin: 0 !important;
+            padding: 0 !important;
+            list-style: none;
+        }
+
+        #nav.cj-product-nav ul li {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #nav.cj-product-nav ul li a {
+            color: #ffffff !important;
+            background: transparent !important;
+            border: 0 !important;
+            border-radius: 7px;
+            padding: .72rem 1rem !important;
+            min-width: 0 !important;
+            height: auto !important;
+            line-height: 1.2 !important;
+            font-weight: 700;
+            text-decoration: none !important;
+            box-shadow: none !important;
+            transition: background .15s ease, color .15s ease, transform .15s ease;
+        }
+
+        /* Black highlight, per request. */
+        #nav.cj-product-nav ul li a:hover,
+        #nav.cj-product-nav ul li a:focus,
+        #nav.cj-product-nav ul li a.active {
+            color: #ffffff !important;
+            background: #171717 !important;
+            transform: translateY(-1px);
+        }
+
+        /* Remove legacy pseudo/active underlines if main.css adds them. */
+        #nav.cj-product-nav ul li a:after,
+        #nav.cj-product-nav ul li a:before {
+            display: none !important;
+        }
+
+        /* Keep content flush below the compact product header. */
+        #main {
+            margin-top: 0 !important;
+        }
+
+        /* CTA headline stays white on black panel. */
+        .cj-cta h2,
+        .cj-cta h2.bolder-text {
+            color: #ffffff !important;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cj-product-header-inner {
+                min-height: 104px;
+                width: min(100% - 24px, 1200px);
+                gap: 1rem;
+            }
+
+            .cj-header-logo img {
+                width: 300px;
+                max-width: 36vw;
+            }
+
+            #nav.cj-product-nav ul li a {
+                padding: .62rem .72rem !important;
+                font-size: .92rem;
+            }
+        }
+
+        @media screen and (max-width: 736px) {
+            .cj-product-header-inner {
+                width: 100%;
+                min-height: 0;
+                padding: 12px 14px 14px;
+                flex-direction: column;
+                align-items: center;
+                gap: .45rem;
+            }
+
+            .cj-header-logo img {
+                width: min(390px, 88vw);
+                max-width: none;
+                max-height: 115px;
+            }
+
+            #nav.cj-product-nav {
+                width: 100% !important;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            #nav.cj-product-nav ul {
+                width: max-content;
+                min-width: 100%;
+                justify-content: center;
+                gap: .2rem;
+            }
+
+            #nav.cj-product-nav ul li a {
+                padding: .55rem .7rem !important;
+                font-size: .84rem;
+                white-space: nowrap;
+            }
+        }
+
     </style>
 </head>
 
 <body class="is-preload">
     <div id="wrapper">
 
-        <!-- Header / Brand -->
-        <header id="header" class="alt cj-site-header">
-            <span class="logo">
-                <img src="static/images/CodeJet_Retail_Intelligence_Platform.png"
-                     alt="CodeJet - A Retail Intelligence Platform"/>
-            </span>
-        </header>
+        <!-- Unified Product Header -->
+        <header id="header" class="cj-product-header">
+            <div class="cj-product-header-inner">
+                <a href="#intro" class="cj-header-logo" aria-label="CodeJet home">
+                    <img src="static/images/CodeJet_Retail_Intelligence_Platform_RedHeader.png"
+                         alt="CodeJet - A Retail Intelligence Platform"/>
+                </a>
 
-        <!-- Nav -->
-        <nav id="nav">
-            <ul>
-                <li><a href="#intro" class="active">CodeJet</a></li>
-                <li><a href="#platform">Platform</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#trust">Trust</a></li>
-                <li><a href="/demo" class="cj-demo-nav">Demo</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
+                <nav id="nav" class="cj-product-nav">
+                    <ul>
+                        <li><a href="#intro" class="active">CodeJet</a></li>
+                        <li><a href="#platform">Platform</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#trust">Trust</a></li>
+                        <li><a href="/demo">Demo</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
 
         <!-- Main -->
         <div id="main">
