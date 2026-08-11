@@ -587,6 +587,93 @@
                 width: 100%;
             }
         }
+
+        /* ===== August 2026 visual refinements ===== */
+
+        /* Compact the oversized legacy HTML5 UP header. */
+        #header.cj-site-header {
+            padding: 18px 20px 20px !important;
+            min-height: 0 !important;
+            height: auto !important;
+            margin: 0 !important;
+        }
+
+        #header.cj-site-header .logo {
+            display: block !important;
+            margin: 0 auto !important;
+            padding: 0 !important;
+            line-height: 0;
+        }
+
+        #header.cj-site-header .logo img {
+            display: block;
+            width: min(540px, 72vw) !important;
+            max-width: 540px !important;
+            height: auto !important;
+            max-height: 205px !important;
+            object-fit: contain;
+            margin: 0 auto !important;
+        }
+
+        /* Keep the nav close to the brand instead of leaving a large gap. */
+        #nav {
+            margin-top: 0 !important;
+        }
+
+        /* Legacy bolder-text styling was winning over the dark CTA. */
+        .cj-cta h2,
+        .cj-cta h2.bolder-text {
+            color: #ffffff !important;
+        }
+
+        /* Compact footer brand treatment replacing the old image/tagline. */
+        .cj-footer-brand {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            color: #ffffff;
+            margin-bottom: 1.15rem;
+            line-height: 1;
+        }
+
+        .cj-footer-brand-name {
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: .02em;
+            text-transform: none;
+        }
+
+        .cj-footer-brand-tagline {
+            margin-top: .55rem;
+            padding-top: .55rem;
+            border-top: 2px solid rgba(255,255,255,.85);
+            font-size: .82rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.94);
+        }
+
+        @media screen and (max-width: 736px) {
+            #header.cj-site-header {
+                padding: 12px 12px 14px !important;
+            }
+
+            #header.cj-site-header .logo img {
+                width: min(430px, 88vw) !important;
+                max-height: 165px !important;
+            }
+
+            .cj-footer-brand-name {
+                font-size: 1.65rem;
+            }
+
+            .cj-footer-brand-tagline {
+                font-size: .68rem;
+                letter-spacing: .10em;
+            }
+        }
+
     </style>
 </head>
 
@@ -594,9 +681,10 @@
     <div id="wrapper">
 
         <!-- Header / Brand -->
-        <header id="header" class="alt" style="padding-bottom: 40px; padding-top:10px;">
-            <span class="logo" style="padding-bottom:10px;">
-                <img src="static/images/code_jet/code_jet_logo.jpg" alt="CodeJet"/>
+        <header id="header" class="alt cj-site-header">
+            <span class="logo">
+                <img src="static/images/CodeJet_Retail_Intelligence_Platform.png"
+                     alt="CodeJet - A Retail Intelligence Platform"/>
             </span>
         </header>
 
@@ -1019,7 +1107,10 @@
         <!-- Footer -->
         <footer id="footer" class="bolder-text">
             <section>
-                <img class="footer_img" src="static/images/CodeJet_Final_White.png" alt="CodeJet">
+                <div class="cj-footer-brand" aria-label="CodeJet - A Retail Intelligence Platform">
+                    <span class="cj-footer-brand-name">CodeJet</span>
+                    <span class="cj-footer-brand-tagline">A Retail Intelligence Platform</span>
+                </div>
                 <p class="cj-footer-copy">
                     CodeJet is a retail intelligence platform designed to make the data,
                     reporting logic, and business knowledge retailers already trust easier to access and act on.
