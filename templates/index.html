@@ -2,262 +2,1003 @@
 <html>
 <head>
     <script src="https://www.google.com/recaptcha/api.js?render=6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT"></script>
-    <title>CodeJet</title>
+    <title>CodeJet | A Retail Intelligence Platform</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <meta name="description" content="CodeJet is a retail intelligence platform that turns trusted business data, reports, queries, and definitions into governed AI answers, insights, and decision-ready deliverables."/>
     <link rel="icon" style="img-round" type="image/x-icon" href="static/images/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="static/assets/css/main.css"/>
     <link rel="stylesheet" href="static/assets/css/noscript.css"/>
     <script src="https://kit.fontawesome.com/5e1de81346.js" crossorigin="anonymous"></script>
+
+    <!--
+        CodeJet AI positioning styles.
+        These classes are intentionally scoped with the cj- prefix so they can
+        coexist with the site's existing HTML5 UP / main.css styles.
+    -->
+    <style>
+        :root {
+            --cj-red: #d71920;
+            --cj-red-dark: #a81016;
+            --cj-black: #171717;
+            --cj-gray: #69707d;
+            --cj-line: #e3e5e8;
+            --cj-soft: #f6f7f9;
+            --cj-soft-red: #fff2f3;
+            --cj-white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        #nav ul li a.cj-demo-nav {
+            font-weight: 700;
+            color: var(--cj-red) !important;
+        }
+
+        .cj-section {
+            padding-top: 5rem !important;
+            padding-bottom: 5rem !important;
+        }
+
+        .cj-eyebrow {
+            color: var(--cj-red);
+            font-weight: 800;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            font-size: .84rem;
+            margin-bottom: .8rem;
+        }
+
+        .cj-hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cj-hero h1 {
+            font-size: clamp(2.6rem, 5vw, 5rem);
+            line-height: 1.02;
+            margin-bottom: 1.4rem;
+            color: var(--cj-black);
+        }
+
+        .cj-hero-copy {
+            font-size: 1.18rem;
+            line-height: 1.75;
+            max-width: 760px;
+            color: #4f5661;
+        }
+
+        .cj-hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .85rem;
+            margin-top: 2rem;
+        }
+
+        .cj-button-primary,
+        .cj-button-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .65rem;
+            min-height: 52px;
+            padding: 0 1.45rem;
+            border-radius: 6px;
+            text-decoration: none !important;
+            font-weight: 800;
+            letter-spacing: .02em;
+            transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+        }
+
+        .cj-button-primary {
+            background: var(--cj-red);
+            color: #fff !important;
+            border: 1px solid var(--cj-red);
+            box-shadow: 0 10px 24px rgba(215, 25, 32, .18);
+        }
+
+        .cj-button-secondary {
+            background: #fff;
+            color: var(--cj-black) !important;
+            border: 1px solid #cfd3d8;
+        }
+
+        .cj-button-primary:hover,
+        .cj-button-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        .cj-trust-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.1rem 1.65rem;
+            margin-top: 1.7rem;
+            color: #5c6470;
+            font-size: .95rem;
+        }
+
+        .cj-trust-strip span {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .cj-trust-strip i {
+            color: var(--cj-red);
+        }
+
+        .cj-diagram {
+            background: linear-gradient(145deg, #fff 0%, #fafafb 100%);
+            border: 1px solid var(--cj-line);
+            border-radius: 18px;
+            padding: 1.5rem;
+            box-shadow: 0 24px 65px rgba(24, 28, 34, .08);
+        }
+
+        .cj-diagram-title {
+            font-weight: 800;
+            color: var(--cj-black);
+            margin-bottom: .3rem;
+        }
+
+        .cj-diagram-subtitle {
+            color: var(--cj-gray);
+            font-size: .92rem;
+            margin-bottom: 1.3rem;
+        }
+
+        .cj-source-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: .65rem;
+        }
+
+        .cj-source-card,
+        .cj-output-card {
+            background: #fff;
+            border: 1px solid var(--cj-line);
+            border-radius: 10px;
+            padding: .85rem;
+            font-weight: 700;
+            color: #343942;
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+        }
+
+        .cj-source-card i,
+        .cj-output-card i {
+            color: var(--cj-red);
+            width: 22px;
+            text-align: center;
+        }
+
+        .cj-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9aa0a9;
+            font-size: 1.25rem;
+            padding: .7rem 0;
+        }
+
+        .cj-blueprint {
+            background: var(--cj-black);
+            color: #fff;
+            border-radius: 14px;
+            padding: 1.2rem;
+        }
+
+        .cj-blueprint strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: .75rem;
+        }
+
+        .cj-blueprint-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+        }
+
+        .cj-blueprint-tags span {
+            background: rgba(255,255,255,.09);
+            border: 1px solid rgba(255,255,255,.13);
+            padding: .4rem .6rem;
+            border-radius: 999px;
+            font-size: .8rem;
+        }
+
+        .cj-output-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: .65rem;
+        }
+
+        .cj-heading {
+            max-width: 900px;
+            margin-bottom: 2.4rem;
+        }
+
+        .cj-heading.center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .cj-heading h2 {
+            font-size: clamp(2rem, 3.5vw, 3.15rem);
+            line-height: 1.12;
+            color: var(--cj-black);
+            margin-bottom: 1rem;
+        }
+
+        .cj-heading p {
+            color: #555d68;
+            font-size: 1.08rem;
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        .cj-problem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+        }
+
+        .cj-problem-card {
+            border: 1px solid var(--cj-line);
+            border-radius: 14px;
+            padding: 1.7rem;
+            background: #fff;
+        }
+
+        .cj-problem-card .cj-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: var(--cj-soft-red);
+            color: var(--cj-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cj-problem-card h3 {
+            color: var(--cj-black);
+            font-size: 1.2rem;
+            margin-bottom: .6rem;
+        }
+
+        .cj-problem-card p {
+            color: #5d6570;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        .cj-split {
+            display: grid;
+            grid-template-columns: minmax(0, .92fr) minmax(420px, 1.08fr);
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .cj-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0 0;
+        }
+
+        .cj-list li {
+            position: relative;
+            padding-left: 1.9rem;
+            margin-bottom: .85rem;
+            color: #4e5662;
+            line-height: 1.6;
+        }
+
+        .cj-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--cj-red);
+            font-weight: 900;
+        }
+
+        .cj-flow {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: .8rem;
+        }
+
+        .cj-flow-step {
+            border: 1px solid var(--cj-line);
+            border-radius: 12px;
+            padding: 1.1rem 1.2rem;
+            background: #fff;
+            display: grid;
+            grid-template-columns: 44px 1fr;
+            gap: .85rem;
+            align-items: center;
+        }
+
+        .cj-flow-step .num {
+            width: 40px;
+            height: 40px;
+            background: var(--cj-red);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+        }
+
+        .cj-flow-step strong {
+            color: var(--cj-black);
+            display: block;
+            margin-bottom: .15rem;
+        }
+
+        .cj-flow-step span {
+            color: var(--cj-gray);
+            font-size: .9rem;
+        }
+
+        .cj-chat {
+            border: 1px solid var(--cj-line);
+            border-radius: 18px;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 22px 55px rgba(24, 28, 34, .08);
+        }
+
+        .cj-chat-top {
+            padding: 1rem 1.2rem;
+            border-bottom: 1px solid var(--cj-line);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #fafafb;
+        }
+
+        .cj-chat-top strong {
+            color: var(--cj-black);
+        }
+
+        .cj-status {
+            color: var(--cj-red);
+            font-size: .78rem;
+            font-weight: 800;
+            background: var(--cj-soft-red);
+            border-radius: 999px;
+            padding: .35rem .6rem;
+        }
+
+        .cj-chat-body {
+            padding: 1.2rem;
+        }
+
+        .cj-question {
+            border-radius: 12px;
+            background: var(--cj-soft-red);
+            padding: 1rem;
+            color: #2c3036;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cj-answer {
+            border: 1px solid var(--cj-line);
+            border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .cj-answer-summary {
+            color: #444c57;
+            line-height: 1.55;
+            margin-bottom: .85rem;
+        }
+
+        .cj-rank-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: center;
+            padding: .65rem 0;
+            border-top: 1px solid #eef0f2;
+        }
+
+        .cj-rank-row:first-of-type {
+            border-top: none;
+        }
+
+        .cj-rank-row strong {
+            color: var(--cj-black);
+        }
+
+        .cj-rank-row span {
+            color: #27804f;
+            font-weight: 800;
+        }
+
+        .cj-takeaway {
+            margin-top: .9rem;
+            background: #f0f8f3;
+            border-left: 4px solid #27804f;
+            padding: .9rem 1rem;
+            color: #39443f;
+            border-radius: 6px;
+        }
+
+        .cj-export-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .65rem;
+            margin-top: .9rem;
+        }
+
+        .cj-export {
+            border: 1px solid var(--cj-line);
+            border-radius: 8px;
+            padding: .6rem .8rem;
+            font-weight: 800;
+            color: #363b43;
+            background: #fff;
+        }
+
+        .cj-export i {
+            color: var(--cj-red);
+            margin-right: .4rem;
+        }
+
+        .cj-audience-grid,
+        .cj-trust-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .cj-audience-card,
+        .cj-trust-card {
+            border: 1px solid var(--cj-line);
+            border-radius: 14px;
+            padding: 1.6rem;
+            background: #fff;
+        }
+
+        .cj-audience-card i,
+        .cj-trust-card i {
+            font-size: 1.5rem;
+            color: var(--cj-red);
+            margin-bottom: 1rem;
+        }
+
+        .cj-audience-card h3,
+        .cj-trust-card h3 {
+            color: var(--cj-black);
+            font-size: 1.15rem;
+            margin-bottom: .55rem;
+        }
+
+        .cj-audience-card p,
+        .cj-trust-card p {
+            color: #5d6570;
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        .cj-trust-section {
+            background: #f7f8fa;
+        }
+
+        .cj-cta {
+            background: var(--cj-black);
+            color: #fff;
+            border-radius: 18px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .cj-cta h2 {
+            color: #fff;
+            margin-bottom: .6rem;
+        }
+
+        .cj-cta p {
+            color: #c7cbd1;
+            margin-bottom: 0;
+            max-width: 760px;
+        }
+
+        #contact .email_header {
+            margin-bottom: .5rem;
+        }
+
+        .cj-contact-intro {
+            color: #59616c;
+            margin-bottom: 1.6rem;
+            max-width: 820px;
+        }
+
+        .cj-footer-copy {
+            max-width: 560px;
+        }
+
+        @media screen and (max-width: 980px) {
+            .cj-hero,
+            .cj-split,
+            .cj-cta {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cj-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .cj-audience-grid,
+            .cj-trust-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 736px) {
+            .cj-section {
+                padding-top: 3.2rem !important;
+                padding-bottom: 3.2rem !important;
+            }
+
+            .cj-problem-grid,
+            .cj-source-grid,
+            .cj-output-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cj-hero h1 {
+                font-size: 2.55rem;
+            }
+
+            .cj-split {
+                display: block;
+            }
+
+            .cj-split > * + * {
+                margin-top: 2rem;
+            }
+
+            .cj-cta {
+                padding: 2rem 1.4rem;
+            }
+
+            .cj-button-primary,
+            .cj-button-secondary {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
+
 <body class="is-preload">
     <div id="wrapper">
-        <!-- Header -->
+
+        <!-- Header / Brand -->
         <header id="header" class="alt" style="padding-bottom: 40px; padding-top:10px;">
-            <span class="logo" style="padding-bottom:10px; ">
-                <img src="static/images/code_jet/code_jet_logo.jpg" alt="code-jet-logo"/>
+            <span class="logo" style="padding-bottom:10px;">
+                <img src="static/images/code_jet/code_jet_logo.jpg" alt="CodeJet"/>
             </span>
         </header>
 
         <!-- Nav -->
-        <nav id="nav" >
+        <nav id="nav">
             <ul>
-                <li><a href="#intro" class="active">Code Jet</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#use_case">Use Cases</a></li>
+                <li><a href="#intro" class="active">CodeJet</a></li>
+                <li><a href="#platform">Platform</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#trust">Trust</a></li>
+                <li><a href="/demo" class="cj-demo-nav">Demo</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
 
         <!-- Main -->
         <div id="main">
-            <!-- Introduction -->
-            <section id="intro" class="main">
-                <div class="spotlight">
-                    <div class="content">
+
+            <!-- Hero -->
+            <section id="intro" class="main cj-section">
+                <div class="cj-hero">
+                    <div>
+                        <div class="cj-eyebrow">CodeJet · A Retail Intelligence Platform</div>
                         <header class="major">
-                            <h1 class="bolder-text">From POS to ERP— Integrate Seamlessly with CodeJet</h1>
+                            <h1 class="bolder-text">Removing the AI Hesitancy</h1>
+                        </header>
+
+                        <p class="cj-hero-copy">
+                            CodeJet gives retailers a governed way to use AI with the business data they already trust.
+                            We transform the knowledge contained in your reports, queries, data models, and business definitions
+                            into a structured intelligence layer that helps your teams ask better questions and get decision-ready answers.
+                        </p>
+
+                        <div class="cj-hero-actions">
+                            <a href="/demo" class="cj-button-primary">
+                                <i class="fa-solid fa-play"></i>
+                                Watch CodeJet in Action
+                            </a>
+                            <a href="#contact" class="cj-button-secondary">Request a Demo</a>
+                        </div>
+
+                        <div class="cj-trust-strip">
+                            <span><i class="fa-solid fa-store"></i> Built for Retail</span>
+                            <span><i class="fa-solid fa-database"></i> Grounded in Your Data</span>
+                            <span><i class="fa-solid fa-sliders"></i> Guided by Your Business Rules</span>
+                        </div>
+                    </div>
+
+                    <!-- Hero technology depiction -->
+                    <div class="cj-diagram" aria-label="How CodeJet turns existing retail data into governed AI answers">
+                        <div class="cj-diagram-title">Your existing retail environment</div>
+                        <div class="cj-diagram-subtitle">Start with the reporting logic and data your organization already relies on.</div>
+
+                        <div class="cj-source-grid">
+                            <div class="cj-source-card"><i class="fa-solid fa-file-lines"></i> Reports</div>
+                            <div class="cj-source-card"><i class="fa-solid fa-code"></i> SQL Queries</div>
+                            <div class="cj-source-card"><i class="fa-solid fa-chart-column"></i> Dashboards</div>
+                            <div class="cj-source-card"><i class="fa-solid fa-diagram-project"></i> Data Models</div>
+                        </div>
+
+                        <div class="cj-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                        <div class="cj-blueprint">
+                            <strong>CodeJet Intelligence Blueprint</strong>
+                            <div class="cj-blueprint-tags">
+                                <span>Business Definitions</span>
+                                <span>Relationships</span>
+                                <span>Metrics</span>
+                                <span>Approved Data</span>
+                                <span>Permissions</span>
+                                <span>Query Logic</span>
+                            </div>
+                        </div>
+
+                        <div class="cj-arrow"><i class="fa-solid fa-arrow-down"></i></div>
+
+                        <div class="cj-output-grid">
+                            <div class="cj-output-card"><i class="fa-solid fa-comment-dots"></i> Answers</div>
+                            <div class="cj-output-card"><i class="fa-solid fa-chart-line"></i> Insights</div>
+                            <div class="cj-output-card"><i class="fa-solid fa-file-powerpoint"></i> PowerPoint</div>
+                            <div class="cj-output-card"><i class="fa-solid fa-file-pdf"></i> PDF</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Problem / positioning -->
+            <section id="platform" class="main special cj-section">
+                <header class="cj-heading center">
+                    <div class="cj-eyebrow">Why CodeJet</div>
+                    <h2 class="bolder-text">Your data shouldn't require a scavenger hunt.</h2>
+                    <p>
+                        Retailers have more data than ever. But getting a clear answer can still mean finding the right report,
+                        asking an analyst, digging through a spreadsheet, or waiting for someone to build another dashboard.
+                        AI can change that — but only when it understands the business behind the data.
+                    </p>
+                </header>
+
+                <div class="cj-problem-grid">
+                    <div class="cj-problem-card">
+                        <div class="cj-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h3 class="bolder-text">The answer exists. Finding it is the problem.</h3>
+                        <p>
+                            Institutional knowledge is often spread across reports, queries, dashboards, spreadsheets,
+                            and the people who know how to interpret them.
+                        </p>
+                    </div>
+
+                    <div class="cj-problem-card">
+                        <div class="cj-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <h3 class="bolder-text">Generic AI does not know your business.</h3>
+                        <p>
+                            It does not inherently know how you define sales, margin, inventory, vendors, locations,
+                            reporting periods, or which data a particular user should be allowed to see.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Blueprint section -->
+            <section id="how-it-works" class="main cj-section">
+                <div class="cj-split">
+                    <div>
+                        <div class="cj-eyebrow">The CodeJet Blueprint</div>
+                        <header class="major">
+                            <h2 class="bolder-text">Your business logic becomes the blueprint.</h2>
                         </header>
                         <p>
-                            CodeJet focuses on helping retailers and retail software teams
-                            integrate their tech stack with modern business and reporting tools.
+                            CodeJet takes the logic already embedded in the reporting environment your organization trusts
+                            and structures it into a blueprint an AI model can understand.
                         </p>
-                        <p>Do you or your customers need:</p>
-                        <ul style="padding-left: 20px;">
-                            <li><strong>Custom report pipelines</strong></li>
-                            <li><strong>API-based integrations with CRM’s or accounting systems</strong></li>
-                            <li><strong>Historical data warehousing for reconciliation and better decision-making</strong></li>
-                        </ul>
                         <p>
-                            We’ve built custom connectors and ETL pipelines for systems like NCR, SAP, Revel, QuickBooks,
-                            Sage, Netsuite, and Business Central 365. We also speak your languages: SQL, Python, SSIS,
-                            Pyspark, Azure, REST APIs, C#, HTML, JS, Bootstrap, Power Automate, Logic Apps, and more.
-                            Our team is a technical extension of your products and services.
+                            Instead of asking generic AI to figure out your business, CodeJet gives the model the context,
+                            relationships, definitions, and guardrails it needs to work within your environment.
                         </p>
-                        <ul class="actions">
-                            <li><a href="#contact" class="button">Learn More</a></li>
+
+                        <ul class="cj-list">
+                            <li>Leverage existing reports, queries, schemas, and definitions.</li>
+                            <li>Map the metrics and relationships that matter to your organization.</li>
+                            <li>Provide users with a consistent way to ask questions in plain English.</li>
+                            <li>Return answers in the format that best fits the request.</li>
                         </ul>
                     </div>
-                    <!-- <span class="image"><img src="static/images/pic01.jpg" alt=""/></span>-->
-                </div>
-            </section>
-            <!-- Tech Stack Section -->
-            <section id="tech_stack" class="main special">
-                <header class="major">
-                    <h2 class="bolder-text">Integration and Analytics Tech Stack</h2>
-                    <p>Technologies we specialize in</p>
-                </header>
-                <div class="tech-stack-container">
-                    <img src="static/images/tech_stack/powerbi.png" alt="Power BI" class="tech-logo">
-                    <img src="static/images/tech_stack/azure.png" alt="Azure" class="tech-logo">
-                    <img src="static/images/tech_stack/sql-server.png" alt="SQL Server" class="tech-logo">
-                    <img src="static/images/tech_stack/python.png" alt="Python" class="tech-logo">
-                    <img src="static/images/tech_stack/Pyspark.png" alt="Pyspark" class="tech-logo">
-                    <img src="static/images/tech_stack/logic_apps.png" alt="Logic Apps" class="tech-logo">
-                    <img src="static/images/tech_stack/power_automate.png" alt="Power Automate" class="tech-logo">
-                    <img src="static/images/tech_stack/csharp.png" alt="C#" class="tech-logo">
-                    <img src="static/images/tech_stack/JS.png" alt="JS" class="tech-logo">
-                    <img src="static/images/tech_stack/quickbooks.png" alt="QuickBooks" class="tech-logo">
-                    <img src="static/images/tech_stack/business_central.png" alt="Business Central 365" class="tech-logo">
-                    <img src="static/images/tech_stack/zoho.png" alt="Zoho" class="tech-logo">
-                    <img src="static/images/tech_stack/netsuite.png" alt="Netsuite" class="tech-logo">
-                    <img src="static/images/tech_stack/sage.png" alt="Sage" class="tech-logo">
 
-                </div>
-            </section>
-            <!-- Services Section -->
-            <section id="services" class="main special">
-                <header class="major">
-                    <h2 class="bolder-text">Services</h2>
-                </header>
-                <ul class="features">
-                    <li>
-                        <i class="icon solid major style1 fa-solid fa-brain"></i>
-                        <h2 class="bolder-text">Business Intelligence</h2>
-                        <p>
-                            You already have a Database but aren’t getting everything out of it that you need. You may have
-                            software with an outdated reporting component, or you may not have resources in place to
-                            build a BI solution from scratch.
-                        </p>
-                    </li>
-                    <li>
-                        <i class="icon solid major style1 fa-solid fa-computer"></i>
-                        <h2 class="bolder-text">Software Integration</h2>
-                        <p>
-                            You may have disparate technologies that can't yet speak to one another. You may need Python, SQL
-                            or C# work to weave these systems together. Whether it's formal API's and databases or informal spreadsheets,
-                            CodeJet can build you a sustainable solution.
-                        </p>
-                    </li>
-                    <li>
-                        <i class="icon solid major style1 fa-solid fa-database"></i>
-                        <h2 class="bolder-text">Database Development</h2>
-                        <p>
-                            You might need ETL work to get your database in working order. CodeJet builds databases with
-                            the right end goal in mind—better and faster decisionmaking.
-                        </p>
-                    </li>
-                </ul>
-                <footer class="major">
-                    <ul class="actions special">
-                        <li><a href="#contact" class="button">Learn More</a></li>
-                    </ul>
-                </footer>
-            </section>
+                    <!-- Technology depiction -->
+                    <div class="cj-diagram">
+                        <div class="cj-diagram-title">From existing logic to governed answers</div>
+                        <div class="cj-diagram-subtitle">A simplified view of the CodeJet implementation path.</div>
 
-            <!-- Use Case Section -->
-            <section id="use_case" class="main special">
-                <header class="major">
-                    <h2 class="bolder-text">Use Cases</h2>
-<!--                <p>-->
-<!--                    Check out some of our previous solutions!-->
-<!--                    <br/>-->
-<!--                    posuere. Nulla massa urna, fermentum eget quam aliquet.-->
-<!--                </p>-->
-                </header>
-                <ul class="statistics">
-                    <li class="black">
-                        <a class="use_black" data-bs-toggle="modal" data-bs-target="#wasteModal">
-                            <i class="icon solid fa-solid fa-recycle use_case_icon"></i>
-                            <p class="use-case-text">A Waste Recycler needed a forward-looking Inventory Management Tool</p>
-                        </a>
-                    </li>
-                    <li class="red">
-                        <a class="use_red" data-bs-toggle="modal" data-bs-target="#facilityModal">
-                            <i class="icon solid fa-solid fa-city use_case_icon" ></i>
-                            <p class="use-case-text">A Facilities Service Provider wanted their entire program built in Power BI</p>
-                        </a>
-                    </li>
-                    <li class="black">
-                        <a data-bs-toggle="modal" data-bs-target="#invoiceModal">
-                             <i class="icon solid fa-solid fa-money-check-dollar use_case_icon" ></i>
-                             <p class="use-case-text">A Fintech Company needed their entire Invoicing system rebuilt</p>
-                        </a>
-                    </li>
-                    <li class="red">
-                        <a data-bs-toggle="modal" data-bs-target="#warehouseModal">
-                            <i class="icon solid fa-solid fa-warehouse use_case_icon"></i>
-                            <p class="use-case-text">A Retail Chain needed an intelligent Inventory Management System</p>
-                        </a>
-                    </li>
-                </ul>
-                <div class="modal fade" id="wasteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-<!--                            <div class="modal-header">-->
-<!--                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                            </div>-->
-                            <div class="modal-body">
-                                Our team realized the company’s dream of managing incoming goods by determining where and how
-                                many current goods in inventory needed to be expelled to create cap space and avoid bottlenecks
-                                on the floor.
+                        <div class="cj-flow">
+                            <div class="cj-flow-step">
+                                <div class="num">1</div>
+                                <div>
+                                    <strong>Connect</strong>
+                                    <span>Identify approved databases, reports, queries, and data sources.</span>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <div class="cj-flow-step">
+                                <div class="num">2</div>
+                                <div>
+                                    <strong>Build the Blueprint</strong>
+                                    <span>Structure business definitions, relationships, metrics, and access rules.</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                   <div class="modal fade" id="facilityModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-<!--                            <div class="modal-header">-->
-<!--                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                            </div>-->
-                            <div class="modal-body">
-                                Our team helped realize the company’s goal by providing a suite of dashboards that executive
-                                teams used to oversee performance over time, while floor managers and workers adhered to the
-                                day-to-day compliance dashboard with near real-time feedback.
+
+                            <div class="cj-flow-step">
+                                <div class="num">3</div>
+                                <div>
+                                    <strong>Interpret the Question</strong>
+                                    <span>Use company context to translate plain-English requests into controlled retrieval.</span>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                   <div class="modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-<!--                        <div class="modal-header">-->
-<!--                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                        </div>-->
-                            <div class="modal-body">
-                                Our team built a Business Intelligence suite that allowed individual invoices to be delivered
-                                to customers while giving summarized data and KPI’s to financial management teams.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                   <div class="modal fade" id="warehouseModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-<!--                            <div class="modal-header">-->
-<!--                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-<!--                            </div>-->
-                            <div class="modal-body">
-                                Our team built a system that allowed the retail chain to receive suggestions about where
-                                low-selling items could be moved to sell quicker. Alternatively, in areas of outpacing
-                                demand, the system was able to determine where there was oversupply.
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                            <div class="cj-flow-step">
+                                <div class="num">4</div>
+                                <div>
+                                    <strong>Deliver the Answer</strong>
+                                    <span>Return the result as a summary, table, chart, PowerPoint, PDF, or detailed output.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Email Form -->
+            <!-- Product depiction -->
+            <section class="main special cj-section">
+                <div class="cj-split">
+                    <div>
+                        <div class="cj-eyebrow">Ask the Business Question</div>
+                        <header class="major">
+                            <h2 class="bolder-text">Ask a business question. Not a database question.</h2>
+                        </header>
+                        <p>
+                            CodeJet is designed to let authorized users interact with retail data naturally while keeping
+                            the response grounded in the definitions and logic your company already uses.
+                        </p>
+                        <p>
+                            Getting the answer is only part of the job. CodeJet can also turn that analysis into the format
+                            your team actually needs — from a quick chart or detailed table to an executive PowerPoint or PDF.
+                        </p>
+                    </div>
+
+                    <!-- Static product UI depiction -->
+                    <div class="cj-chat">
+                        <div class="cj-chat-top">
+                            <strong>Ask CodeJet</strong>
+                            <span class="cj-status">Governed Data</span>
+                        </div>
+                        <div class="cj-chat-body">
+                            <div class="cj-question">
+                                Can you show me locations that contributed the most to the overall margin increase this quarter?
+                            </div>
+
+                            <div class="cj-answer">
+                                <div class="cj-answer-summary">
+                                    The largest contributors to the quarter's overall margin increase were:
+                                </div>
+
+                                <div class="cj-rank-row">
+                                    <strong>1. Charlotte</strong>
+                                    <span>+2.8 pts</span>
+                                </div>
+                                <div class="cj-rank-row">
+                                    <strong>2. Raleigh</strong>
+                                    <span>+2.1 pts</span>
+                                </div>
+                                <div class="cj-rank-row">
+                                    <strong>3. Wilmington</strong>
+                                    <span>+1.7 pts</span>
+                                </div>
+
+                                <div class="cj-takeaway">
+                                    <strong>Key takeaway</strong><br/>
+                                    These three locations contributed 61% of the total margin improvement.
+                                </div>
+
+                                <div class="cj-export-row">
+                                    <div class="cj-export"><i class="fa-solid fa-file-powerpoint"></i> PowerPoint</div>
+                                    <div class="cj-export"><i class="fa-solid fa-file-pdf"></i> PDF</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audiences -->
+            <section class="main special cj-section">
+                <header class="cj-heading center">
+                    <div class="cj-eyebrow">Across the Organization</div>
+                    <h2 class="bolder-text">Retail intelligence shouldn't stop at headquarters.</h2>
+                    <p>
+                        Give different teams a simpler way to access the information relevant to their responsibilities,
+                        without forcing every question through the same reporting workflow.
+                    </p>
+                </header>
+
+                <div class="cj-audience-grid">
+                    <div class="cj-audience-card">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <h3 class="bolder-text">Executives</h3>
+                        <p>
+                            Ask high-level questions, identify trends, understand performance,
+                            and turn findings into decision-ready summaries.
+                        </p>
+                    </div>
+
+                    <div class="cj-audience-card">
+                        <i class="fa-solid fa-table-list"></i>
+                        <h3 class="bolder-text">Corporate Teams</h3>
+                        <p>
+                            Investigate sales, margin, inventory, vendors, merchandising,
+                            finance, and operations without creating a new report for every question.
+                        </p>
+                    </div>
+
+                    <div class="cj-audience-card">
+                        <i class="fa-solid fa-store"></i>
+                        <h3 class="bolder-text">Field Leadership</h3>
+                        <p>
+                            Provide regional and store leaders with access to the information they need,
+                            aligned with the locations and data appropriate to their role.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trust -->
+            <section id="trust" class="main special cj-section cj-trust-section">
+                <header class="cj-heading center">
+                    <div class="cj-eyebrow">AI With Boundaries</div>
+                    <h2 class="bolder-text">AI is more useful when it knows the rules.</h2>
+                    <p>
+                        CodeJet is designed around controlled access to approved business data and the context required
+                        to interpret that data responsibly.
+                    </p>
+                </header>
+
+                <div class="cj-trust-grid">
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-database"></i>
+                        <h3 class="bolder-text">Approved Data Sources</h3>
+                        <p>
+                            Define the systems and data sets CodeJet is allowed to use when answering questions.
+                        </p>
+                    </div>
+
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-book"></i>
+                        <h3 class="bolder-text">Defined Business Logic</h3>
+                        <p>
+                            Use your existing definitions, relationships, metrics, and reporting logic as context for the AI.
+                        </p>
+                    </div>
+
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-user-lock"></i>
+                        <h3 class="bolder-text">Role-Aware Access</h3>
+                        <p>
+                            Structure access so different users can receive the level of detail appropriate to their responsibilities.
+                        </p>
+                    </div>
+
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-code"></i>
+                        <h3 class="bolder-text">Controlled Retrieval</h3>
+                        <p>
+                            Keep AI interaction within defined retrieval patterns rather than giving a model unrestricted access.
+                        </p>
+                    </div>
+
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <h3 class="bolder-text">Consistent Definitions</h3>
+                        <p>
+                            Help users work from the same definitions of the metrics that matter to the business.
+                        </p>
+                    </div>
+
+                    <div class="cj-trust-card">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        <h3 class="bolder-text">From Answer to Action</h3>
+                        <p>
+                            Move from a question to a usable summary, chart, report, PowerPoint, or PDF in the same workflow.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Demo CTA -->
+            <section class="main cj-section">
+                <div class="cj-cta">
+                    <div>
+                        <h2 class="bolder-text">See what happens when your data can answer back.</h2>
+                        <p>
+                            Watch the CodeJet demo to see how a retail question can move from plain English
+                            to a grounded answer and decision-ready output.
+                        </p>
+                    </div>
+                    <div>
+                        <a href="/demo" class="cj-button-primary">
+                            <i class="fa-solid fa-play"></i>
+                            Watch the Demo
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
             <section id="contact" class="main">
-                <h2 class="email_header bolder-text">Book your Free Working Session</h2>
+                <h2 class="email_header bolder-text">See what CodeJet could do with your retail environment.</h2>
+                <p class="cj-contact-intro">
+                    Tell us a little about your reporting environment. We can look at the reports, queries,
+                    and data structures you already rely on and discuss how CodeJet could make that knowledge
+                    easier to access across your organization.
+                </p>
+
                 <form method="post" action="/send_email">
                     <div class="row gtr-uniform">
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="first_name" id="first-name" value="" placeholder="First Name"/>
+                            <input type="text" name="first_name" id="first-name" value="" placeholder="First Name" required/>
                         </div>
+
                         <div class="col-6 col-12-xsmall">
-                            <input type="text" name="last_name" id="last-name" value="" placeholder="Last Name"/>
+                            <input type="text" name="last_name" id="last-name" value="" placeholder="Last Name" required/>
                         </div>
+
                         <div class="col-12 col-12-xsmall">
-                            <input type="email" name="email" id="demo-email" value="" placeholder="Email"/>
+                            <input type="email" name="email" id="demo-email" value="" placeholder="Business Email" required/>
                         </div>
+
                         <div class="col-12">
-                            <textarea name="message" id="demo-message" rows="6">Enter your message here...</textarea>
-                        </div> <!-- ✅ properly closed -->
+                            <textarea name="message" id="demo-message" rows="6" placeholder="Tell us a little about your retail data or reporting environment."></textarea>
+                        </div>
 
                         <div>
-                            <button class="button submit email-button text-center" type="submit">Send Message</button>
+                            <button class="button submit email-button text-center" type="submit">Request a Demo</button>
                         </div>
                     </div>
+
                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
 
                     <script>
@@ -271,60 +1012,53 @@
             </section>
 
             <button type="button" class="btn btn-floating btn-lg btn-back-to-top" id="btn-back-to-top">
-                  <i class="fa-solid fa-arrow-up"></i>
+                <i class="fa-solid fa-arrow-up"></i>
             </button>
         </div>
 
         <!-- Footer -->
         <footer id="footer" class="bolder-text">
             <section>
-                <img class="footer_img" src="static/images/CodeJet_Final_White.png" >
-                <p>
-                    CodeJet is dedicated to retailers and retail software teams who need to focus on
-                    more important tasks than one-off reporting solutions.
+                <img class="footer_img" src="static/images/CodeJet_Final_White.png" alt="CodeJet">
+                <p class="cj-footer-copy">
+                    CodeJet is a retail intelligence platform designed to make the data,
+                    reporting logic, and business knowledge retailers already trust easier to access and act on.
                 </p>
             </section>
+
             <section style="padding-top: 55px;">
-                <h2 class="bolder-text">Contact Information </h2>
+                <h2 class="bolder-text">Contact Information</h2>
                 <dl class="alt text-align-right">
                     <dt>Phone</dt>
                     <dd>(336) 302-7925</dd>
                     <dt>Email</dt>
                     <dd>jbroach@codejet.app</dd>
                 </dl>
-<!--                <ul class="icons">-->
-<!--                    <li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>-->
-<!--                    <li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>-->
-<!--                    <li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>-->
-<!--                    <li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>-->
-<!--                    <li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>-->
-<!--                </ul>-->
             </section>
-            <p class="copyright">&copy;Design by: HTML5 UP </a></p>
+
+            <p class="copyright">&copy; CodeJet. Design foundation by HTML5 UP.</p>
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+            integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+            integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 
+    <script src="static/assets/js/jquery.min.js"></script>
+    <script src="static/assets/js/browser.min.js"></script>
+    <script src="static/assets/js/breakpoints.min.js"></script>
+    <script src="static/assets/js/util.js"></script>
+    <script src="static/assets/js/main.js"></script>
+    <script src="static/assets/js/back_to_top.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-<script src="static/assets/js/jquery.min.js"></script>
-<script src="static/assets/js/browser.min.js"></script>
-<script src="static/assets/js/breakpoints.min.js"></script>
-<script src="static/assets/js/util.js"></script>
-<script src="static/assets/js/main.js"></script>
-<script src="static/assets/js/back_to_top.js"></script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-226912949-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-226912949-1');
-</script>
-
+    <!-- Existing Google Analytics tag preserved -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-226912949-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-226912949-1');
+    </script>
 </body>
 </html>
