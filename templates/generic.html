@@ -1,87 +1,643 @@
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
+
 <head>
-    <title>Generic - Stellar by HTML5 UP</title>
+    <title>CodeJet | A Retail Intelligence Platform</title>
+
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="static/assets/css/main.css"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, user-scalable=no"/>
+
+    <meta name="description"
+          content="CodeJet is a Retail Intelligence Platform designed to help retailers safely turn trusted business data into answers and insights."/>
+
+    <link rel="icon"
+          type="image/x-icon"
+          href="{{ url_for('static', filename='images/favicon.ico') }}"/>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='assets/css/main.css') }}"/>
+
     <noscript>
-        <link rel="stylesheet" href="static/assets/css/noscript.css"/>
+        <link rel="stylesheet"
+              href="{{ url_for('static', filename='assets/css/noscript.css') }}"/>
     </noscript>
+
+    <style>
+
+        :root {
+            --codejet-red: #d71920;
+            --codejet-black: #171717;
+            --codejet-gray: #676f7a;
+            --codejet-light: #f7f8fa;
+            --codejet-border: #e2e5e9;
+        }
+
+
+        body {
+            background: #ffffff;
+        }
+
+
+        /* =========================
+           HEADER
+           ========================= */
+
+        .codejet-header {
+            background: var(--codejet-red);
+            padding: 24px 35px;
+        }
+
+
+        .codejet-header-inner {
+            max-width: 1250px;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+
+        .codejet-brand {
+            color: white;
+            text-decoration: none !important;
+            line-height: 1;
+        }
+
+
+        .codejet-brand-name {
+            display: block;
+
+            font-size: 32px;
+            font-weight: 900;
+
+            color: white;
+        }
+
+
+        .codejet-brand-tagline {
+            display: block;
+
+            margin-top: 8px;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: .14em;
+            text-transform: uppercase;
+
+            color: white;
+        }
+
+
+        .codejet-home-link {
+            color: white !important;
+
+            font-weight: 700;
+
+            text-decoration: none !important;
+
+            padding: 10px 16px;
+
+            border-radius: 6px;
+
+            transition: background .15s ease;
+        }
+
+
+        .codejet-home-link:hover {
+            background: var(--codejet-black);
+        }
+
+
+
+        /* =========================
+           MAIN
+           ========================= */
+
+        .codejet-page {
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            padding: 90px 30px 100px;
+        }
+
+
+        .codejet-card {
+            text-align: center;
+
+            background: white;
+
+            border: 1px solid var(--codejet-border);
+
+            border-radius: 18px;
+
+            padding: 65px 55px;
+
+            box-shadow:
+                0 20px 60px rgba(20, 25, 30, .08);
+        }
+
+
+        .codejet-check {
+            width: 72px;
+            height: 72px;
+
+            margin: 0 auto 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #fceced;
+
+            color: var(--codejet-red);
+
+            font-size: 38px;
+            font-weight: 900;
+        }
+
+
+        .codejet-card h1 {
+            margin-bottom: 18px;
+
+            color: var(--codejet-black);
+
+            font-size: 48px;
+            font-weight: 900;
+
+            line-height: 1.1;
+        }
+
+
+        .codejet-intro {
+            max-width: 720px;
+
+            margin: 0 auto;
+
+            color: var(--codejet-gray);
+
+            font-size: 20px;
+
+            line-height: 1.7;
+        }
+
+
+        .codejet-next-step {
+            max-width: 650px;
+
+            margin: 35px auto 0;
+
+            padding: 20px 24px;
+
+            background: var(--codejet-light);
+
+            border-radius: 10px;
+
+            color: #3d434b;
+
+            font-size: 16px;
+        }
+
+
+        .codejet-next-step strong {
+            color: var(--codejet-black);
+        }
+
+
+        .codejet-actions {
+            margin-top: 38px;
+
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+
+            gap: 12px;
+        }
+
+
+        .codejet-button-primary,
+        .codejet-button-secondary {
+            min-height: 52px;
+
+            padding: 0 28px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 7px;
+
+            font-weight: 800;
+
+            text-decoration: none !important;
+
+            transition:
+                background .15s ease,
+                border-color .15s ease,
+                transform .15s ease;
+        }
+
+
+        .codejet-button-primary {
+            background: var(--codejet-red);
+
+            color: white !important;
+
+            border: 1px solid var(--codejet-red);
+        }
+
+
+        .codejet-button-primary:hover {
+            background: var(--codejet-black);
+
+            border-color: var(--codejet-black);
+
+            transform: translateY(-1px);
+        }
+
+
+        .codejet-button-secondary {
+            background: white;
+
+            color: var(--codejet-black) !important;
+
+            border: 1px solid #cfd3d8;
+        }
+
+
+        .codejet-button-secondary:hover {
+            border-color: var(--codejet-black);
+
+            transform: translateY(-1px);
+        }
+
+
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        .codejet-footer {
+            background: var(--codejet-red);
+
+            color: white;
+
+            padding: 55px 35px 30px;
+        }
+
+
+        .codejet-footer-inner {
+            max-width: 1250px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr .6fr;
+
+            gap: 70px;
+        }
+
+
+        .codejet-footer h2 {
+            color: white;
+
+            font-weight: 900;
+
+            margin-bottom: 14px;
+        }
+
+
+        .footer-brand-tagline {
+            display: block;
+
+            width: fit-content;
+
+            margin-top: 7px;
+            padding-top: 7px;
+
+            border-top: 2px solid white;
+
+            color: white;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+
+        .codejet-footer p {
+            max-width: 600px;
+
+            color: rgba(255, 255, 255, .9);
+
+            line-height: 1.7;
+        }
+
+
+        .codejet-footer dl {
+            margin: 0;
+        }
+
+
+        .codejet-footer dt,
+        .codejet-footer dd {
+            color: white;
+        }
+
+
+        .codejet-footer a {
+            color: white;
+        }
+
+
+        .codejet-copyright {
+            max-width: 1250px;
+
+            margin: 35px auto 0;
+
+            padding-top: 25px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, .25);
+
+            color:
+                rgba(255, 255, 255, .75);
+
+            font-size: 13px;
+        }
+
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media screen and (max-width: 736px) {
+
+            .codejet-header {
+                padding: 18px 20px;
+            }
+
+
+            .codejet-brand-name {
+                font-size: 26px;
+            }
+
+
+            .codejet-brand-tagline {
+                font-size: 9px;
+            }
+
+
+            .codejet-page {
+                padding: 55px 18px 65px;
+            }
+
+
+            .codejet-card {
+                padding: 45px 24px;
+            }
+
+
+            .codejet-card h1 {
+                font-size: 35px;
+            }
+
+
+            .codejet-intro {
+                font-size: 17px;
+            }
+
+
+            .codejet-button-primary,
+            .codejet-button-secondary {
+                width: 100%;
+            }
+
+
+            .codejet-footer-inner {
+                grid-template-columns: 1fr;
+
+                gap: 35px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body class="is-preload">
 
-<!-- Wrapper -->
-<div id="wrapper">
-    <!-- Header -->
-    <header id="header">
-        <h1 class="header-white " style="text-align: left;">Success !</h1>
-<!--    <p>Ipsum dolor sit amet nullam</p>-->
-    </header>
-    <!-- Main -->
-    <div id="main">
-        <!-- Content -->
-        <section id="content" class="main">
-<!--        <span class="image main"><img src="static/images/pic04.jpg" alt=""/></span>-->
-            <h2>Your email inquiry has been sent</h2>
-            <p>
-                Thank you for you interest in our services! Please allow  3 to 5 business days for us to respond to your message.
-                <br/>
-                Have a great day!
-            </p>
-<!--        <p>
-                Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem-->
-<!--            diam, vitae egestas enim auctor sit amet. Consequat leo mauris, consectetur id ipsum-->
-<!--            sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit-->
-<!--            enim turpis lorem ipsum dolor sit amet feugiat. Phasellus convallis elit id-->
-<!--            ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada quis.-->
-<!--            Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet est-->
-<!--            velit quis lorem.
-            </p>-->
-        </section>
+
+<!-- =========================
+     HEADER
+     ========================= -->
+
+<header class="codejet-header">
+
+    <div class="codejet-header-inner">
+
+        <a href="/"
+           class="codejet-brand">
+
+            <span class="codejet-brand-name">
+                CodeJet
+            </span>
+
+            <span class="codejet-brand-tagline">
+                A Retail Intelligence Platform
+            </span>
+
+        </a>
+
+
+        <a href="/"
+           class="codejet-home-link">
+
+            Return Home
+
+        </a>
+
     </div>
 
-    <!-- Footer -->
-   <footer id="footer" class="bolder-text">
-        <section>
-            <h2 class="bolder-text">Code Jet</h2>
-            <p>Sed lorem ipsum dolor sit amet et nullam consequat feugiat consequat magna adipiscing tempus etiam dolore
-                veroeros. eget dapibus mauris. Cras aliquet, nisl ut viverra sollicitudin, ligula erat egestas velit,
-                vitae tincidunt odio.</p>
-            <ul class="actions">
-                <li><a href="/" class="button">Return Home</a></li>
-            </ul>
-        </section>
-        <section>
-            <h2 class="bolder-text">Contact Information </h2>
-            <dl class="alt">
-                <dt>Address</dt>
-                <dd>1234 Somewhere Road &bull; Nashville, TN 00000 &bull; USA</dd>
-                <dt>Phone</dt>
-                <dd>(000) 000-0000 x 0000</dd>
-                <dt>Email</dt>
-                <dd><a href="#">information@untitled.tld</a></dd>
-            </dl>
-            <ul class="icons">
-                <li><a href="#" class="icon brands fa-twitter alt"><span class="label">Twitter</span></a></li>
-                <li><a href="#" class="icon brands fa-facebook-f alt"><span class="label">Facebook</span></a></li>
-                <li><a href="#" class="icon brands fa-instagram alt"><span class="label">Instagram</span></a></li>
-                <li><a href="#" class="icon brands fa-github alt"><span class="label">GitHub</span></a></li>
-                <li><a href="#" class="icon brands fa-dribbble alt"><span class="label">Dribbble</span></a></li>
-            </ul>
-        </section>
-        <p class="copyright">&copy;Design by: HTML5 UP | Implemented and constructed by <a href="https://aaronboylesportfolio.azurewebsites.net/">Aaron Boyles</a></p>
-    </footer>
-</div>
+</header>
 
-<!-- Scripts -->
-<script src="static/assets/js/jquery.min.js"></script>
-<script src="static/assets/js/jquery.scrollex.min.js"></script>
-<script src="static/assets/js/jquery.scrolly.min.js"></script>
-<script src="static/assets/js/browser.min.js"></script>
-<script src="static/assets/js/breakpoints.min.js"></script>
-<script src="static/assets/js/util.js"></script>
-<script src="static/assets/js/main.js"></script>
+
+
+<!-- =========================
+     MAIN CONTENT
+     ========================= -->
+
+<main class="codejet-page">
+
+    <section class="codejet-card">
+
+
+        <div class="codejet-check">
+            ✓
+        </div>
+
+
+        <h1>
+            Your message has been received.
+        </h1>
+
+
+        <p class="codejet-intro">
+
+            Thank you for your interest in CodeJet.
+
+            We’ve received your message and look forward
+            to learning more about your retail data,
+            reporting environment, and the questions
+            your teams need answered.
+
+        </p>
+
+
+        <div class="codejet-next-step">
+
+            <strong>What happens next?</strong>
+
+            We’ll review your message and follow up
+            <strong>within one business day.</strong>
+
+        </div>
+
+
+        <div class="codejet-actions">
+
+            <a href="/"
+               class="codejet-button-primary">
+
+                Return to CodeJet
+
+            </a>
+
+
+            <a href="/demo"
+               class="codejet-button-secondary">
+
+                Watch the Demo
+
+            </a>
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+     ========================= -->
+
+<footer class="codejet-footer">
+
+    <div class="codejet-footer-inner">
+
+
+        <section>
+
+            <h2>
+                CodeJet
+            </h2>
+
+
+            <span class="footer-brand-tagline">
+
+                A Retail Intelligence Platform
+
+            </span>
+
+
+            <p style="margin-top: 22px;">
+
+                CodeJet turns the business logic already
+                contained in retailers' reports, queries,
+                data models, and business definitions into
+                a governed intelligence layer teams can
+                interact with in plain English.
+
+            </p>
+
+
+        </section>
+
+
+
+        <section>
+
+            <h2>
+                Contact Information
+            </h2>
+
+
+            <dl>
+
+                <dt>Phone</dt>
+
+                <dd>
+                    (336) 302-7925
+                </dd>
+
+
+                <dt>Email</dt>
+
+                <dd>
+
+                    <a href="mailto:jbroach@codejet.app">
+                        jbroach@codejet.app
+                    </a>
+
+                </dd>
+
+            </dl>
+
+        </section>
+
+
+    </div>
+
+
+    <div class="codejet-copyright">
+
+        &copy; CodeJet.
+        A Retail Intelligence Platform.
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================
+     SCRIPTS
+     ========================= -->
+
+<script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrollex.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/jquery.scrolly.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
 
 </body>
+
 </html>
