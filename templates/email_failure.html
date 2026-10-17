@@ -1,10 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>We couldn't complete that request | CodeJet</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/main.css') }}" />
+    <style>
+        :root { --cj-red: #d71920; --cj-black: #171717; --cj-muted: #626a74; }
+        body { margin: 0; background: #f7f8fa; color: var(--cj-black); }
+        .cj-banner { background: var(--cj-red); padding: 25px 30px; }
+        .cj-banner a { color: white !important; text-decoration: none; display: inline-block; }
+        .cj-brand { font-size: 30px; font-weight: 900; line-height: 1; display: block; }
+        .cj-tagline { font-size: 11px; font-weight: 700; letter-spacing: .16em; display: block; margin-top: 8px; }
+        main { min-height: 68vh; display: flex; align-items: center; justify-content: center; padding: 50px 20px; }
+        .cj-card { max-width: 720px; width: 100%; box-sizing: border-box; text-align: center;
+                   padding: 62px 40px; border: 1px solid #e2e5e9; border-radius: 18px;
+                   background: #fff; box-shadow: 0 18px 55px rgba(20,25,30,.07); }
+        .cj-symbol { width: 70px; height: 70px; border-radius: 50%; display: inline-flex;
+                     align-items: center; justify-content: center; margin-bottom: 22px;
+                     background: #fceced; color: var(--cj-red); font-weight: 900; font-size: 36px; }
+        .cj-card h1 { margin: 0 0 15px; font-weight: 900; color: var(--cj-black); font-size: clamp(28px, 5vw, 42px); }
+        .cj-card p { color: var(--cj-muted); line-height: 1.7; font-size: 18px; }
+        .cj-actions { margin-top: 35px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .cj-button { padding: 15px 25px; border-radius: 7px; text-decoration: none !important;
+                     font-weight: 800; display: inline-block; min-height: 20px; }
+        .cj-primary { background: var(--cj-red); color: white !important; }
+        .cj-secondary { background: #fff; color: var(--cj-black) !important; border: 1px solid #cbd0d6; }
+        footer { background: var(--cj-black); color: #e5e5e5; text-align: center; padding: 28px 16px; }
+        footer a { color: #fff !important; }
+        @media (max-width: 580px) { .cj-card { padding: 42px 24px; } }
+    </style>
 </head>
 <body>
-
+    <header class="cj-banner">
+        <a href="{{ url_for('home') }}" aria-label="CodeJet homepage">
+            <span class="cj-brand">CodeJet</span>
+            <span class="cj-tagline">A RETAIL INTELLIGENCE PLATFORM</span>
+        </a>
+    </header>
+    <main>
+        <section class="cj-card" role="alert">
+            <div class="cj-symbol" aria-hidden="true">!</div>
+            <h1>We couldn't complete your request.</h1>
+            <p>{{ error }}</p>
+            <div class="cj-actions">
+                <a class="cj-button cj-primary" href="{{ url_for('home') }}#contact">Try Again</a>
+                <a class="cj-button cj-secondary" href="{{ url_for('home') }}">Back to Home</a>
+            </div>
+        </section>
+    </main>
+    <footer>Need help? <a href="mailto:jbroach@codejet.app">Contact CodeJet directly</a></footer>
 </body>
 </html>
