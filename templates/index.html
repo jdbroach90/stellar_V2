@@ -1251,13 +1251,61 @@
                     </div>
 
                     <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                    <p id="codejet-captcha-error" role="alert" style="display: none; color: #b91c1c; margin-top: 1rem;">
+                        Verification is unavailable. Please try again in a moment.
+                    </p>
 
                     <script>
-                        grecaptcha.ready(function () {
-                            grecaptcha.execute('6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT', {action: 'submit'}).then(function (token) {
-                                document.getElementById('g-recaptcha-response').value = token;
+                        // Request a fresh reCAPTCHA v3 token only when the visitor submits.
+                        // Tokens expire after two minutes, so page-load tokens can fail.
+                        (function () {
+                            const form = document.querySelector('form[action="/send_email"]');
+                            const button = form.querySelector('button[type="submit"]');
+                            const tokenInput = document.getElementById('g-recaptcha-response');
+                            const error = document.getElementById('codejet-captcha-error');
+                            let submitting = false;
+
+                            function resetAfterError() {
+                                submitting = false;
+                                button.disabled = false;
+                                tokenInput.value = '';
+                                error.style.display = 'block';
+                            }
+
+                            form.addEventListener('submit', function (event) {
+                                event.preventDefault();
+                                if (submitting) return;
+                                error.style.display = 'none';
+                                if (!window.grecaptcha || typeof grecaptcha.execute !== 'function') {
+                                    resetAfterError();
+                                    return;
+                                }
+
+                                submitting = true;
+                                button.disabled = true;
+                                try {
+                                    grecaptcha.ready(function () {
+                                        try {
+                                            grecaptcha.execute('6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT', {action: 'submit'})
+                                                .then(function (token) {
+                                                    if (!token) {
+                                                        resetAfterError();
+                                                        return;
+                                                    }
+                                                    tokenInput.value = token;
+                                                    // Native submit skips this event handler (no recursion).
+                                                    form.submit();
+                                                })
+                                                .catch(resetAfterError);
+                                        } catch (e) {
+                                            resetAfterError();
+                                        }
+                                    });
+                                } catch (e) {
+                                    resetAfterError();
+                                }
                             });
-                        });
+                        }());
                     </script>
                 </form>
             </section>
