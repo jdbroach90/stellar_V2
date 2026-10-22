@@ -14,6 +14,9 @@ from flask import Flask, Response, render_template, request
 load_dotenv(dotenv_path=".env")
 app = Flask(__name__)
 
+from origin_guard import OriginGuard
+app.wsgi_app = OriginGuard(app.wsgi_app)
+
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
