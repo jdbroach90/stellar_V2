@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CodeJet | Demo analytics notice</title>
+  <style>
+    body { margin:0; color:#171717; background:#f5f6f8; font:17px/1.7 system-ui,sans-serif; }
+    main { max-width:780px; margin:48px auto; padding:32px; background:white; border-top:5px solid #d52027; }
+    h1 { line-height:1.2; } a { color:#a6141a; }
+  </style>
+</head>
+<body><main>
+  <h1>Demo analytics notice</h1>
+  <p>CodeJet uses first-party demo analytics to understand visits to the website and engagement with its video.
+    When enabled, this records the public IP address observed by our website’s front door,
+    server timestamps, page visits, video playback events, and campaign labels included in a link.
+    We also record the referring hostname, when available, and a simple possible-bot flag.</p>
+  <p>A short-lived identifier stored in your browser tab’s session storage connects these events.
+    The identifier expires after four hours. This tracker does not use tracking cookies,
+    record contact-form contents, or send IP addresses to a company-identification service.</p>
+  <p>Playback coverage is based on the player’s reported played ranges. It does not establish
+    who watched the video or whether they paid attention. The embedded video is delivered by
+    Cloudflare Stream, which processes video requests separately.</p>
+  <p>The private analytics report is restricted to CodeJet. Records older than {{ retention }} days
+    are removed during collection, report access, or manual maintenance.
+    Exported reports and hosting backups have separate retention.</p>
+  <p>This tracker skips collection when the browser sends a Global Privacy Control or Do Not Track
+    signal. Browser blocking or network failures may also prevent collection.</p>
+  <p>Questions about demo analytics: <a href="mailto:jbroach@codejet.app">jbroach@codejet.app</a>.</p>
+  <p><a href="/">Back to CodeJet</a> · <a href="/demo">Watch the demo</a></p>
+</main></body>
+</html>

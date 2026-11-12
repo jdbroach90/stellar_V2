@@ -1339,6 +1339,9 @@
             </section>
 
             <p class="copyright">&copy; CodeJet. Design foundation by HTML5 UP.</p>
+            {% if cj_analytics_enabled %}
+            <p class="copyright"><a href="/demo-privacy">Demo analytics notice</a></p>
+            {% endif %}
         </footer>
     </div>
 
@@ -1353,6 +1356,10 @@
     <script src="static/assets/js/util.js"></script>
     <script src="static/assets/js/main.js"></script>
     <script src="static/assets/js/back_to_top.js"></script>
+    {% if cj_analytics_enabled %}
+    <script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}"
+            data-cj-analytics data-cj-page="/"></script>
+    {% endif %}
 
     <!-- Existing Google Analytics tag preserved -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-226912949-1"></script>

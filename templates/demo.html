@@ -27,6 +27,15 @@
             height: 100%;
             border: none;
         }
+
+        .demo-privacy {
+            margin: 0;
+            padding: 0.5rem 1rem;
+            font: 0.8rem system-ui, sans-serif;
+            text-align: center;
+        }
+
+        .demo-privacy a { color: #b7b7b7; }
     </style>
 </head>
 
@@ -41,12 +50,17 @@
     </iframe>
 </div>
 
+{% if cj_analytics_enabled %}
+<p class="demo-privacy"><a href="/demo-privacy">Demo analytics notice</a></p>
+{% endif %}
+
 <script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
 
 <script>
     const player = Stream(
         document.getElementById('stream-player')
     );
+    window.codejetDemoPlayer = player;
 
     player.addEventListener('ended', () => {
         setTimeout(() => {
@@ -54,6 +68,12 @@
         }, 1000);
     });
 </script>
+
+{% if cj_analytics_enabled %}
+<script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}"
+        data-cj-analytics data-cj-page="/demo"
+        data-cj-video-id="38ccab99e8156adae4abcfbb1d36cc0f"></script>
+{% endif %}
 
 </body>
 </html>

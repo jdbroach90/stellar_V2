@@ -9,10 +9,12 @@ from smtplib import SMTP, SMTPResponseException
 import requests
 from dotenv import load_dotenv
 from flask import Flask, Response, render_template, request
+from codejet_analytics import init_analytics
 
 # Local development uses .env; Render uses its service environment variables.
 load_dotenv(dotenv_path=".env")
 app = Flask(__name__)
+init_analytics(app)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 SMTP_EMAIL = os.getenv("cj_email")

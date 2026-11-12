@@ -8,3 +8,9 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 .DS_Store
+
+# Private analytics databases and local exports.
+*.sqlite
+*.sqlite3
+*.sqlite3-*
+codejet-demo-visits*.csv
