@@ -654,6 +654,27 @@
             color: rgba(255,255,255,.94);
         }
 
+        /* Privacy disclosure remains accessible without adding a second
+           full-width copyright paragraph (and its large theme margin). */
+        #footer .cj-privacy-link {
+            display: block;
+            margin-top: .35rem;
+            font-size: .9em;
+            font-weight: 400;
+            letter-spacing: 0;
+        }
+
+        #footer .cj-privacy-link a {
+            color: rgba(255,255,255,.85);
+            text-decoration: underline;
+            text-underline-offset: .15em;
+        }
+
+        #footer .cj-privacy-link a:hover,
+        #footer .cj-privacy-link a:focus-visible {
+            color: #fff;
+        }
+
         @media screen and (max-width: 736px) {
             #header.cj-site-header {
                 padding: 12px 12px 14px !important;
@@ -1338,10 +1359,12 @@
                 </dl>
             </section>
 
-            <p class="copyright">&copy; CodeJet. Design foundation by HTML5 UP.</p>
-            {% if cj_analytics_enabled %}
-            <p class="copyright"><a href="/demo-privacy">Demo analytics notice</a></p>
-            {% endif %}
+            <p class="copyright">
+                &copy; CodeJet. Design foundation by HTML5 UP.
+                {% if cj_analytics_enabled %}
+                <span class="cj-privacy-link"><a href="/demo-privacy">Privacy &amp; Analytics</a></span>
+                {% endif %}
+            </p>
         </footer>
     </div>
 
