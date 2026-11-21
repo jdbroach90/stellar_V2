@@ -24,6 +24,7 @@ import click
 from flask import Blueprint, Response, current_app, g, jsonify, render_template, request
 from itsdangerous import BadSignature, SignatureExpired, URLSafeTimedSerializer
 from werkzeug.exceptions import HTTPException
+from codejet_seo import TRACKED_PAGES
 
 
 VIDEO_ID = "38ccab99e8156adae4abcfbb1d36cc0f"
@@ -330,7 +331,7 @@ def visit():
     s = g.cj_analytics_settings
     data = _json({"event_id", "page", "visit_token", "campaign", "referrer_host"}, {"event_id", "page"})
     event_id = _uuid(data["event_id"])
-    if not isinstance(data["page"], str) or data["page"] not in {"/", "/demo"}:
+    if not isinstance(data["page"], str) or data["page"] not in TRACKED_PAGES:
         raise AnalyticsError(400, "Invalid analytics page.")
     campaign = data.get("campaign", {})
     if not isinstance(campaign, dict) or set(campaign) - set(UTM_KEYS):

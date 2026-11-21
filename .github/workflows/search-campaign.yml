@@ -1,0 +1,32 @@
+name: Public site and campaign checks
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [feature/retail-search-campaign-20261120]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - run: node --test tests/test_analytics_client.js
+      - run: python -m unittest discover -s growth/tools -p 'test_*.py' -v
+      - run: python growth/campaigns/build_campaign_assets.py --check
+      - run: python scripts/check_search.py --local
+      - run: git diff --check

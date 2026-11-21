@@ -10,11 +10,13 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, Response, render_template, request
 from codejet_analytics import init_analytics
+from codejet_seo import init_seo, public_context
 
 # Local development uses .env; Render uses its service environment variables.
 load_dotenv(dotenv_path=".env")
 app = Flask(__name__)
 init_analytics(app)
+init_seo(app)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 SMTP_EMAIL = os.getenv("cj_email")
@@ -32,12 +34,12 @@ def failure(message, status):
 
 @app.get("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.html", **public_context("/"))
 
 
 @app.get("/demo")
 def demo():
-    return render_template("demo.html")
+    return render_template("demo.html", **public_context("/demo"))
 
 
 @app.get("/elements")

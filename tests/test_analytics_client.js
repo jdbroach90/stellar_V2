@@ -158,7 +158,7 @@ test('unsupported played ranges and nonfinite metrics remain unknown', async () 
     assert.equal(start.duration_seconds, null);
 });
 
-test('start and end wait for slow visit initialization, without delaying the existing redirect', async () => {
+test('start and end wait for slow visit initialization while the watch page stays available', async () => {
     let releaseVisit;
     const h = harness({fetch(call) {
         if (call.url.endsWith('/visit')) return new Promise(resolve => { releaseVisit = resolve; });
@@ -172,7 +172,7 @@ test('start and end wait for slow visit initialization, without delaying the exi
     await h.settle();
     assert.equal(h.events().length, 0);
     await h.advance(1000);
-    assert.equal(h.window.location.href, 'https://codejet.app/#contact');
+    assert.equal(h.window.location.href, 'https://codejet.app/demo');
     releaseVisit(h.goodVisit());
     await h.settle();
     assert.deepEqual(h.events().map(e => e.event_type), ['video_started', 'video_ended']);
@@ -186,10 +186,10 @@ test('blocked sessionStorage does not disable the current page visit or video', 
     await h.settle();
     assert.equal(h.events().length, 2);
     await h.advance(1000);
-    assert.equal(h.window.location.href, 'https://codejet.app/#contact');
+    assert.equal(h.window.location.href, 'https://codejet.app/demo');
 });
 
-test('GPC and DNT suppress telemetry and preserve the video end redirect', async () => {
+test('GPC and DNT suppress telemetry and preserve the watch page', async () => {
     for (const navigator of [{globalPrivacyControl: true}, {doNotTrack: '1'}]) {
         const h = harness({navigator});
         await h.settle();
@@ -197,7 +197,7 @@ test('GPC and DNT suppress telemetry and preserve the video end redirect', async
         h.player.emit('ended');
         await h.advance(1000);
         assert.equal(h.calls.length, 0);
-        assert.equal(h.window.location.href, 'https://codejet.app/#contact');
+        assert.equal(h.window.location.href, 'https://codejet.app/demo');
     }
 });
 
@@ -208,7 +208,7 @@ test('disabled or rejected analytics cannot break playback or cause retries', as
     h.player.emit('ended');
     await h.advance(1000);
     assert.equal(h.calls.length, 1);
-    assert.equal(h.window.location.href, 'https://codejet.app/#contact');
+    assert.equal(h.window.location.href, 'https://codejet.app/demo');
 });
 
 test('a backend privacy opt-out response is accepted without a JSON body or retry', async () => {
@@ -359,4 +359,22 @@ test('time updates are throttled, while a coverage milestone sends an update', a
     await h.settle();
     assert.equal(h.events().at(-1).event_type, 'video_progress');
     assert.equal(h.events().at(-1).played_seconds, 25);
+});
+
+for (const page of ['/retail-analytics-software', '/retail-reporting-automation', '/retail-data-questions']) {
+    test('search landing page records its path and campaign: ' + page, async () => {
+        const h = harness({page, search: '?utm_source=google&utm_medium=cpc&utm_campaign=codejet_retail_analytics'});
+        await h.settle();
+        assert.equal(h.calls.length, 1);
+        assert.equal(h.calls[0].body.page, page);
+        assert.equal(h.calls[0].body.campaign.utm_campaign, 'codejet_retail_analytics');
+        assert.equal(h.events().length, 0);
+    });
+}
+test('private and arbitrary page names cannot initialize telemetry', async () => {
+    for (const page of ['/ai', '/_cj/analytics', '/not-allowlisted']) {
+        const h = harness({page});
+        await h.settle();
+        assert.equal(h.calls.length, 0);
+    }
 });

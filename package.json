@@ -1,0 +1,8 @@
+{
+  "name": "codejet-public-site",
+  "private": true,
+  "scripts": {
+    "dev": ".venv/bin/python scripts/dev_preview.py",
+    "test": "node --test tests/test_analytics_client.js"
+  }
+}

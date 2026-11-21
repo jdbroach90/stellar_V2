@@ -1,0 +1,29 @@
+{
+  "source_sha256": "31b8515e5acb2fa05520c168ce2c6da6981499a47ad82f451e273273a9d8cb77",
+  "reviewed_on": "2026-11-20",
+  "counts": {
+    "google_ad_groups": 3,
+    "google_rsa_ads": 3,
+    "google_keyword_rows": 28,
+    "google_unique_keyword_terms": 14,
+    "google_unique_negative_terms": 21,
+    "google_negative_rows": 63,
+    "chatgpt_ad_groups": 3,
+    "chatgpt_ads": 6,
+    "chatgpt_context_hints": 18
+  },
+  "checks": [
+    "character_limits",
+    "paused_statuses",
+    "no_budget_or_bid_fields_in_import_csv",
+    "consistent_destinations_and_utms",
+    "unique_ids",
+    "negative_positive_conflicts",
+    "no_blanket_free_or_existing_system_negatives",
+    "csv_round_trip"
+  ],
+  "native_google_import_executed": false,
+  "native_chatgpt_schema_verified": false,
+  "production_landing_and_image_reachability_verified": false,
+  "note": "Local content validation only. Review actual imports and production URLs before activation."
+}

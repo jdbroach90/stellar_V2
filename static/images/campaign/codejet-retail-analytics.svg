@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1200" role="img" aria-labelledby="title description">
+  <title id="title">CodeJet retail analytics software</title>
+  <desc id="description">Retail analytics. A clearer way to ask. Watch the CodeJet demo at codejet.app/demo.</desc>
+  <rect width="1200" height="1200" fill="#ffffff"/>
+  <rect width="1200" height="20" fill="#d71920"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="88" y="145" fill="#d71920" font-weight="800" font-size="72" letter-spacing="-3">code<tspan fill="#191b20" font-weight="900">JET</tspan></text>
+    <text x="90" y="194" fill="#596270" font-size="22" letter-spacing="3">A RETAIL INTELLIGENCE PLATFORM</text>
+    <path d="M88 240 H1112" stroke="#dde1e6" stroke-width="2"/>
+    <text x="82" y="373" fill="#191b20" font-size="99" font-weight="800" letter-spacing="-4">Retail analytics.</text>
+    <text x="82" y="482" fill="#191b20" font-size="99" font-weight="800" letter-spacing="-4">A clearer way</text>
+    <text x="82" y="591" fill="#d71920" font-size="99" font-weight="800" letter-spacing="-4">to ask.</text>
+    <rect x="88" y="653" width="1024" height="223" rx="12" fill="#f5f6f8"/>
+    <rect x="88" y="653" width="6" height="223" fill="#d71920"/>
+    <text x="124" y="701" fill="#596270" font-size="18" font-weight="700" letter-spacing="2">ASK A QUESTION LIKE</text>
+    <text x="124" y="762" fill="#191b20" font-size="38" font-weight="700">Which stores grew net sales</text>
+    <text x="124" y="816" fill="#191b20" font-size="38" font-weight="700">while gross margin percentage fell?</text>
+    <text x="90" y="937" fill="#3d444f" font-size="29">Start with your existing reports and definitions.</text>
+    <rect x="88" y="990" width="588" height="88" rx="6" fill="#d71920"/>
+    <text x="382" y="1047" text-anchor="middle" fill="#ffffff" font-size="31" font-weight="700">Watch the CodeJet demo</text>
+    <text x="90" y="1137" fill="#596270" font-size="25">codejet.app/demo</text>
+  </g>
+</svg>

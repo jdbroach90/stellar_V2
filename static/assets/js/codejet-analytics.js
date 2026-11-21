@@ -8,7 +8,9 @@
         if (navigator.globalPrivacyControl === true || navigator.doNotTrack === '1' ||
                 window.doNotTrack === '1') return;
         var page = tag.getAttribute('data-cj-page');
-        if (page !== '/' && page !== '/demo') return;
+        var publicPages = ['/', '/demo', '/retail-analytics-software',
+            '/retail-reporting-automation', '/retail-data-questions'];
+        if (publicPages.indexOf(page) < 0) return;
         if (!window.crypto || typeof window.crypto.getRandomValues !== 'function') return;
         window.codejetAnalyticsLoaded = true;
 

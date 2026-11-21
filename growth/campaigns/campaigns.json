@@ -1,0 +1,343 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-20",
+  "review_timezone": "America/New_York",
+  "state": "prepared_locally_not_created_in_ad_accounts",
+  "brand": "CodeJet",
+  "site_origin": "https://codejet.app",
+  "landing_path": "/retail-analytics-software",
+  "demo_path": "/demo",
+  "image_path": "/static/images/campaign/codejet-retail-analytics.png",
+  "image_publication_status": "requires_production_deployment_and_public_url_check",
+  "utm_campaign": "codejet_retail_analytics",
+  "utm_medium": "cpc",
+  "goal": "Relevant retail teams open the ungated demo and choose to watch it.",
+  "measurement": {
+    "ad_platform_conversion_integration": false,
+    "available_site_measures": [
+      "Landing-page browser sessions with campaign UTMs",
+      "Sessions opening /demo",
+      "Sessions starting the video",
+      "Sessions with at least 90 percent video coverage"
+    ],
+    "sales_outcome": "Relevant retail inquiries verified in the actual inbox, recorded separately.",
+    "limitation": "A page request, unique IP, UTM tag or player event alone does not verify a human buyer.",
+    "proposed_manual_review_spend_usd": 50,
+    "proposed_pause_and_diagnose_spend_without_video_start_usd": 100,
+    "review_rule_note": "Operator guardrails, not industry benchmarks or automated account rules. A small test cannot prove absence of demand."
+  },
+  "google": {
+    "campaign_name": "CodeJet Retail Analytics Search Pilot",
+    "status": "Paused",
+    "country": "United States",
+    "country_code": "US",
+    "language": "English",
+    "network": "Google Search only",
+    "search_partners": false,
+    "display_expansion": false,
+    "location_option": "Presence: People in or regularly in your targeted locations",
+    "budget": {
+      "currency": "USD",
+      "type": "campaign_total",
+      "proposed_total": 400,
+      "proposed_duration_days": 21,
+      "start_date": null,
+      "end_date": null,
+      "recurring": false,
+      "automatic_budget_increase": false,
+      "instruction": "Create a new paused Search campaign with a campaign-total budget in Google Ads. Do not enter 400 into an Editor Budget or Daily budget column."
+    },
+    "bidding": {
+      "proposed_strategy": "Maximize clicks",
+      "maximum_cpc_bid_limit": null,
+      "numeric_bid_requires_account_review": true,
+      "instruction": "Review current US keyword forecasts in Keyword Planner and choose an affordable maximum CPC bid limit before activation. No CPC estimate is supplied or implied."
+    },
+    "text_customization": false,
+    "final_url_expansion": false,
+    "dynamic_keyword_insertion": false,
+    "keyword_match_types": ["Exact", "Phrase"],
+    "recommended_first_activation": {
+      "ad_group_id": "retail_analytics",
+      "keyword_match_type": "Exact",
+      "ad_id": "retail_analytics_demo_v1",
+      "instruction": "After launch review, enable only the initial ad group, its exact-match keywords and its RSA. Keep phrase keywords and reserve groups paused until search-term quality and playback are checked."
+    },
+    "ad_groups": [
+      {
+        "id": "retail_analytics",
+        "name": "01 Retail Analytics Software",
+        "phase": "initial",
+        "status": "Paused",
+        "intent": "A retail team is actively comparing analytics software or a retail intelligence platform.",
+        "reason": "Closest match to the product category the user wants to own; strongest starting hypothesis for a limited test.",
+        "keywords": [
+          "retail analytics software",
+          "retail analytics platform",
+          "retail intelligence platform",
+          "retail data analytics software",
+          "retail analytics tools",
+          "retail analytics solutions"
+        ],
+        "ad": {
+          "id": "retail_analytics_demo_v1",
+          "status": "Paused",
+          "path_1": "retail",
+          "path_2": "analytics",
+          "headlines": [
+            "Retail Analytics Software",
+            "Retail Intelligence Platform",
+            "See CodeJet in Action",
+            "Ask Your Existing Reports",
+            "Answers in Plain English",
+            "Find What Changed by Store",
+            "Built for Retail Teams",
+            "Sales and Margin Questions",
+            "Use Your Business Definitions",
+            "AI for Retail Reporting",
+            "Retail Answers With Context",
+            "Watch the Product Demo"
+          ],
+          "descriptions": [
+            "Ask retail questions using approved reports and business definitions. Watch the demo.",
+            "See how CodeJet turns store, sales and margin questions into plain-English answers.",
+            "A retail intelligence platform for finance, operations and merchandising teams.",
+            "Explore an AI partnership built around your reporting infrastructure. Watch the demo."
+          ]
+        }
+      },
+      {
+        "id": "reporting_automation",
+        "name": "02 Retail Reporting Automation",
+        "phase": "reserve",
+        "status": "Paused",
+        "intent": "A retail team wants less manual work answering recurring questions from reports.",
+        "reason": "Connects a specific workflow problem to CodeJet, but stays paused until the initial category test is reviewed.",
+        "keywords": [
+          "retail reporting software",
+          "retail reporting automation",
+          "automated retail reporting",
+          "retail sales reporting software"
+        ],
+        "ad": {
+          "id": "reporting_automation_demo_v1",
+          "status": "Paused",
+          "path_1": "retail",
+          "path_2": "reporting",
+          "headlines": [
+            "Retail Reporting Software",
+            "Retail Reporting Automation",
+            "Ask Your Retail Reports",
+            "Answer the Next Question",
+            "Reduce Manual Report Chasing",
+            "Bring Business Context to AI",
+            "From Reports to Answers",
+            "Built Around Your Reports",
+            "See the CodeJet Demo",
+            "Questions in Plain English",
+            "Sales, Margin and Store Trends",
+            "Explore an AI Partnership"
+          ],
+          "descriptions": [
+            "Your next retail question can start with your existing reports. See CodeJet in action.",
+            "Explore an AI agent for recurring sales, margin and store-performance questions.",
+            "Bring reports and business definitions together for answers in plain English.",
+            "See how CodeJet supports retail reporting. Watch the product demo without a form."
+          ]
+        }
+      },
+      {
+        "id": "retail_bi",
+        "name": "03 Retail Business Intelligence",
+        "phase": "reserve",
+        "status": "Paused",
+        "intent": "A retail team is evaluating business intelligence tools for store, sales or margin analysis.",
+        "reason": "Adjacent buying category. Keep reserve because searches can imply a replacement dashboard suite rather than an agent over approved reports.",
+        "keywords": [
+          "retail business intelligence software",
+          "retail business intelligence platform",
+          "retail bi software",
+          "retail intelligence software"
+        ],
+        "ad": {
+          "id": "retail_bi_demo_v1",
+          "status": "Paused",
+          "path_1": "retail",
+          "path_2": "intelligence",
+          "headlines": [
+            "Retail Business Intelligence",
+            "Retail BI Software",
+            "A Retail Intelligence Platform",
+            "Ask Beyond the Dashboard",
+            "Your Metrics, With Context",
+            "Answers From Retail Reports",
+            "Finance and Operations AI",
+            "See What Changed by Store",
+            "Business Definitions Included",
+            "CodeJet Product Demo",
+            "Plain-English Retail Questions",
+            "Built for Retail Decisions"
+          ],
+          "descriptions": [
+            "Ask questions about store sales and margins using your reports and business definitions.",
+            "See a retail intelligence platform built around the information your team already uses.",
+            "Explore plain-English answers for retail finance and operations. Watch the demo.",
+            "Bring reporting context to your AI agent. See how CodeJet works before a conversation."
+          ]
+        }
+      }
+    ],
+    "negative_keywords": [
+      {"term": "retail analyst jobs", "match_type": "Negative phrase", "reason": "Job seeking"},
+      {"term": "retail analytics jobs", "match_type": "Negative phrase", "reason": "Job seeking"},
+      {"term": "retail data analyst salary", "match_type": "Negative phrase", "reason": "Compensation research"},
+      {"term": "retail analytics course", "match_type": "Negative phrase", "reason": "Training purchase rather than software purchase"},
+      {"term": "retail analytics certification", "match_type": "Negative phrase", "reason": "Training credential"},
+      {"term": "retail analytics interview questions", "match_type": "Negative phrase", "reason": "Interview preparation"},
+      {"term": "retail dataset", "match_type": "Negative phrase", "reason": "Dataset download"},
+      {"term": "retail datasets", "match_type": "Negative phrase", "reason": "Dataset download, plural variant"},
+      {"term": "retail analytics github", "match_type": "Negative phrase", "reason": "Code repository search"},
+      {"term": "retail analytics python tutorial", "match_type": "Negative phrase", "reason": "Programming tutorial"},
+      {"term": "free retail dashboard template", "match_type": "Negative phrase", "reason": "Free template download; does not exclude free demos"},
+      {"term": "retail analytics ppt download", "match_type": "Negative phrase", "reason": "Presentation download"},
+      {"term": "retail market research report", "match_type": "Negative phrase", "reason": "Syndicated market research purchase"},
+      {"term": "foot traffic sensor", "match_type": "Negative phrase", "reason": "Physical footfall hardware"},
+      {"term": "people counting camera", "match_type": "Negative phrase", "reason": "Physical footfall hardware"},
+      {"term": "retail trading software", "match_type": "Negative phrase", "reason": "Financial trading software"},
+      {"term": "forex trading bot", "match_type": "Negative phrase", "reason": "Financial trading bot"},
+      {"term": "retail investor", "match_type": "Negative phrase", "reason": "Consumer investment intent"},
+      {"term": "stock trading bot", "match_type": "Negative phrase", "reason": "Financial trading bot"},
+      {"term": "crypto trading bot", "match_type": "Negative phrase", "reason": "Financial trading bot"},
+      {"term": "free retail analytics software", "match_type": "Negative exact", "reason": "A specifically free software request; does not exclude free-demo modifiers"}
+    ],
+    "terms_not_blanket_excluded": [
+      "free",
+      "demo",
+      "Excel",
+      "Power BI",
+      "Tableau",
+      "POS",
+      "SAP",
+      "competitor names"
+    ],
+    "exclusion_reason": "Existing systems and free demos can be part of a qualified buying query. Add narrowly defined negatives from actual search terms instead of blocking these words wholesale."
+  },
+  "chatgpt": {
+    "format": "setup_reference_not_native_import_schema",
+    "campaign_name": "CodeJet Retail Analytics ChatGPT Pilot",
+    "status": "Paused",
+    "optional": true,
+    "objective": "Clicks",
+    "billing": "Valid clicks",
+    "countries": ["US"],
+    "budget": {
+      "currency": "USD",
+      "type": "campaign_total",
+      "proposed_total": 350,
+      "upper_test_budget_requiring_new_approval": 500,
+      "proposed_duration_days": 14,
+      "start_date": null,
+      "end_date": null,
+      "date_rule": "Bulk-template start and end dates are 00:00 UTC; end date is exclusive.",
+      "recurring": false,
+      "automatic_budget_increase": false
+    },
+    "bidding": {
+      "proposed_strategy": "Intelligent bidding",
+      "target_cpc": null,
+      "reason": "No measured ChatGPT campaign CPC exists yet. Intelligent bidding pursues the Clicks objective within the selected budget without inventing a price target.",
+      "current_rule": "Target CPC is an average cost goal, not a per-click ceiling. New click campaigns have Target CPC from November 9, 2026. From November 18, legacy API fields used for new campaigns or bid-type changes select target bidding."
+    },
+    "ad_format": "Single image",
+    "recommended_first_activation": {
+      "ad_group_id": "retail_analytics",
+      "ad_id": "retail_analytics_demo_v1"
+    },
+    "ad_groups": [
+      {
+        "id": "retail_analytics",
+        "name": "01 Retail Analytics Evaluation",
+        "phase": "initial",
+        "status": "Paused",
+        "context_hints": [
+          "Comparing retail analytics software for a multi-store business",
+          "Finding a retail intelligence platform for finance and operations",
+          "Evaluating AI that answers questions from existing retail reports",
+          "Understanding which stores gained sales while gross margin declined",
+          "Comparing software for retail store performance reporting",
+          "Choosing analytics software that uses company metric definitions"
+        ],
+        "ads": [
+          {
+            "id": "retail_analytics_demo_v1",
+            "status": "Paused",
+            "title": "Retail data, answered",
+            "copy": "Ask sales and margin questions using existing reports. Watch the CodeJet demo."
+          },
+          {
+            "id": "retail_analytics_question_v2",
+            "status": "Paused",
+            "title": "Ask your retail reports",
+            "copy": "Which stores grew sales but lost margin? Explore CodeJet's approach. Watch the demo."
+          }
+        ]
+      },
+      {
+        "id": "reporting_automation",
+        "name": "02 Retail Reporting Workflow",
+        "phase": "reserve",
+        "status": "Paused",
+        "context_hints": [
+          "Reducing manual work answering recurring retail reporting questions",
+          "Automating retail sales and margin reporting from existing reports",
+          "Helping retail operations teams get answers without requesting another report",
+          "Using AI to explain changes in store performance",
+          "Connecting business definitions to retail reporting questions",
+          "Comparing ways to improve a retail reporting workflow"
+        ],
+        "ads": [
+          {
+            "id": "reporting_automation_demo_v1",
+            "status": "Paused",
+            "title": "Faster retail reporting",
+            "copy": "Turn recurring retail reporting questions into plain-English answers. Watch the demo."
+          },
+          {
+            "id": "reporting_automation_question_v2",
+            "status": "Paused",
+            "title": "Less report chasing",
+            "copy": "Use existing reports to answer the next retail question. Watch CodeJet in action."
+          }
+        ]
+      },
+      {
+        "id": "retail_bi",
+        "name": "03 Retail BI Evaluation",
+        "phase": "reserve",
+        "status": "Paused",
+        "context_hints": [
+          "Evaluating business intelligence software for a retail chain",
+          "Adding natural-language questions to retail reporting",
+          "Comparing AI analytics for retail finance and operations",
+          "Using consistent gross margin definitions across stores",
+          "Answering follow-up questions that existing retail dashboards do not cover",
+          "Exploring an AI agent that works with approved business reports"
+        ],
+        "ads": [
+          {
+            "id": "retail_bi_demo_v1",
+            "status": "Paused",
+            "title": "Retail BI with context",
+            "copy": "Give retail AI your business definitions and reporting context. Watch the demo."
+          },
+          {
+            "id": "retail_bi_question_v2",
+            "status": "Paused",
+            "title": "Beyond the dashboard",
+            "copy": "Ask what changed across stores using approved reports. See CodeJet in action."
+          }
+        ]
+      }
+    ]
+  }
+}

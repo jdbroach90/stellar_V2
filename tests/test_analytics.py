@@ -177,6 +177,19 @@ class AnalyticsTests(unittest.TestCase):
                 self.assertEqual(response.status_code, 403)
                 self.assert_private(response)
 
+    def test_search_page_visits_reach_demo_without_losing_campaign(self):
+        from codejet_seo import CONTENT_PATHS
+        for path in CONTENT_PATHS:
+            visit = self.create_visit(page=path, campaign={"utm_source": "google", "utm_campaign": "codejet_retail_analytics"})
+            response = self.post("/_cj/analytics/visit", self.visit_payload(
+                page="/demo", visit_token=visit["visit_token"], campaign={}))
+            self.assertEqual(response.status_code, 200)
+            row = next(row for row in self.rows() if row["visit_id"] == visit["visit_id"])
+            self.assertEqual(row["landing_page"], path)
+            self.assertEqual(row["utm_campaign"], "codejet_retail_analytics")
+            self.assertEqual(row["page_views"], "2")
+            self.assertEqual(row["demo_page_views"], "1")
+
     def test_configured_www_origin_is_allowed(self):
         self.create_visit(headers={"Origin": "https://www.codejet.app"})
         self.assertEqual(len(self.rows()), 1)

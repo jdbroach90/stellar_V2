@@ -1,0 +1,37 @@
+{
+  "format": "setup_reference_not_native_import_schema",
+  "campaign_name": "CodeJet Retail Analytics ChatGPT Pilot",
+  "status": "Paused",
+  "optional": true,
+  "objective": "Clicks",
+  "billing": "Valid clicks",
+  "countries": [
+    "US"
+  ],
+  "budget": {
+    "currency": "USD",
+    "type": "campaign_total",
+    "proposed_total": 350,
+    "upper_test_budget_requiring_new_approval": 500,
+    "proposed_duration_days": 14,
+    "start_date": null,
+    "end_date": null,
+    "date_rule": "Bulk-template start and end dates are 00:00 UTC; end date is exclusive.",
+    "recurring": false,
+    "automatic_budget_increase": false
+  },
+  "bidding": {
+    "proposed_strategy": "Intelligent bidding",
+    "target_cpc": null,
+    "reason": "No measured ChatGPT campaign CPC exists yet. Intelligent bidding pursues the Clicks objective within the selected budget without inventing a price target.",
+    "current_rule": "Target CPC is an average cost goal, not a per-click ceiling. New click campaigns have Target CPC from November 9, 2026. From November 18, legacy API fields used for new campaigns or bid-type changes select target bidding."
+  },
+  "ad_format": "Single image",
+  "recommended_first_activation": {
+    "ad_group_id": "retail_analytics",
+    "ad_id": "retail_analytics_demo_v1"
+  },
+  "account_created": false,
+  "image_url": "https://codejet.app/static/images/campaign/codejet-retail-analytics.png",
+  "image_publication_status": "requires_production_deployment_and_public_url_check"
+}

@@ -1,0 +1,38 @@
+{
+  "format": "reference_not_native_import",
+  "ad_groups": [
+    {
+      "ad_group_name": "01 Retail Analytics Evaluation",
+      "context_hints": [
+        "Comparing retail analytics software for a multi-store business",
+        "Finding a retail intelligence platform for finance and operations",
+        "Evaluating AI that answers questions from existing retail reports",
+        "Understanding which stores gained sales while gross margin declined",
+        "Comparing software for retail store performance reporting",
+        "Choosing analytics software that uses company metric definitions"
+      ]
+    },
+    {
+      "ad_group_name": "02 Retail Reporting Workflow",
+      "context_hints": [
+        "Reducing manual work answering recurring retail reporting questions",
+        "Automating retail sales and margin reporting from existing reports",
+        "Helping retail operations teams get answers without requesting another report",
+        "Using AI to explain changes in store performance",
+        "Connecting business definitions to retail reporting questions",
+        "Comparing ways to improve a retail reporting workflow"
+      ]
+    },
+    {
+      "ad_group_name": "03 Retail BI Evaluation",
+      "context_hints": [
+        "Evaluating business intelligence software for a retail chain",
+        "Adding natural-language questions to retail reporting",
+        "Comparing AI analytics for retail finance and operations",
+        "Using consistent gross margin definitions across stores",
+        "Answering follow-up questions that existing retail dashboards do not cover",
+        "Exploring an AI agent that works with approved business reports"
+      ]
+    }
+  ]
+}

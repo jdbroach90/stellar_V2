@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "canonical_origin": "https://codejet.app",
+  "primary_cta": {
+    "label": "Watch the CodeJet demo",
+    "href": "/demo"
+  },
+  "pages": [
+    {
+      "slug": "retail-analytics-software",
+      "title": "Retail Analytics Software | CodeJet Retail Intelligence",
+      "description": "Ask sales, margin, and inventory questions using the reports and definitions your retail team already trusts. See the CodeJet retail intelligence demo.",
+      "eyebrow": "A retail intelligence platform",
+      "h1": "Retail analytics software for the questions your team asks next.",
+      "lead": "Ask sales, margin, and inventory questions in plain English, using the reports and business definitions your team already trusts.",
+      "sections": [
+        {
+          "heading": "Put the knowledge in your reports to work",
+          "paragraphs": [
+            "CodeJet is retail analytics software built around your existing reporting context. It structures the business logic in reports, queries, data models, and metric definitions so an AI agent can work with the meaning behind your numbers.",
+            "A dashboard can show that margin changed. The next question may ask which departments contributed most, whether the comparison includes new stores, or how the result changes when returns are excluded. CodeJet is designed to support those follow-up questions through approved data and defined retrieval rules."
+          ]
+        },
+        {
+          "heading": "Keep the definitions attached to the answer",
+          "paragraphs": [
+            "A useful retail answer needs more than a number. Sales may mean gross sales or net sales; margin may mean dollars or a percentage. Your reporting calendar, store groups, cost treatment, and access rules shape what an answer should mean.",
+            "CodeJet's implementation starts by mapping that context. Approved sources, metric definitions, relationships, and role-aware access form the foundation for questions and outputs. Data availability and permissions are reviewed for the use case you want to support."
+          ]
+        },
+        {
+          "heading": "Make the result useful to the team asking",
+          "paragraphs": [
+            "Retail finance, merchandising, operations, and field leaders need different views of the same business. CodeJet can present an answer as a summary, table, or chart, and prepare PowerPoint or PDF output for the next conversation."
+          ],
+          "bullets": [
+            "Finance: examine gross profit changes with consistent cost and sales definitions.",
+            "Merchandising: compare category performance across the agreed store group and period.",
+            "Operations: review store exceptions using the data available to each role."
+          ]
+        },
+        {
+          "heading": "Start an AI partnership around one useful question",
+          "paragraphs": [
+            "We want to work with retail teams as AI partners, starting with a focused use case in their existing report infrastructure. Bring a recurring question, the report your team trusts today, and the person who owns its definitions.",
+            "Together, we can scope the required sources and access, agree on what a correct answer looks like, and compare the result with your current reporting. That gives your team a concrete way to evaluate fit before considering a broader rollout. Watch the demo to see CodeJet's approach, then tell us which question slows your team down."
+          ]
+        }
+      ],
+      "questions_heading": "Questions to bring to a pilot",
+      "questions_intro": "These are illustrative questions to scope against your approved sources and business definitions.",
+      "questions": [
+        "Which stores grew net sales last month while gross margin percentage fell?",
+        "Which grocery departments contributed most to the decline in gross profit dollars last month?",
+        "Which items had rising inventory and falling unit sales over the last four completed weeks?"
+      ],
+      "faqs": [
+        {
+          "question": "Does CodeJet replace our reporting system?",
+          "answer": "CodeJet starts from the reporting logic your organization already uses. The implementation scope determines which reports, queries, and sources it can use. It is designed to build on that context; any required changes are evaluated with your team."
+        },
+        {
+          "question": "How does CodeJet handle different definitions of a metric?",
+          "answer": "Metric definitions, relationships, reporting periods, and access rules are mapped as part of the implementation. A pilot should check answers against a report and definition your team has approved, including any known exceptions."
+        },
+        {
+          "question": "What should we bring to an initial conversation?",
+          "answer": "Start with a recurring business question, an example of the report used to answer it, and a description of who needs the result. We can discuss source access and implementation requirements before requesting business data."
+        }
+      ],
+      "related_links": [
+        {"label": "Reduce recurring retail reporting work", "href": "/retail-reporting-automation"},
+        {"label": "Frame better retail data questions", "href": "/retail-data-questions"}
+      ],
+      "primary_cta": {"label": "Watch the CodeJet demo", "href": "/demo"},
+      "secondary_cta": {"label": "Discuss an AI partnership", "href": "/#contact"}
+    },
+    {
+      "slug": "retail-reporting-automation",
+      "title": "Retail Reporting Automation: Start with the Follow-Up | CodeJet",
+      "description": "Reduce manual report assembly by defining the questions, sources, and checks your retail team needs. Explore CodeJet's approach to retail reporting automation.",
+      "eyebrow": "Retail reporting workflow",
+      "h1": "The report is ready. The follow-up question is still waiting.",
+      "lead": "Retail reporting automation becomes useful when it helps your team answer the next question with the right numbers, definitions, and context.",
+      "sections": [
+        {
+          "heading": "Find the step that keeps repeating",
+          "paragraphs": [
+            "A weekly performance review may already have a dashboard and a standard report. The manual work begins when someone asks for a different store group, a department breakdown, or an explanation of the gap between sales growth and gross profit.",
+            "Start by documenting one recurring request. List the reports opened, filters changed, calculations repeated, and checks needed before sharing the answer. This makes it clear whether the delay comes from retrieving data, reconciling definitions, or formatting the result. Each needs a different solution."
+          ]
+        },
+        {
+          "heading": "Set the boundaries before automating the answer",
+          "paragraphs": [
+            "Choose a stable question with an established source. For a weekly margin review, agree on the completed reporting period, included stores, treatment of returns, and cost basis. Record when the source refreshes and who can see store or item detail.",
+            "A useful first scope is narrow enough to check against a trusted report. If source data is missing or definitions conflict, resolve that issue with its owner. An automated response should not conceal a gap in the reporting process."
+          ],
+          "bullets": [
+            "Input: approved reports, queries, and the definitions behind them.",
+            "Question: a recurring decision with a clear period and comparison.",
+            "Output: the table, chart, or summary the recipient actually uses.",
+            "Check: an agreed reference result and a person responsible for review."
+          ]
+        },
+        {
+          "heading": "Test the question and its natural follow-ups",
+          "paragraphs": [
+            "A first answer is useful only if the team can interpret it. Test the next requests too: show the contributing departments, use comparable stores, or compare the same fiscal weeks last year. Verify that each variation still uses the intended metric and access rules.",
+            "Measure the full workflow during the pilot: elapsed time to a reviewed answer, manual steps, corrections, and whether the output is usable in the meeting. Establish the current baseline first. Use the findings to decide whether the workflow should expand to other teams or questions."
+          ]
+        },
+        {
+          "heading": "Where CodeJet fits",
+          "paragraphs": [
+            "CodeJet structures the context in existing reports, queries, and business definitions so teams can ask questions in plain English. Its approach combines approved sources, controlled retrieval, and role-aware access, with summaries, tables, charts, PowerPoint, and PDF outputs.",
+            "We are looking for retail AI partners with a specific reporting bottleneck to evaluate together. Watch the demo, then bring one recurring question and the report your team trusts. Source access, supported scope, and implementation work are determined with your team."
+          ]
+        }
+      ],
+      "questions_heading": "Examples of recurring reporting requests",
+      "questions_intro": "Choose a question your existing reports can support, then define the comparison and output before evaluating automation.",
+      "questions": [
+        "Which stores missed net sales plan last week, and which departments accounted for the largest gaps?",
+        "How did gross profit dollars change by region versus the same fiscal weeks last year?",
+        "Which departments had higher markdown dollars but lower unit sales last month?"
+      ],
+      "faqs": [
+        {
+          "question": "What is a good first reporting workflow to automate?",
+          "answer": "Choose a repeated question with trusted source data, agreed definitions, and a clear reviewer. A weekly store performance breakdown is a stronger starting point than an open-ended request to explain every change in the business."
+        },
+        {
+          "question": "Can automation fix inconsistent reports?",
+          "answer": "Conflicting definitions or incomplete data need an agreed resolution. Document those differences before using a report as the reference for an automated answer. The pilot should expose these issues and make the assumptions visible."
+        },
+        {
+          "question": "How should we evaluate the pilot?",
+          "answer": "Compare answers with the approved report, test relevant permissions, and record the time and corrections needed to produce a usable result. Set success criteria with the people who prepare and use the reporting."
+        }
+      ],
+      "related_links": [
+        {"label": "Explore CodeJet retail analytics software", "href": "/retail-analytics-software"},
+        {"label": "Choose a specific retail data question", "href": "/retail-data-questions"}
+      ],
+      "primary_cta": {"label": "Watch the CodeJet demo", "href": "/demo"},
+      "secondary_cta": {"label": "Discuss your reporting workflow", "href": "/#contact"}
+    },
+    {
+      "slug": "retail-data-questions",
+      "title": "Retail Data Questions for Sales, Margin and Inventory | CodeJet",
+      "description": "Practical retail analytics questions for sales, gross profit, markdowns, and inventory, with the definitions needed to make each answer useful. Explore CodeJet.",
+      "eyebrow": "A practical guide for retail teams",
+      "h1": "Better retail data questions start with a clear comparison.",
+      "lead": "Name the metric, the stores or items, the period, and the comparison. That turns a broad request into an answer your team can check and use.",
+      "sections": [
+        {
+          "heading": "Sales: separate growth from the comparison behind it",
+          "paragraphs": [
+            "A question like 'How are sales?' leaves important choices unresolved. Ask which stores grew net sales last month compared with the same fiscal period last year. Then specify whether the group includes new stores, closed locations, or only comparable stores.",
+            "Decide how returns, discounts, taxes, and sales channels are treated. If the calendar shifts a holiday between periods, use the comparison your business has approved. The goal is a repeatable definition that makes a follow-up meaningful."
+          ]
+        },
+        {
+          "heading": "Margin: ask about dollars and percentage separately",
+          "paragraphs": [
+            "'Which stores are most profitable?' can mix gross profit, operating profit, and allocated expenses. A more specific starting question is: which departments contributed most to the decline in gross profit dollars last month? Use the approved net sales and cost definitions before comparing contributions.",
+            "Gross profit dollars and gross margin percentage answer different questions. Where the business defines gross margin percentage as gross profit divided by net sales, a percentage can improve while total gross profit falls. Ask for both measures when evaluating a change, and keep the treatment of markdowns and shrink consistent."
+          ]
+        },
+        {
+          "heading": "Inventory: distinguish an exception from its cause",
+          "paragraphs": [
+            "A useful exception question is: which items had rising inventory and falling unit sales over the last four completed weeks? It requires comparable inventory snapshots and sales periods, with consistent item and location identifiers.",
+            "Zero sales alone does not establish an out-of-stock event. Checking availability requires suitable stock or availability data, and even that may need store review. Use the answer to identify where to investigate; establish a cause only when the available evidence supports it."
+          ]
+        },
+        {
+          "heading": "Make the answer reviewable",
+          "paragraphs": [
+            "Before sharing a result, state the period, filters, metric definition, source, and refresh time. Compare it with a report the team already trusts. If a question asks why something changed, distinguish the measured contributors from explanations that require additional information."
+          ],
+          "bullets": [
+            "Define the metric: net sales, gross profit dollars, units, or another agreed measure.",
+            "Name the scope: stores, regions, departments, or items the requester may access.",
+            "Choose the comparison: plan, prior period, or the same fiscal weeks last year.",
+            "Specify the output: ranked table, trend chart, or a short summary with its assumptions."
+          ]
+        },
+        {
+          "heading": "Bring one question to CodeJet",
+          "paragraphs": [
+            "CodeJet is a retail intelligence platform that uses the context in existing reports, queries, and definitions to support plain-English questions. Approved sources and role-aware access help define the scope of a proposed implementation.",
+            "The examples below are starting points for discussion, not actual customer results. Watch the demo to see the approach, then choose one question to evaluate with your report owner as part of an AI partnership."
+          ]
+        }
+      ],
+      "questions_heading": "Specific questions to adapt to your reporting",
+      "questions_intro": "Use your business definitions and approved data to decide which of these questions a pilot can support.",
+      "questions": [
+        "Which comparable stores had lower net sales than the same fiscal weeks last year?",
+        "Which departments contributed most to the decline in gross profit dollars last month?",
+        "Which stores increased gross profit dollars while gross margin percentage declined?",
+        "Which items had rising inventory and falling unit sales over the last four completed weeks?",
+        "Which departments had the largest increase in markdowns as a share of net sales last month?"
+      ],
+      "faqs": [
+        {
+          "question": "What makes a retail analytics question specific enough?",
+          "answer": "It identifies a measure, a defined store or item group, a reporting period, and a comparison. The data owner should be able to explain which approved source and definition would produce the answer."
+        },
+        {
+          "question": "Can an AI answer explain why performance changed?",
+          "answer": "It can support analysis of changes represented in the available data. A measured relationship is not automatically a cause. Weather, local competition, merchandising changes, or other explanations may require evidence outside the selected reports."
+        },
+        {
+          "question": "Do we need every retail data source to begin?",
+          "answer": "Begin with the sources required for one agreed question. Scope the implementation around available data, definitions, and permissions, then evaluate the result before adding more questions or sources."
+        }
+      ],
+      "related_links": [
+        {"label": "See how CodeJet uses existing reporting context", "href": "/retail-analytics-software"},
+        {"label": "Plan a retail reporting automation pilot", "href": "/retail-reporting-automation"}
+      ],
+      "primary_cta": {"label": "Watch the CodeJet demo", "href": "/demo"},
+      "secondary_cta": {"label": "Discuss a retail data question", "href": "/#contact"}
+    }
+  ]
+}

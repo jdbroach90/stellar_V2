@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% include 'search/meta.html' %}
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/codejet-search.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="shell header-inner">
+            <a class="brand" href="{{ campaign_url('/') }}" aria-label="CodeJet home">
+                <img src="{{ url_for('static', filename='images/CodeJet_Retail_Intelligence_Platform_RedHeader.png') }}"
+                     alt="CodeJet — A Retail Intelligence Platform" width="900" height="330">
+            </a>
+            <nav aria-label="Main navigation">
+                <a href="{{ campaign_url('/retail-analytics-software') }}"{% if page_path == '/retail-analytics-software' %} aria-current="page"{% endif %}>Platform</a>
+                <a href="{{ campaign_url('/retail-data-questions') }}"{% if page_path == '/retail-data-questions' %} aria-current="page"{% endif %}>Retail questions</a>
+                <a class="header-cta" href="{{ campaign_url('/demo') }}"{% if page_path == '/demo' %} aria-current="page"{% endif %}>Watch demo</a>
+            </nav>
+        </div>
+    </header>
+    <main id="main-content">{% block content %}{% endblock %}</main>
+    <footer class="site-footer">
+        <div class="shell footer-inner">
+            <div><strong>CodeJet</strong><p>A retail intelligence platform.</p></div>
+            <nav aria-label="Footer navigation">
+                <a href="{{ campaign_url('/retail-analytics-software') }}">Retail analytics software</a>
+                <a href="{{ campaign_url('/retail-reporting-automation') }}">Reporting automation</a>
+                <a href="{{ campaign_url('/#contact') }}">Discuss an AI partnership</a>
+            </nav>
+            <p><a href="mailto:jbroach@codejet.app">jbroach@codejet.app</a><br><a href="tel:+13363027925">(336) 302-7925</a></p>
+        </div>
+    </footer>
+    {% block scripts %}{% endblock %}
+    {% if cj_analytics_enabled %}
+    <script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}"
+            data-cj-analytics data-cj-page="{{ page_path }}"{% if page_path == '/demo' %} data-cj-video-id="{{ video_id }}"{% endif %}></script>
+    {% endif %}
+</body>
+</html>

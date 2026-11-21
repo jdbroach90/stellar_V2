@@ -1,0 +1,56 @@
+{
+  "campaign_name": "CodeJet Retail Analytics Search Pilot",
+  "status": "Paused",
+  "country": "United States",
+  "country_code": "US",
+  "language": "English",
+  "network": "Google Search only",
+  "search_partners": false,
+  "display_expansion": false,
+  "location_option": "Presence: People in or regularly in your targeted locations",
+  "budget": {
+    "currency": "USD",
+    "type": "campaign_total",
+    "proposed_total": 400,
+    "proposed_duration_days": 21,
+    "start_date": null,
+    "end_date": null,
+    "recurring": false,
+    "automatic_budget_increase": false,
+    "instruction": "Create a new paused Search campaign with a campaign-total budget in Google Ads. Do not enter 400 into an Editor Budget or Daily budget column."
+  },
+  "bidding": {
+    "proposed_strategy": "Maximize clicks",
+    "maximum_cpc_bid_limit": null,
+    "numeric_bid_requires_account_review": true,
+    "instruction": "Review current US keyword forecasts in Keyword Planner and choose an affordable maximum CPC bid limit before activation. No CPC estimate is supplied or implied."
+  },
+  "text_customization": false,
+  "final_url_expansion": false,
+  "dynamic_keyword_insertion": false,
+  "keyword_match_types": [
+    "Exact",
+    "Phrase"
+  ],
+  "recommended_first_activation": {
+    "ad_group_id": "retail_analytics",
+    "keyword_match_type": "Exact",
+    "ad_id": "retail_analytics_demo_v1",
+    "instruction": "After launch review, enable only the initial ad group, its exact-match keywords and its RSA. Keep phrase keywords and reserve groups paused until search-term quality and playback are checked."
+  },
+  "terms_not_blanket_excluded": [
+    "free",
+    "demo",
+    "Excel",
+    "Power BI",
+    "Tableau",
+    "POS",
+    "SAP",
+    "competitor names"
+  ],
+  "exclusion_reason": "Existing systems and free demos can be part of a qualified buying query. Add narrowly defined negatives from actual search terms instead of blocking these words wholesale.",
+  "format": "manual_setup_reference_not_import_schema",
+  "account_created": false,
+  "base_landing_url": "https://codejet.app/retail-analytics-software",
+  "base_demo_url": "https://codejet.app/demo"
+}

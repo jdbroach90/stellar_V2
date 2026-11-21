@@ -1,68 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>CodeJet Demo</title>
-    <link rel="icon" style="img-round" type="image/x-icon" href="static/images/favicon.ico" />
-    <style>
-        body {
-            margin: 0;
-            background: #000;
-        }
-
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            background: #000;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-    </style>
-</head>
-
-<body>
-
-<div class="video-container">
-    <iframe
-        id="stream-player"
-        src="https://customer-0k2chsytrbkmpgjr.cloudflarestream.com/38ccab99e8156adae4abcfbb1d36cc0f/iframe?poster=https%3A%2F%2Fcustomer-0k2chsytrbkmpgjr.cloudflarestream.com%2F38ccab99e8156adae4abcfbb1d36cc0f%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600"
-        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
-        allowfullscreen>
-    </iframe>
-</div>
-
-
+{% extends 'search/base.html' %}
+{% block extra_head %}<link rel="preconnect" href="https://customer-0k2chsytrbkmpgjr.cloudflarestream.com">{% endblock %}
+{% block content %}
+<section class="watch-page shell" aria-labelledby="demo-title">
+    <div class="watch-heading"><p class="eyebrow">The CodeJet demo</p><h1 id="demo-title">See retail intelligence in action.</h1><p class="lead">A more direct way to ask questions of the reporting your team already trusts.</p></div>
+    <div class="video-player">
+        <iframe id="stream-player" title="CodeJet retail intelligence software demo"
+                src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}"
+                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+                allowfullscreen></iframe>
+    </div>
+    <div class="watch-under"><p>No form required to watch.</p><a class="text-link" href="{{ campaign_url('/#contact') }}">Discuss an AI partnership</a></div>
+    <noscript><p>The embedded video needs JavaScript. <a href="{{ video_embed }}">Open the video player directly</a>.</p></noscript>
+</section>
+<section class="shell demo-description">
+    <div><p class="eyebrow">Built around your reporting context</p><h2>Retail questions need the meaning behind the numbers.</h2></div>
+    <div><p>CodeJet is a retail intelligence platform designed to help teams ask business questions in plain English using existing reports, queries, and business definitions.</p><p>Its approach maps approved sources, metrics, relationships, and access rules into the context an AI agent needs. Answers can take the form of a summary, table, chart, PowerPoint, or PDF.</p><p>A useful next step is one recurring question, the report your team trusts, and an agreed way to check the answer. We work with retail teams to scope that first use case as an AI partnership.</p></div>
+</section>
+<section class="shell next-step" aria-labelledby="next-title">
+    <div><p class="eyebrow">Bring the question that slows you down</p><h2 id="next-title">Let's talk about your report infrastructure.</h2><p>Choose a sales, margin, inventory, or reporting question to evaluate together.</p></div>
+    <div class="actions"><a class="button primary" href="{{ campaign_url('/#contact') }}">Discuss an AI partnership</a><a class="text-link" href="{{ campaign_url('/retail-analytics-software') }}">Explore the platform</a></div>
+</section>
+<nav class="shell related" aria-label="Related reading"><h2>Take a closer look</h2><a href="{{ campaign_url('/retail-reporting-automation') }}">Find a recurring reporting workflow</a><a href="{{ campaign_url('/retail-data-questions') }}">Choose a specific retail data question</a></nav>
+{% endblock %}
+{% block scripts %}
 <script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
-
 <script>
-    const player = Stream(
-        document.getElementById('stream-player')
-    );
-    window.codejetDemoPlayer = player;
-
-    player.addEventListener('ended', () => {
-        setTimeout(() => {
-            window.location.href = 'https://codejet.app/#contact';
-        }, 1000);
-    });
+    // The iframe still works if optional analytics or the SDK is unavailable.
+    if (typeof Stream === 'function') {
+        window.codejetDemoPlayer = Stream(document.getElementById('stream-player'));
+    }
 </script>
-
-{% if cj_analytics_enabled %}
-<script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}"
-        data-cj-analytics data-cj-page="/demo"
-        data-cj-video-id="38ccab99e8156adae4abcfbb1d36cc0f"></script>
-{% endif %}
-
-</body>
-</html>
+{% endblock %}
