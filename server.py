@@ -24,6 +24,20 @@ SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
 CONTACT_RECIPIENT = (os.getenv("CJ_CONTACT_RECIPIENT") or "jbroach@codejet.app").strip()
 
+# The supplied Google tag ID is public (not an authentication secret). Keep it
+# centralized so it is loaded once on each public HTML page, not on private
+# analytics endpoints. Disable instantly with CJ_GOOGLE_TAG_ENABLED=0 in Render.
+app.config["CJ_GOOGLE_TAG_ENABLED"] = os.getenv("CJ_GOOGLE_TAG_ENABLED", "1")
+app.config["CJ_GOOGLE_TAG_ID"] = os.getenv("CJ_GOOGLE_TAG_ID", "GTM-TQ6SDXNL")
+_GOOGLE_TAG_PATTERN = re.compile(r"(?:GTM-[A-Z0-9]+|GT-[A-Z0-9]+|AW-[0-9]+|G-[A-Z0-9]+)\Z")
+
+
+@app.context_processor
+def google_marketing_context():
+    enabled = str(app.config.get("CJ_GOOGLE_TAG_ENABLED", "1")).strip().lower() in {"1", "true", "yes"}
+    tag_id = str(app.config.get("CJ_GOOGLE_TAG_ID", "")).strip()
+    return {"cj_google_tag_id": tag_id if enabled and _GOOGLE_TAG_PATTERN.fullmatch(tag_id) else ""}
+
 # Input validation also prevents untrusted strings being inserted into mail headers.
 EMAIL_PATTERN = re.compile(r"[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+\Z")
 
@@ -163,7 +177,10 @@ def send_email():
         return failure("We couldn't deliver your message. Please try again later.", 502)
 
     message = "We will be in touch with you soon. Please allow 3 business days for us to respond."
-    return render_template("email_success.html", result=message)
+    # Only a successfully accepted inquiry gets the event. Do NOT send personal
+    # information, free-form text, or an email address to Google analytics.
+    return render_template("email_success.html", result=message, lead_accepted=True,
+                           lead_source="demo" if source_page == "demo" else "homepage")
 
 
 if __name__ == "__main__":
