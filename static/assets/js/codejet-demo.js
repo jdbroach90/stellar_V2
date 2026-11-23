@@ -1,16 +1,18 @@
-/* CodeJet demo conversion experience. Do not treat autoplay as verified interest. */
+/* CodeJet demo: user-initiated playback with sound; never autoplay. */
 (function () {
     'use strict';
     var iframe = document.getElementById('stream-player');
     var finished = document.getElementById('demo-video-ended');
     var replay = document.getElementById('demo-replay');
     var contact = document.getElementById('demo-contact');
-    var sound = document.getElementById('demo-sound');
+    var playCover = document.getElementById('demo-play');
+    var playError = document.getElementById('demo-play-error');
 
     if (iframe && typeof window.Stream === 'function') {
         try {
             var player = window.Stream(iframe);
             window.codejetDemoPlayer = player;  // Read by the existing first-party analytics.
+            if (playCover) playCover.dataset.playerReady = 'true';
             if (finished && typeof player.addEventListener === 'function') {
                 player.addEventListener('ended', function () {
                     finished.hidden = false;
@@ -19,17 +21,24 @@
                     finished.hidden = true;
                 });
             }
-            if (sound) {
-                sound.addEventListener('click', function () {
+            // Starting the demo requires an actual click; autoplay is disabled in the embed.
+            if (playCover) {
+                playCover.addEventListener('click', function () {
+                    if (finished) finished.hidden = true;
+                    if (playError) playError.hidden = true;
+                    playCover.hidden = true; // reveal native player controls if SDK play fails
                     try {
                         player.currentTime = 0;
                         player.muted = false;
-                        if (finished) finished.hidden = true;
                         var attempt = player.play();
                         if (attempt && typeof attempt.catch === 'function') {
-                            attempt.catch(function () { /* Player controls remain available. */ });
+                            attempt.catch(function () {
+                                if (playError) playError.hidden = false;
+                            });
                         }
-                    } catch (_) { /* Player controls remain available. */ }
+                    } catch (_) {
+                        if (playError) playError.hidden = false;
+                    }
                 });
             }
             if (replay) {
@@ -37,6 +46,7 @@
                     if (finished) finished.hidden = true;
                     try {
                         player.currentTime = 0;
+                        player.muted = false;
                         var attempt = player.play();
                         if (attempt && typeof attempt.catch === 'function') {
                             attempt.catch(function () { if (finished) finished.hidden = false; });
@@ -49,6 +59,14 @@
         } catch (_) {
             // The embed must still work if the optional player SDK is unavailable.
         }
+    }
+
+    // When the SDK is unavailable, a click reveals the embedded native controls.
+    if (playCover && !playCover.dataset.playerReady) {
+        playCover.addEventListener('click', function () {
+            playCover.hidden = true;
+            if (playError) playError.hidden = false;
+        });
     }
 
     // End-of-video and other CTAs scroll to the form instead of sending people

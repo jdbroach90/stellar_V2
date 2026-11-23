@@ -9,8 +9,9 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
   const playerEvents = {};
   const endCard = { hidden: true };
   const replayEvents = {};
-  const soundEvents = {};
-  const sound = { addEventListener: (name, fn) => { soundEvents[name] = fn; } };
+  const playEvents = {};
+  const playCover = { hidden: false, dataset: {}, addEventListener: (name, fn) => { playEvents[name] = fn; } };
+  const playError = { hidden: true };
   const replay = { addEventListener: (name, fn) => { replayEvents[name] = fn; } };
   const contact = { classList: { classes: [], add(x) { this.classes.push(x); } } };
   const ctaEvents = {};
@@ -30,10 +31,11 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
   const player = {
     currentTime: 81,
     muted: true,
+    playCalls: 0,
     addEventListener: (name, fn) => { playerEvents[name] = fn; },
-    play() { return Promise.resolve(); }
+    play() { this.playCalls++; return Promise.resolve(); }
   };
-  const elements = { 'stream-player': {}, 'demo-video-ended': endCard, 'demo-replay': replay, 'demo-contact': contact, 'demo-sound': sound };
+  const elements = { 'stream-player': {}, 'demo-video-ended': endCard, 'demo-replay': replay, 'demo-contact': contact, 'demo-play': playCover, 'demo-play-error': playError };
   const document = {
     getElementById: id => elements[id],
     querySelector: selector => selector === '[data-cj-demo-form]' ? form : null,
@@ -47,7 +49,7 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
   };
   vm.runInNewContext(code, { window, document, Array });
   return { window, document, player, playerEvents, endCard, replayEvents, replay,
-    contact, ctaEvents, soundEvents, formEvents, form, submitButton, captchaInput, error };
+    contact, ctaEvents, playCover, playEvents, playError, formEvents, form, submitButton, captchaInput, error };
 }
 
 test('the existing analytics player is exposed and the completion CTA appears', () => {
@@ -69,11 +71,33 @@ test('replay resets video to the start and hides the completion CTA', async () =
 });
 
 
-test('restart with sound resets playback and unmutes it', async () => {
+test('video does not play until the user clicks the large Play with sound button', async () => {
   const p = page();
-  p.soundEvents.click();
+  assert.equal(p.player.playCalls, 0);
+  assert.equal(p.playCover.hidden, false);
+  assert.equal(p.playCover.dataset.playerReady, 'true');
+  p.playEvents.click();
   assert.equal(p.player.currentTime, 0);
   assert.equal(p.player.muted, false);
+  assert.equal(p.player.playCalls, 1);
+  assert.equal(p.playCover.hidden, true);
+});
+
+test('replay uses sound and does not count as automatic playback', () => {
+  const p = page();
+  p.playerEvents.ended();
+  p.replayEvents.click();
+  assert.equal(p.player.muted, false);
+  assert.equal(p.player.playCalls, 1);
+});
+
+test('missing player SDK reveals native iframe controls on click', () => {
+  const p = page({ sdk: false });
+  assert.equal(p.playCover.hidden, false);
+  assert.equal(p.playError.hidden, true);
+  p.playEvents.click();
+  assert.equal(p.playCover.hidden, true);
+  assert.equal(p.playError.hidden, false);
 });
 
 test('SDK failure leaves the form functional', async () => {

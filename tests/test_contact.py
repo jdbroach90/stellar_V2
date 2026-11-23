@@ -68,7 +68,7 @@ class ContactTests(unittest.TestCase):
             )
             msg = smtp_connection.send_message.call_args.args[0]
             self.assertEqual(msg["Reply-To"], "customer@example.com")
-            self.assertEqual(msg["To"], "jbroach@codejet.app")
+            self.assertEqual(msg["To"], "sales@codejet.app")
             self.assertIn("Interested in a demo.", msg.get_content())
 
     @patch.object(server.requests, "post")
@@ -80,7 +80,7 @@ class ContactTests(unittest.TestCase):
             response = self.client.post("/send_email", data=data)
             self.assertEqual(response.status_code, 200)
             msg = smtp_class.return_value.__enter__.return_value.send_message.call_args.args[0]
-            self.assertEqual(msg["To"], "jbroach@codejet.app")
+            self.assertEqual(msg["To"], "sales@codejet.app")
             self.assertEqual(msg["Reply-To"], "customer@example.com")
             self.assertIn("CodeJet demo inquiry", msg["Subject"])
             self.assertIn("Company: Sample Retail", msg.get_content())

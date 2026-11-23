@@ -78,7 +78,7 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(doc.matching("link", rel="canonical")[0]["href"], ORIGIN + "/retail-analytics-software")
         self.assertIn("no-store", response.headers["Cache-Control"])
 
-    def test_demo_player_can_autoplay_muted_and_contact_form_is_on_the_page(self):
+    def test_demo_requires_click_to_play_with_sound_and_contact_form_is_on_the_page(self):
         response = self.get('/demo?utm_source=google&utm_medium=cpc&utm_campaign=retail_analytics')
         self.assertEqual(response.status_code, 200)
         body = response.get_data(as_text=True)
@@ -86,10 +86,14 @@ class SearchTests(unittest.TestCase):
         players = doc.matching('iframe', id='stream-player')
         self.assertEqual(len(players), 1)
         options = parse_qs(urlsplit(players[0]['src']).query)
-        self.assertEqual(options['autoplay'], ['true'])
-        self.assertEqual(options['muted'], ['true'])
+        self.assertEqual(options['autoplay'], ['false'])
+        self.assertEqual(options['muted'], ['false'])
         self.assertEqual(options['startTime'], ['0'])
         self.assertEqual(options.get('loop'), None)
+        self.assertEqual(len(doc.matching('button', id='demo-play')), 1)
+        self.assertIn('Play the 80-second demo with sound', body)
+        self.assertIn('mailto:sales@codejet.app', body)
+        self.assertNotIn('jbroach@codejet.app', body)
         self.assertEqual(len(doc.matching('div', id='demo-video-ended')), 1)
         self.assertEqual(len(doc.matching('aside', id='demo-contact')), 1)
         forms = doc.matching('form', id='codejet-demo-form')

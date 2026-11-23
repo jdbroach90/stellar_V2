@@ -134,7 +134,7 @@ def public_context(path):
         "@type": "Organization", "@id": ORIGIN + "/#organization", "name": "CodeJet",
         "legalName": "CodeJET LLC", "url": ORIGIN + "/",
         "logo": ORIGIN + "/static/images/CodeJet_Retail_Intelligence_Platform_RedHeader.png",
-        "email": "jbroach@codejet.app", "telephone": "+1-336-302-7925",
+        "email": "sales@codejet.app", "telephone": "+1-336-302-7925",
         "description": "A retail intelligence platform built around existing reports, queries, and business definitions.",
     }
     website = {"@type": "WebSite", "@id": ORIGIN + "/#website", "url": ORIGIN + "/",

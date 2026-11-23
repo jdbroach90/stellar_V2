@@ -22,7 +22,7 @@ RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT")
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
-CONTACT_RECIPIENT = "jbroach@codejet.app"
+CONTACT_RECIPIENT = os.getenv("CJ_CONTACT_RECIPIENT", "sales@codejet.app").strip()
 
 # Input validation also prevents untrusted strings being inserted into mail headers.
 EMAIL_PATTERN = re.compile(r"[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+\Z")
@@ -145,7 +145,7 @@ def send_email():
                     context.append(f"{key}: {value}")
         email.set_content(message_body + ("\n\n" + "\n".join(context) if context else ""))
 
-        # Preserve the current Gmail SMTP host, port, STARTTLS, login and recipient.
+        # Preserve SMTP login as configured; deliver website inquiries to the sales inbox.
         with SMTP("smtp.gmail.com", 587, timeout=20) as connection:
             connection.starttls(context=ssl.create_default_context())
             connection.login(user=SMTP_EMAIL, password=SMTP_PASS)

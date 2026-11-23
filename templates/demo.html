@@ -14,9 +14,17 @@
         <div class="demo-video-column">
             <div class="video-player">
                 <iframe id="stream-player" title="CodeJet retail intelligence software demo"
-                        src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}&amp;autoplay=true&amp;muted=true&amp;startTime=0"
+                        src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}&amp;autoplay=false&amp;muted=false&amp;startTime=0"
                         allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
                         loading="eager" allowfullscreen></iframe>
+                <button id="demo-play" class="demo-play-cover" type="button" aria-label="Play CodeJet retail intelligence demo with sound">
+                    <img src="{{ video_thumbnail }}" alt="" class="demo-play-poster" loading="eager">
+                    <span class="demo-play-copy">
+                        <span class="demo-play-symbol" aria-hidden="true">&#9654;</span>
+                        <span class="demo-play-headline">Watch CodeJet in action</span>
+                        <span class="demo-play-caption">Play the 80-second demo with sound</span>
+                    </span>
+                </button>
                 <div id="demo-video-ended" class="video-end-card" hidden aria-live="polite" aria-label="Video finished">
                     <div class="video-end-inner">
                         <p class="eyebrow">You've seen the demo</p>
@@ -27,10 +35,11 @@
                 </div>
             </div>
             <div class="watch-under">
-                <p><strong>About 80 seconds.</strong> Starts muted when your browser permits autoplay. <button id="demo-sound" type="button" class="demo-sound-button">Restart with sound</button></p>
+                <p><strong>About 80 seconds.</strong> Click to watch with sound. No automatic playback.</p>
                 <a class="text-link" href="#demo-contact">Ask about CodeJet</a>
             </div>
-            <noscript><p>The embedded player and contact form need JavaScript. <a href="{{ video_embed }}">Open the demo directly</a> or <a href="mailto:jbroach@codejet.app">email CodeJet</a>.</p></noscript>
+            <p id="demo-play-error" class="demo-play-error" hidden role="status">Playback didn't start. Use the play control in the player above.</p>
+            <noscript><style>.demo-play-cover { display: none !important; }</style><p>The embedded player and contact form need JavaScript. <a href="{{ video_embed }}">Open the demo directly</a> or <a href="mailto:sales@codejet.app">email CodeJet</a>.</p></noscript>
         </div>
         <aside class="demo-contact-card" id="demo-contact" aria-labelledby="demo-contact-title">
             <p class="eyebrow">Explore an AI partnership</p>
@@ -54,7 +63,7 @@
                 <p class="demo-form-error" role="alert" hidden>Verification is unavailable. Please try again shortly, or email us directly.</p>
                 <button class="button primary demo-submit" type="submit">Talk with CodeJet</button>
             </form>
-            <p class="demo-contact-alt">Prefer email? <a href="mailto:jbroach@codejet.app">jbroach@codejet.app</a></p>
+            <p class="demo-contact-alt">Prefer email? <a href="mailto:sales@codejet.app">sales@codejet.app</a></p>
         </aside>
     </div>
 </section>
