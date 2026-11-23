@@ -12,6 +12,8 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
   const playEvents = {};
   const playCover = { hidden: false, dataset: {}, addEventListener: (name, fn) => { playEvents[name] = fn; } };
   const playError = { hidden: true };
+  const lock = new Set(['demo-play-locked']);
+  const videoShell = { classList: { contains: name => lock.has(name), remove: name => lock.delete(name) } }; 
   const replay = { addEventListener: (name, fn) => { replayEvents[name] = fn; } };
   const contact = { classList: { classes: [], add(x) { this.classes.push(x); } } };
   const ctaEvents = {};
@@ -35,7 +37,7 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
     addEventListener: (name, fn) => { playerEvents[name] = fn; },
     play() { this.playCalls++; return Promise.resolve(); }
   };
-  const elements = { 'stream-player': {}, 'demo-video-ended': endCard, 'demo-replay': replay, 'demo-contact': contact, 'demo-play': playCover, 'demo-play-error': playError };
+  const elements = { 'stream-player': {}, 'demo-video-ended': endCard, 'demo-replay': replay, 'demo-contact': contact, 'demo-play': playCover, 'demo-play-error': playError, 'demo-video-shell': videoShell };
   const document = {
     getElementById: id => elements[id],
     querySelector: selector => selector === '[data-cj-demo-form]' ? form : null,
@@ -49,7 +51,7 @@ function page({ sdk = true, captchaAvailable = true, captchaToken = 'TOKEN' } = 
   };
   vm.runInNewContext(code, { window, document, Array });
   return { window, document, player, playerEvents, endCard, replayEvents, replay,
-    contact, ctaEvents, playCover, playEvents, playError, formEvents, form, submitButton, captchaInput, error };
+    contact, ctaEvents, playCover, playEvents, playError, videoShell, formEvents, form, submitButton, captchaInput, error };
 }
 
 test('the existing analytics player is exposed and the completion CTA appears', () => {
@@ -75,12 +77,14 @@ test('video does not play until the user clicks the large Play with sound button
   const p = page();
   assert.equal(p.player.playCalls, 0);
   assert.equal(p.playCover.hidden, false);
+  assert.equal(p.videoShell.classList.contains('demo-play-locked'), true);
   assert.equal(p.playCover.dataset.playerReady, 'true');
   p.playEvents.click();
   assert.equal(p.player.currentTime, 0);
   assert.equal(p.player.muted, false);
   assert.equal(p.player.playCalls, 1);
   assert.equal(p.playCover.hidden, true);
+  assert.equal(p.videoShell.classList.contains('demo-play-locked'), false);
 });
 
 test('replay uses sound and does not count as automatic playback', () => {
@@ -97,6 +101,7 @@ test('missing player SDK reveals native iframe controls on click', () => {
   assert.equal(p.playError.hidden, true);
   p.playEvents.click();
   assert.equal(p.playCover.hidden, true);
+  assert.equal(p.videoShell.classList.contains('demo-play-locked'), false);
   assert.equal(p.playError.hidden, false);
 });
 

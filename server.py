@@ -22,7 +22,7 @@ RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT")
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
-CONTACT_RECIPIENT = os.getenv("CJ_CONTACT_RECIPIENT", "sales@codejet.app").strip()
+CONTACT_RECIPIENT = (os.getenv("CJ_CONTACT_RECIPIENT") or "jbroach@codejet.app").strip()
 
 # Input validation also prevents untrusted strings being inserted into mail headers.
 EMAIL_PATTERN = re.compile(r"[^@\s<>]+@[^@\s<>]+\.[^@\s<>]+\Z")
@@ -150,6 +150,9 @@ def send_email():
             connection.starttls(context=ssl.create_default_context())
             connection.login(user=SMTP_EMAIL, password=SMTP_PASS)
             connection.send_message(email, from_addr=SMTP_EMAIL, to_addrs=[CONTACT_RECIPIENT])
+        # Records SMTP acceptance only, not end-to-end mailbox delivery. No visitor PII logged.
+        app.logger.info("Contact inquiry accepted by Gmail SMTP (source=%s; destination=%s)",
+                        "demo" if source_page == "demo" else "website", CONTACT_RECIPIENT)
     except SMTPResponseException as exc:
         # The SMTP response text may contain sensitive context; only log its code.
         app.logger.error("Contact email rejected by SMTP (code=%s)", exc.smtp_code)

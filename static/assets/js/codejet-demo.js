@@ -7,6 +7,15 @@
     var contact = document.getElementById('demo-contact');
     var playCover = document.getElementById('demo-play');
     var playError = document.getElementById('demo-play-error');
+    var videoShell = document.getElementById('demo-video-shell');
+
+    function revealPlayer() {
+        // Hide the native iframe play affordance on iOS until the user clicks the
+        // full-size poster button, avoiding the double-button Safari overlay.
+        if (videoShell && videoShell.classList) videoShell.classList.remove('demo-play-locked');
+        if (playCover) playCover.hidden = true;
+    }
+
 
     if (iframe && typeof window.Stream === 'function') {
         try {
@@ -26,7 +35,7 @@
                 playCover.addEventListener('click', function () {
                     if (finished) finished.hidden = true;
                     if (playError) playError.hidden = true;
-                    playCover.hidden = true; // reveal native player controls if SDK play fails
+                    revealPlayer(); // reveal native controls if SDK playback is rejected
                     try {
                         player.currentTime = 0;
                         player.muted = false;
@@ -64,7 +73,7 @@
     // When the SDK is unavailable, a click reveals the embedded native controls.
     if (playCover && !playCover.dataset.playerReady) {
         playCover.addEventListener('click', function () {
-            playCover.hidden = true;
+            revealPlayer();
             if (playError) playError.hidden = false;
         });
     }

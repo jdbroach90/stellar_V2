@@ -178,3 +178,11 @@ ul { padding-left: 1.3rem; }
 .demo-play-error { color: #9d171f; font-size: 13px; margin: 0 0 8px; }
 @media (max-width: 470px) { .demo-play-symbol { width: 58px; height: 58px; font-size: 22px; } .demo-play-copy { gap: 5px; } }
 @media (prefers-reduced-motion: reduce) { .demo-play-symbol { transition: none; } }
+
+/* iOS Safari can composite the cross-origin player's native play control above
+   page overlays. Keep its entire frame invisible until the one large CTA is clicked. */
+.video-player.demo-play-locked iframe {
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}

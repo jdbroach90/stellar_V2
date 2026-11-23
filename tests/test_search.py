@@ -91,6 +91,8 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(options['startTime'], ['0'])
         self.assertEqual(options.get('loop'), None)
         self.assertEqual(len(doc.matching('button', id='demo-play')), 1)
+        self.assertEqual(len(doc.matching('div', id='demo-video-shell')), 1)
+        self.assertIn('demo-play-locked', doc.matching('div', id='demo-video-shell')[0]['class'])
         self.assertIn('Play the 80-second demo with sound', body)
         self.assertIn('mailto:sales@codejet.app', body)
         self.assertNotIn('jbroach@codejet.app', body)
