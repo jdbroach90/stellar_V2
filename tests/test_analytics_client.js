@@ -10,8 +10,7 @@ const {webcrypto} = require('node:crypto');
 
 const repo = path.resolve(__dirname, '..');
 const tracker = fs.readFileSync(path.join(repo, 'static/assets/js/codejet-analytics.js'), 'utf8');
-const demo = fs.readFileSync(path.join(repo, 'templates/demo.html'), 'utf8');
-const demoInline = demo.match(/<script>\s*([\s\S]*?)<\/script>/)[1];
+const demoScript = fs.readFileSync(path.join(repo, 'static/assets/js/codejet-demo.js'), 'utf8');
 const storageKey = 'codejet_demo_visit_v1';
 
 function timeRanges(pairs) {
@@ -48,8 +47,9 @@ function harness(options = {}) {
     const document = {
         referrer: options.referrer || '',
         visibilityState: 'visible',
-        querySelector: () => tag,
-        getElementById: () => ({}),
+        querySelector: selector => selector === 'script[data-cj-analytics]' ? tag : null,
+        querySelectorAll: () => [],
+        getElementById: id => id === 'stream-player' ? {} : null,
         addEventListener(name, fn) { (docListeners[name] ||= []).push(fn); },
         emit(name) { for (const fn of docListeners[name] || []) fn(); }
     };
@@ -58,6 +58,7 @@ function harness(options = {}) {
     }
     const window = {
         crypto: webcrypto,
+        Stream: () => player,
         location: {search: options.search || '', href: 'https://codejet.app' + page},
         sessionStorage: {
             getItem(key) { if (options.blockStorage) throw new Error('Storage blocked'); return stored.get(key) || null; },
@@ -83,7 +84,7 @@ function harness(options = {}) {
         setTimeout: window.setTimeout,
         Stream: () => player
     });
-    if (page === '/demo') vm.runInContext(demoInline, context);
+    if (page === '/demo') vm.runInContext(demoScript, context);
     vm.runInContext(tracker, context);
     async function settle() { for (let i = 0; i < 40; i++) await Promise.resolve(); }
     async function advance(ms) {

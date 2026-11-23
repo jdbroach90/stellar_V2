@@ -72,6 +72,30 @@ class ContactTests(unittest.TestCase):
             self.assertIn("Interested in a demo.", msg.get_content())
 
     @patch.object(server.requests, "post")
+    def test_demo_inquiry_adds_company_and_campaign_but_never_trusts_headers(self, post):
+        post.return_value = self.captcha_ok()
+        data = {**self.form, "company": "Sample Retail", "source_page": "demo",
+                "utm_source": "google", "utm_medium": "cpc", "utm_campaign": "retail_analytics"}
+        with patch.object(server, "SMTP") as smtp_class:
+            response = self.client.post("/send_email", data=data)
+            self.assertEqual(response.status_code, 200)
+            msg = smtp_class.return_value.__enter__.return_value.send_message.call_args.args[0]
+            self.assertEqual(msg["To"], "jbroach@codejet.app")
+            self.assertEqual(msg["Reply-To"], "customer@example.com")
+            self.assertIn("CodeJet demo inquiry", msg["Subject"])
+            self.assertIn("Company: Sample Retail", msg.get_content())
+            self.assertIn("Source: CodeJet demo form", msg.get_content())
+            self.assertIn("utm_source: google", msg.get_content())
+    @patch.object(server.requests, "post")
+    def test_demo_inquiry_rejects_header_control_characters_in_company(self, post):
+        post.return_value = self.captcha_ok()
+        data = {**self.form, "company": "Retail\r\nBcc: bad@example.com", "source_page": "demo"}
+        with patch.object(server, "SMTP") as smtp_class:
+            response = self.client.post("/send_email", data=data)
+            self.assertEqual(response.status_code, 400)
+            smtp_class.assert_not_called()
+
+    @patch.object(server.requests, "post")
     def test_smtp_errors_have_no_private_data(self, post):
         post.return_value = self.captcha_ok()
         with patch.object(server, "SMTP") as smtp_class:

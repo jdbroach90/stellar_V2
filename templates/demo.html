@@ -1,16 +1,62 @@
 {% extends 'search/base.html' %}
-{% block extra_head %}<link rel="preconnect" href="https://customer-0k2chsytrbkmpgjr.cloudflarestream.com">{% endblock %}
+{% block extra_head %}
+<link rel="preconnect" href="https://customer-0k2chsytrbkmpgjr.cloudflarestream.com">
+<script defer src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key|urlencode }}"></script>
+{% endblock %}
 {% block content %}
 <section class="watch-page shell" aria-labelledby="demo-title">
-    <div class="watch-heading"><p class="eyebrow">The CodeJet demo</p><h1 id="demo-title">See retail intelligence in action.</h1><p class="lead">A more direct way to ask questions of the reporting your team already trusts.</p></div>
-    <div class="video-player">
-        <iframe id="stream-player" title="CodeJet retail intelligence software demo"
-                src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}"
-                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
-                allowfullscreen></iframe>
+    <div class="watch-heading">
+        <p class="eyebrow">The CodeJet demo</p>
+        <h1 id="demo-title">See retail intelligence in action.</h1>
+        <p class="lead">A faster way to ask questions of the retail reports your team already trusts.</p>
     </div>
-    <div class="watch-under"><p>No form required to watch.</p><a class="text-link" href="{{ campaign_url('/#contact') }}">Discuss an AI partnership</a></div>
-    <noscript><p>The embedded video needs JavaScript. <a href="{{ video_embed }}">Open the video player directly</a>.</p></noscript>
+    <div class="demo-conversion-layout">
+        <div class="demo-video-column">
+            <div class="video-player">
+                <iframe id="stream-player" title="CodeJet retail intelligence software demo"
+                        src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}&amp;autoplay=true&amp;muted=true&amp;startTime=0"
+                        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+                        loading="eager" allowfullscreen></iframe>
+                <div id="demo-video-ended" class="video-end-card" hidden aria-live="polite" aria-label="Video finished">
+                    <div class="video-end-inner">
+                        <p class="eyebrow">You've seen the demo</p>
+                        <h2>What could CodeJet answer for your team?</h2>
+                        <a class="button primary" href="#demo-contact">Talk to us about your reports</a>
+                        <button type="button" class="demo-replay" id="demo-replay">Replay the video</button>
+                    </div>
+                </div>
+            </div>
+            <div class="watch-under">
+                <p><strong>About 80 seconds.</strong> Starts muted when your browser permits autoplay. <button id="demo-sound" type="button" class="demo-sound-button">Restart with sound</button></p>
+                <a class="text-link" href="#demo-contact">Ask about CodeJet</a>
+            </div>
+            <noscript><p>The embedded player and contact form need JavaScript. <a href="{{ video_embed }}">Open the demo directly</a> or <a href="mailto:jbroach@codejet.app">email CodeJet</a>.</p></noscript>
+        </div>
+        <aside class="demo-contact-card" id="demo-contact" aria-labelledby="demo-contact-title">
+            <p class="eyebrow">Explore an AI partnership</p>
+            <h2 id="demo-contact-title">Could this work with your retail reports?</h2>
+            <p>Tell us where your reporting takes time. We'll discuss a practical first use case using the data and definitions you already have.</p>
+            <form id="codejet-demo-form" class="demo-contact-form" action="{{ url_for('send_email') }}" method="post" data-cj-demo-form data-site-key="{{ recaptcha_site_key }}">
+                <div class="demo-form-names">
+                    <label>First name <input type="text" name="first_name" required maxlength="100" autocomplete="given-name"></label>
+                    <label>Last name <input type="text" name="last_name" required maxlength="100" autocomplete="family-name"></label>
+                </div>
+                <label>Work email <input type="email" name="email" required maxlength="254" autocomplete="email"></label>
+                <label>Company <input type="text" name="company" maxlength="120" autocomplete="organization" placeholder="Optional"></label>
+                <label>What would you like to explore?
+                    <textarea name="message" rows="3" required maxlength="4000">I'd like to explore how CodeJet could use our existing retail reports.</textarea>
+                </label>
+                <input type="hidden" name="source_page" value="demo">
+                {% for field in ('utm_source', 'utm_medium', 'utm_campaign', 'utm_content') %}
+                <input type="hidden" name="{{ field }}" value="{{ request.args.get(field, '')[:100] }}">
+                {% endfor %}
+                <input type="hidden" name="g-recaptcha-response" value="">
+                <p class="demo-form-error" role="alert" hidden>Verification is unavailable. Please try again shortly, or email us directly.</p>
+                <button class="button primary demo-submit" type="submit">Talk with CodeJet</button>
+            </form>
+            <p class="demo-contact-alt">Prefer email? <a href="mailto:jbroach@codejet.app">jbroach@codejet.app</a></p>
+        </aside>
+    </div>
 </section>
 <section class="shell demo-description">
     <div><p class="eyebrow">Built around your reporting context</p><h2>Retail questions need the meaning behind the numbers.</h2></div>
@@ -18,16 +64,11 @@
 </section>
 <section class="shell next-step" aria-labelledby="next-title">
     <div><p class="eyebrow">Bring the question that slows you down</p><h2 id="next-title">Let's talk about your report infrastructure.</h2><p>Choose a sales, margin, inventory, or reporting question to evaluate together.</p></div>
-    <div class="actions"><a class="button primary" href="{{ campaign_url('/#contact') }}">Discuss an AI partnership</a><a class="text-link" href="{{ campaign_url('/retail-analytics-software') }}">Explore the platform</a></div>
+    <div class="actions"><a class="button primary" href="#demo-contact">Discuss an AI partnership</a><a class="text-link" href="{{ campaign_url('/retail-analytics-software') }}">Explore the platform</a></div>
 </section>
 <nav class="shell related" aria-label="Related reading"><h2>Take a closer look</h2><a href="{{ campaign_url('/retail-reporting-automation') }}">Find a recurring reporting workflow</a><a href="{{ campaign_url('/retail-data-questions') }}">Choose a specific retail data question</a></nav>
 {% endblock %}
 {% block scripts %}
 <script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
-<script>
-    // The iframe still works if optional analytics or the SDK is unavailable.
-    if (typeof Stream === 'function') {
-        window.codejetDemoPlayer = Stream(document.getElementById('stream-player'));
-    }
-</script>
+<script src="{{ url_for('static', filename='assets/js/codejet-demo.js') }}"></script>
 {% endblock %}

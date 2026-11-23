@@ -19,6 +19,7 @@ init_analytics(app)
 init_seo(app)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
+RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT")
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
 CONTACT_RECIPIENT = "jbroach@codejet.app"
@@ -39,7 +40,7 @@ def home():
 
 @app.get("/demo")
 def demo():
-    return render_template("demo.html", **public_context("/demo"))
+    return render_template("demo.html", recaptcha_site_key=RECAPTCHA_SITE_KEY, **public_context("/demo"))
 
 
 @app.get("/elements")
@@ -101,6 +102,8 @@ def send_email():
     first_name = (request.form.get("first_name") or "").strip()
     last_name = (request.form.get("last_name") or "").strip()
     message_body = (request.form.get("message") or "").strip()
+    company = (request.form.get("company") or "").strip()
+    source_page = (request.form.get("source_page") or "").strip()
 
     if not all((from_email, first_name, last_name, message_body)):
         return failure("Please complete every field before submitting the form.", 400)
@@ -112,6 +115,9 @@ def send_email():
         or len(from_email) > 254
         or len(first_name) > 100
         or len(last_name) > 100
+        or len(company) > 120
+        or len(message_body) > 4000
+        or any(ord(char) < 32 or ord(char) == 127 for char in company)
         or any(ord(char) < 32 or ord(char) == 127 for part in header_parts for char in part)
     ):
         return failure("Please enter a valid name and business email.", 400)
@@ -125,8 +131,19 @@ def send_email():
         email["From"] = SMTP_EMAIL
         email["To"] = CONTACT_RECIPIENT
         email["Reply-To"] = from_email
-        email["Subject"] = f"New Inquiry from {first_name} {last_name} at {from_email}!"
-        email.set_content(message_body)
+        email["Subject"] = (f"CodeJet demo inquiry from {first_name} {last_name}" if source_page == "demo"
+                            else f"New Inquiry from {first_name} {last_name} at {from_email}!")
+        # Only a known page label can be attached; no arbitrary form data in headers.
+        context = []
+        if company:
+            context.append(f"Company: {company}")
+        if source_page == "demo":
+            context.append("Source: CodeJet demo form")
+            for key in ("utm_source", "utm_medium", "utm_campaign", "utm_content"):
+                value = (request.form.get(key) or "").strip()
+                if 0 < len(value) <= 100 and not any(ord(c) < 32 or ord(c) == 127 for c in value):
+                    context.append(f"{key}: {value}")
+        email.set_content(message_body + ("\n\n" + "\n".join(context) if context else ""))
 
         # Preserve the current Gmail SMTP host, port, STARTTLS, login and recipient.
         with SMTP("smtp.gmail.com", 587, timeout=20) as connection:

@@ -126,3 +126,40 @@ ul { padding-left: 1.3rem; }
     .demo-description h2 { font-size: 28px; }
 }
 @media(prefers-reduced-motion:no-preference) { html { scroll-behavior: smooth; } .button { transition: background-color .15s; } }
+
+/* Paid-search demo: a prominent player and a complete, same-page lead funnel. */
+.watch-page { max-width: 1320px; }
+.demo-conversion-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(310px, .9fr); gap: 28px; align-items: start; margin-bottom: 20px; }
+.demo-video-column { min-width: 0; }
+.video-end-card { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; z-index: 2; background: rgba(14,17,22,.96); color: #fff; padding: 26px; }
+.video-end-card[hidden], .demo-form-error[hidden] { display: none !important; }
+.video-end-inner { max-width: 420px; }
+.video-end-inner h2 { color: #fff; font-size: clamp(22px,2.4vw,32px); margin-bottom: 18px; }
+.video-end-card .eyebrow { color: #ff979b; margin-bottom: 8px; }
+.video-end-card .button { margin-bottom: 11px; }
+.demo-replay { border: 0; background: none; color: #fff; text-decoration: underline; display: block; margin: 0 auto; padding: 10px 12px; font: inherit; cursor: pointer; }
+.demo-replay:focus-visible { outline: 3px solid #fff; }
+.demo-contact-card { scroll-margin-top: 18px; border-radius: 10px; border: 1px solid #dedfe4; border-top: 5px solid var(--red); background: #fff; box-shadow: 0 8px 25px rgba(16,25,36,.07); padding: 25px; }
+.demo-contact-card .eyebrow { margin-bottom: 7px; font-size: 12px; }
+.demo-contact-card h2 { font-size: 27px; margin-bottom: 11px; }
+.demo-contact-card > p { font-size: 14px; color: var(--muted); line-height: 1.5; margin-bottom: 16px; }
+.demo-contact-form { display: grid; gap: 12px; }
+.demo-form-names { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.demo-contact-form label { display: block; font-size: 13px; color: var(--ink); font-weight: 700; line-height: 1.4; }
+.demo-contact-form input:not([type="hidden"]), .demo-contact-form textarea { display: block; box-sizing: border-box; width: 100%; min-height: 42px; margin-top: 5px; border-radius: 5px; border: 1px solid #aab0bb; font: 15px/1.35 Arial,sans-serif; padding: 9px 11px; color: var(--ink); background: #fff; }
+.demo-contact-form textarea { min-height: 82px; resize: vertical; }
+.demo-contact-form input:focus-visible, .demo-contact-form textarea:focus-visible { outline: 3px solid #1a6cda; outline-offset: 1px; }
+.demo-contact-form .demo-submit { width: 100%; border: 0; cursor: pointer; }
+.demo-contact-form .demo-submit:disabled { opacity: .55; cursor: wait; }
+.demo-form-error { font-size: 13px; color: #ab161d; margin: 0; }
+.demo-contact-card .demo-contact-alt { font-size: 13px; margin: 12px 0 0; text-align: center; }
+.demo-contact-highlight { box-shadow: 0 0 0 3px rgba(215,25,32,.16), 0 8px 25px rgba(16,25,36,.07); }
+.watch-under { gap: 20px; align-items: flex-start; }
+.watch-under p { max-width: 570px; line-height: 1.5; }
+.watch-under .text-link { white-space: nowrap; }
+@media(max-width: 1020px) { .demo-conversion-layout { grid-template-columns: 1fr; max-width: 780px; margin-inline: auto; } .demo-contact-card { max-width: 650px; width: 100%; margin-inline: auto; } }
+@media(max-width: 470px) { .demo-form-names { grid-template-columns: 1fr; } .demo-contact-card { padding: 20px 17px; } .watch-under .text-link { white-space: normal; } }
+
+.demo-sound-button { color: var(--red-dark); border: 0; background: none; padding: 0; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.demo-sound-button:focus-visible { outline: 3px solid #1a6cda; outline-offset: 3px; }
+@media(max-width: 470px) { .video-end-card { padding: 8px; } .video-end-card .eyebrow { display: none; } .video-end-inner h2 { font-size: 18px; margin-bottom: 8px; } .video-end-card .button { min-height: 34px; padding: 6px 8px; font-size: 13px; margin-bottom: 3px; } .demo-replay { padding: 3px; font-size: 13px; } }
