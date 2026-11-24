@@ -8,9 +8,12 @@ from smtplib import SMTP, SMTPResponseException
 
 import requests
 from dotenv import load_dotenv
-from flask import Flask, Response, render_template, request
+from flask import Flask, Response, jsonify, render_template, request
 from codejet_analytics import init_analytics
 from codejet_seo import init_seo, public_context
+from codejet_demo_qualification import (
+    COOKIE_NAME, START_TTL, derive_secret, issue_start, qualify, validate_qualified,
+)
 
 # Local development uses .env; Render uses its service environment variables.
 load_dotenv(dotenv_path=".env")
@@ -23,6 +26,8 @@ RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "6LehmW0rAAAAANOuTO8pxfN_WL
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
 CONTACT_RECIPIENT = (os.getenv("CJ_CONTACT_RECIPIENT") or "jbroach@codejet.app").strip()
+DEMO_ENGAGEMENT_SECRET = derive_secret(os.getenv("CJ_DEMO_ENGAGEMENT_SECRET", ""),
+                                      os.getenv("CJ_ANALYTICS_ORIGIN_KEY", ""))
 
 # The supplied Google tag ID is public (not an authentication secret). Keep it
 # centralized so it is loaded once on each public HTML page, not on private
@@ -55,6 +60,46 @@ def home():
 @app.get("/demo")
 def demo():
     return render_template("demo.html", recaptcha_site_key=RECAPTCHA_SITE_KEY, **public_context("/demo"))
+
+
+@app.post("/demo/watch/start")
+def demo_watch_start():
+    """Mint a short-lived token only after the visitor clicks the demo Play button."""
+    if not DEMO_ENGAGEMENT_SECRET:
+        app.logger.warning("Demo qualification is not configured; regular inquiries remain available")
+        return jsonify({"error": "unavailable"}), 503
+    if not request.is_json:
+        return jsonify({"error": "invalid_request"}), 415
+    issued = issue_start(DEMO_ENGAGEMENT_SECRET)
+    if not issued:
+        return jsonify({"error": "unavailable"}), 503
+    token, nonce = issued
+    response = jsonify({"watch_token": token})
+    response.headers["Cache-Control"] = "no-store"
+    response.set_cookie(COOKIE_NAME, nonce, max_age=START_TTL + 1800, httponly=True,
+                        secure=request.is_secure or request.host.split(":")[0] in {"codejet.app", "www.codejet.app"},
+                        samesite="Lax", path="/")
+    return response
+
+
+@app.post("/demo/watch/qualify")
+def demo_watch_qualify():
+    """Check reported played ranges and elapsed time; never include visitor PII."""
+    if not DEMO_ENGAGEMENT_SECRET:
+        return jsonify({"error": "unavailable"}), 503
+    if not request.is_json:
+        return jsonify({"error": "invalid_request"}), 415
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        return jsonify({"error": "invalid_request"}), 400
+    token = qualify(DEMO_ENGAGEMENT_SECRET, data.get("watch_token", ""),
+                    request.cookies.get(COOKIE_NAME, ""),
+                    data.get("played_seconds"), data.get("duration_seconds"))
+    if token is None:
+        return jsonify({"error": "not_qualified"}), 403
+    result = jsonify({"qualified_token": token})
+    result.headers["Cache-Control"] = "no-store"
+    return result
 
 
 @app.get("/elements")
@@ -136,6 +181,15 @@ def send_email():
     ):
         return failure("Please enter a valid name and business email.", 400)
 
+    # This is independent of whether someone may contact us. Only an inquiry
+    # following a deliberate player click and >=50% reported viewing qualifies
+    # for the Google Ads conversion; no video watch is required to contact us.
+    qualified_demo_id = (validate_qualified(
+        DEMO_ENGAGEMENT_SECRET,
+        request.form.get("demo_qualified_token", ""),
+        request.cookies.get(COOKIE_NAME, ""),
+    ) if source_page == "demo" else None)
+
     if not SMTP_EMAIL or not SMTP_PASS:
         app.logger.error("SMTP configuration is missing")
         return failure("Message delivery is temporarily unavailable. Please try again later.", 503)
@@ -153,6 +207,8 @@ def send_email():
             context.append(f"Company: {company}")
         if source_page == "demo":
             context.append("Source: CodeJet demo form")
+            if qualified_demo_id:
+                context.append("Demo engagement: click-to-play and >=50% browser-reported playback")
             for key in ("utm_source", "utm_medium", "utm_campaign", "utm_content"):
                 value = (request.form.get(key) or "").strip()
                 if 0 < len(value) <= 100 and not any(ord(c) < 32 or ord(c) == 127 for c in value):
@@ -180,7 +236,8 @@ def send_email():
     # Only a successfully accepted inquiry gets the event. Do NOT send personal
     # information, free-form text, or an email address to Google analytics.
     return render_template("email_success.html", result=message, lead_accepted=True,
-                           lead_source="demo" if source_page == "demo" else "homepage")
+                           lead_source="demo" if source_page == "demo" else "homepage",
+                           qualified_demo_id=qualified_demo_id), 200, {"Cache-Control": "no-store"}
 
 
 if __name__ == "__main__":

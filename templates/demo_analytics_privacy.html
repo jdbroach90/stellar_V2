@@ -23,9 +23,14 @@
     traffic and successful inquiry submissions. That is third-party advertising
     measurement, separate from CodeJet's first-party video analytics. Google may
     process browser and device information and use cookies according to its policies.
-    When enabled, the site emits a non-identifying <code>codejet_lead_success</code>
-    event only after an inquiry is accepted by the mail server. The event contains
-    a general form-location label, not your name, email, company, or message.</p>
+    After the mail server accepts an inquiry, the site emits the non-identifying
+    <code>codejet_inquiry_accepted</code> event. A separate
+    <code>codejet_demo_engaged_lead</code> event is emitted only when the inquiry
+    follows a click to play the demo and at least half of the video's reported
+    playback coverage. A short-lived, first-party session cookie is used to
+    associate that playback with the inquiry; it does not store your contact details.
+    Events contain no name, email, company, or message. Playback is based on
+    browser-reported ranges, not verified human attention.</p>
   <p>Playback coverage is based on the player’s reported played ranges. It does not establish
     who watched the video or whether they paid attention. The embedded video is delivered by
     Cloudflare Stream, which processes video requests separately.</p>

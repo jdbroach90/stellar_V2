@@ -10,8 +10,19 @@
     <script>
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            'event': 'codejet_lead_success',
+            'event': 'codejet_inquiry_accepted',
             'form_location': {{ lead_source | tojson }}
+        });
+    </script>
+    {% endif %}
+    {# Only a deliberate click + >=50% watched + SMTP-accepted form is an Ads lead. #}
+    {% if cj_google_tag_id and qualified_demo_id | default(none) %}
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'codejet_demo_engaged_lead',
+            'form_location': 'demo',
+            'transaction_id': {{ qualified_demo_id | tojson }}
         });
     </script>
     {% endif %}

@@ -15,6 +15,8 @@ class GoogleTagTests(unittest.TestCase):
         server.RECAPTCHA_SECRET_KEY = 'test-recaptcha-secret'
         server.SMTP_EMAIL = 'test-sender@example.com'
         server.SMTP_PASS = 'test-password'
+        self.old_demo_secret = server.DEMO_ENGAGEMENT_SECRET
+        server.DEMO_ENGAGEMENT_SECRET = 'x' * 64
         self.form = {"g-recaptcha-response": "TEST_TOKEN", "email": "customer@example.com",
                      "first_name": "Test", "last_name": "Customer", "message": "Interested in CodeJet",
                      "source_page": "demo"}
@@ -23,6 +25,7 @@ class GoogleTagTests(unittest.TestCase):
         server.app.config.clear()
         server.app.config.update(self.old)
         server.RECAPTCHA_SECRET_KEY, server.SMTP_EMAIL, server.SMTP_PASS = self.old_creds
+        server.DEMO_ENGAGEMENT_SECRET = self.old_demo_secret
 
     @staticmethod
     def captcha_ok():
@@ -38,7 +41,7 @@ class GoogleTagTests(unittest.TestCase):
                 self.assertEqual(content.count('gtm.js?id=GTM-TQ6SDXNL'), 1)
                 self.assertEqual(content.count('function gtag()'), 1)
                 self.assertNotIn('UA-226912949-1', content)
-                self.assertNotIn('codejet_lead_success', content)
+                self.assertNotIn('codejet_demo_engaged_lead', content)
         for path in ('/health', '/elements', '/_cj/analytics'):
             self.assertNotIn('GTM-TQ6SDXNL', self.client.get(path).get_data(as_text=True))
 
@@ -47,7 +50,8 @@ class GoogleTagTests(unittest.TestCase):
              patch.object(server, 'SMTP'):
             content = self.client.post('/send_email', data=self.form).get_data(as_text=True)
         self.assertEqual(content.count('gtm.js?id=GTM-TQ6SDXNL'), 1)
-        self.assertEqual(content.count("'event': 'codejet_lead_success'"), 1)
+        self.assertEqual(content.count("'event': 'codejet_inquiry_accepted'"), 1)
+        self.assertNotIn("'event': 'codejet_demo_engaged_lead'", content)
         self.assertIn('"demo"', content)
         self.assertNotIn('customer@example.com', content)
         self.assertNotIn('TEST_TOKEN', content)
@@ -58,13 +62,46 @@ class GoogleTagTests(unittest.TestCase):
     def test_no_conversion_on_rejected_inquiries(self):
         response = self.client.post('/send_email', data={**self.form, 'g-recaptcha-response': ''})
         self.assertEqual(response.status_code, 400)
-        self.assertNotIn('codejet_lead_success', response.get_data(as_text=True))
+        self.assertNotIn('codejet_demo_engaged_lead', response.get_data(as_text=True))
         with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
              patch.object(server, 'SMTP') as smtp:
             smtp.return_value.__enter__.return_value.send_message.side_effect = RuntimeError('test failure')
             response = self.client.post('/send_email', data=self.form)
             self.assertEqual(response.status_code, 502)
-            self.assertNotIn('codejet_lead_success', response.get_data(as_text=True))
+            self.assertNotIn('codejet_demo_engaged_lead', response.get_data(as_text=True))
+
+    def test_only_a_valid_watched_demo_form_emits_qualified_lead(self):
+        import time
+        from codejet_demo_qualification import serializer
+        start = self.client.post('/demo/watch/start', json={})
+        self.assertEqual(start.status_code, 200)
+        token = start.get_json()['watch_token']
+        payload = serializer(server.DEMO_ENGAGEMENT_SECRET).loads(token)
+        payload['started'] = int(time.time()) - 55
+        watched_token = serializer(server.DEMO_ENGAGEMENT_SECRET).dumps(payload)
+        short = self.client.post('/demo/watch/qualify', json={
+            'watch_token': watched_token, 'played_seconds': 12, 'duration_seconds': 81})
+        self.assertEqual(short.status_code, 403)
+        full = self.client.post('/demo/watch/qualify', json={
+            'watch_token': watched_token, 'played_seconds': 45, 'duration_seconds': 81})
+        self.assertEqual(full.status_code, 200)
+        qualified = full.get_json()['qualified_token']
+        with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
+             patch.object(server, 'SMTP'):
+            content = self.client.post('/send_email', data={**self.form,
+                'demo_qualified_token': qualified}).get_data(as_text=True)
+        self.assertEqual(content.count("'event': 'codejet_demo_engaged_lead'"), 1)
+        self.assertEqual(content.count("'event': 'codejet_inquiry_accepted'"), 1)
+        self.assertIn(payload['nonce'], content)
+        self.assertNotIn('customer@example.com', content)
+        self.assertNotIn('TEST_TOKEN', content)
+        # A different browser without the matching flow cookie cannot claim the same token.
+        other = server.app.test_client()
+        with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
+             patch.object(server, 'SMTP'):
+            other_content = other.post('/send_email', data={**self.form,
+                'demo_qualified_token': qualified}).get_data(as_text=True)
+        self.assertNotIn("'event': 'codejet_demo_engaged_lead'", other_content)
 
     def test_tag_switch_is_respected_and_invalid_ids_not_rendered(self):
         server.app.config['CJ_GOOGLE_TAG_ENABLED'] = '0'

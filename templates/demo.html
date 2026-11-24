@@ -59,6 +59,7 @@
                 {% for field in ('utm_source', 'utm_medium', 'utm_campaign', 'utm_content') %}
                 <input type="hidden" name="{{ field }}" value="{{ request.args.get(field, '')[:100] }}">
                 {% endfor %}
+                <input type="hidden" name="demo_qualified_token" value="">
                 <input type="hidden" name="g-recaptcha-response" value="">
                 <p class="demo-form-error" role="alert" hidden>Verification is unavailable. Please try again shortly, or email us directly.</p>
                 <button class="button primary demo-submit" type="submit">Talk with CodeJet</button>
@@ -79,5 +80,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
-<script src="{{ url_for('static', filename='assets/js/codejet-demo.js') }}?v=20261123b"></script>
+<script src="{{ url_for('static', filename='assets/js/codejet-demo.js') }}?v=20261124a"></script>
 {% endblock %}
