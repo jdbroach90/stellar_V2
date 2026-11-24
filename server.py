@@ -3,6 +3,7 @@
 import os
 import re
 import ssl
+import secrets
 from email.message import EmailMessage
 from smtplib import SMTP, SMTPResponseException
 
@@ -167,6 +168,11 @@ def send_email():
     if not all((from_email, first_name, last_name, message_body)):
         return failure("Please complete every field before submitting the form.", 400)
 
+    # The paid-search demo form intentionally requires a company and a genuine,
+    # visitor-entered reporting question; the legacy homepage form is unchanged.
+    if source_page == "demo" and (not company or len(message_body) < 10):
+        return failure("Please provide your company and a short message about your reporting needs.", 400)
+
     # Reject headers with control characters rather than silently modifying input.
     header_parts = (from_email, first_name, last_name)
     if (
@@ -233,10 +239,13 @@ def send_email():
         return failure("We couldn't deliver your message. Please try again later.", 502)
 
     message = "We will be in touch with you soon. Please allow 3 business days for us to respond."
-    # Only a successfully accepted inquiry gets the event. Do NOT send personal
-    # information, free-form text, or an email address to Google analytics.
+    # Only a verified, server-validated, SMTP-accepted inquiry receives this
+    # unique, non-PII transaction ID. GTM uses it to deduplicate ad conversions.
+    # This is an acceptance signal, not proof of final inbox delivery.
+    lead_transaction_id = "cjlead_" + secrets.token_hex(16)
     return render_template("email_success.html", result=message, lead_accepted=True,
                            lead_source="demo" if source_page == "demo" else "homepage",
+                           lead_transaction_id=lead_transaction_id,
                            qualified_demo_id=qualified_demo_id), 200, {"Cache-Control": "no-store"}
 
 

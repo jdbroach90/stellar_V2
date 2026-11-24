@@ -18,7 +18,8 @@ class GoogleTagTests(unittest.TestCase):
         self.old_demo_secret = server.DEMO_ENGAGEMENT_SECRET
         server.DEMO_ENGAGEMENT_SECRET = 'x' * 64
         self.form = {"g-recaptcha-response": "TEST_TOKEN", "email": "customer@example.com",
-                     "first_name": "Test", "last_name": "Customer", "message": "Interested in CodeJet",
+                     "first_name": "Test", "last_name": "Customer", "company": "Sample Store Group",
+                     "message": "Interested in understanding gross profit by store",
                      "source_page": "demo"}
 
     def tearDown(self):
@@ -51,11 +52,13 @@ class GoogleTagTests(unittest.TestCase):
             content = self.client.post('/send_email', data=self.form).get_data(as_text=True)
         self.assertEqual(content.count('gtm.js?id=GTM-TQ6SDXNL'), 1)
         self.assertEqual(content.count("'event': 'codejet_inquiry_accepted'"), 1)
+        self.assertEqual(content.count("'event': 'codejet_form_submitted'"), 1)
+        self.assertRegex(content, r'cjlead_[0-9a-f]{32}')
         self.assertNotIn("'event': 'codejet_demo_engaged_lead'", content)
         self.assertIn('"demo"', content)
         self.assertNotIn('customer@example.com', content)
         self.assertNotIn('TEST_TOKEN', content)
-        self.assertNotIn('Interested in CodeJet', content)
+        self.assertNotIn('Interested in understanding gross profit by store', content)
         self.assertNotIn('send_to', content)
         self.assertIn('noindex, nofollow', content)
 
@@ -63,12 +66,14 @@ class GoogleTagTests(unittest.TestCase):
         response = self.client.post('/send_email', data={**self.form, 'g-recaptcha-response': ''})
         self.assertEqual(response.status_code, 400)
         self.assertNotIn('codejet_demo_engaged_lead', response.get_data(as_text=True))
+        self.assertNotIn('codejet_form_submitted', response.get_data(as_text=True))
         with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
              patch.object(server, 'SMTP') as smtp:
             smtp.return_value.__enter__.return_value.send_message.side_effect = RuntimeError('test failure')
             response = self.client.post('/send_email', data=self.form)
             self.assertEqual(response.status_code, 502)
             self.assertNotIn('codejet_demo_engaged_lead', response.get_data(as_text=True))
+            self.assertNotIn('codejet_form_submitted', response.get_data(as_text=True))
 
     def test_only_a_valid_watched_demo_form_emits_qualified_lead(self):
         import time
@@ -92,6 +97,8 @@ class GoogleTagTests(unittest.TestCase):
                 'demo_qualified_token': qualified}).get_data(as_text=True)
         self.assertEqual(content.count("'event': 'codejet_demo_engaged_lead'"), 1)
         self.assertEqual(content.count("'event': 'codejet_inquiry_accepted'"), 1)
+        self.assertEqual(content.count("'event': 'codejet_form_submitted'"), 1)
+        self.assertRegex(content, r'cjlead_[0-9a-f]{32}')
         self.assertIn(payload['nonce'], content)
         self.assertNotIn('customer@example.com', content)
         self.assertNotIn('TEST_TOKEN', content)
@@ -102,6 +109,41 @@ class GoogleTagTests(unittest.TestCase):
             other_content = other.post('/send_email', data={**self.form,
                 'demo_qualified_token': qualified}).get_data(as_text=True)
         self.assertNotIn("'event': 'codejet_demo_engaged_lead'", other_content)
+
+    def test_demo_form_requires_company_and_customer_written_message(self):
+        for override in ({"company": ""}, {"message": ""}, {"message": "too short"}):
+            with self.subTest(override=override), \
+                 patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
+                 patch.object(server, 'SMTP') as smtp:
+                data = {**self.form, **override}
+                response = self.client.post('/send_email', data=data)
+                self.assertEqual(response.status_code, 400)
+                self.assertNotIn('codejet_form_submitted', response.get_data(as_text=True))
+                smtp.assert_not_called()
+
+    def test_each_accepted_inquiry_gets_a_unique_non_pii_transaction_id(self):
+        import re
+        ids = []
+        for _ in range(2):
+            with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
+                 patch.object(server, 'SMTP'):
+                response = self.client.post('/send_email', data=self.form)
+            self.assertEqual(response.status_code, 200)
+            html = response.get_data(as_text=True)
+            self.assertEqual(html.count("'event': 'codejet_form_submitted'"), 1)
+            ids.extend(re.findall(r'cjlead_[0-9a-f]{32}', html))
+            self.assertNotIn('customer@example.com', html)
+            self.assertNotIn('Sample Store Group', html)
+        self.assertEqual(len(ids), 2)
+        self.assertNotEqual(ids[0], ids[1])
+
+    def test_homepage_remains_eligible_without_company(self):
+        data = {k:v for k,v in self.form.items() if k not in ('company', 'source_page')}
+        with patch.object(server.requests, 'post', return_value=self.captcha_ok()), \
+             patch.object(server, 'SMTP'):
+            response = self.client.post('/send_email', data=data)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("'event': 'codejet_form_submitted'", response.get_data(as_text=True))
 
     def test_tag_switch_is_respected_and_invalid_ids_not_rendered(self):
         server.app.config['CJ_GOOGLE_TAG_ENABLED'] = '0'

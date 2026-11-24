@@ -23,9 +23,11 @@
     traffic and successful inquiry submissions. That is third-party advertising
     measurement, separate from CodeJet's first-party video analytics. Google may
     process browser and device information and use cookies according to its policies.
-    After the mail server accepts an inquiry, the site emits the non-identifying
-    <code>codejet_inquiry_accepted</code> event. A separate
-    <code>codejet_demo_engaged_lead</code> event is emitted only when the inquiry
+    Only after the mail server accepts a validated inquiry, the site emits
+    <code>codejet_form_submitted</code> with a randomly generated, non-identifying
+    transaction ID to help prevent duplicate advertising conversions; the
+    older <code>codejet_inquiry_accepted</code> event remains as a diagnostic.
+    A separate <code>codejet_demo_engaged_lead</code> event is emitted only when the inquiry
     follows a click to play the demo and at least half of the video's reported
     playback coverage. A short-lived, first-party session cookie is used to
     associate that playback with the inquiry; it does not store your contact details.

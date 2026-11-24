@@ -5,10 +5,20 @@
     <title>Message Received | CodeJet</title>
     <meta name="robots" content="noindex, nofollow">
     {% include 'search/google_tag.html' %}
-    {# Set only AFTER the server accepted a legitimate form submission. #}
-    {% if cj_google_tag_id and lead_accepted | default(false) %}
+    {# Never trigger a Google Ads lead on page views or the submit button.
+       This page is rendered only after reCAPTCHA + server-side field validation
+       + Gmail SMTP acceptance. The one-time non-PII ID supports Ads deduplication.
+       Map ONLY codejet_form_submitted to the Primary Ads conversion. #}
+    {% if cj_google_tag_id and lead_accepted | default(false) and lead_transaction_id | default(none) %}
     <script>
         window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'event': 'codejet_form_submitted',
+            'transaction_id': {{ lead_transaction_id | tojson }},
+            'form_location': {{ lead_source | tojson }}
+        });
+        // Backwards-compatible diagnostic event; do not configure it as a
+        // second Primary Google Ads conversion.
         window.dataLayer.push({
             'event': 'codejet_inquiry_accepted',
             'form_location': {{ lead_source | tojson }}

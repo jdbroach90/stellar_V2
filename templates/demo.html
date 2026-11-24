@@ -51,9 +51,9 @@
                     <label>Last name <input type="text" name="last_name" required maxlength="100" autocomplete="family-name"></label>
                 </div>
                 <label>Work email <input type="email" name="email" required maxlength="254" autocomplete="email"></label>
-                <label>Company <input type="text" name="company" maxlength="120" autocomplete="organization" placeholder="Optional"></label>
+                <label>Company <input type="text" name="company" required maxlength="120" autocomplete="organization"></label>
                 <label>What would you like to explore?
-                    <textarea name="message" rows="3" required maxlength="4000">I'd like to explore how CodeJet could use our existing retail reports.</textarea>
+                    <textarea name="message" rows="3" required minlength="10" maxlength="4000" placeholder="For example: We want faster answers about store sales, margins, and inventory."></textarea>
                 </label>
                 <input type="hidden" name="source_page" value="demo">
                 {% for field in ('utm_source', 'utm_medium', 'utm_campaign', 'utm_content') %}
