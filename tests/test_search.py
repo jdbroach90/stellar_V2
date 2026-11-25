@@ -70,13 +70,32 @@ class SearchTests(unittest.TestCase):
         response = self.get("/retail-analytics-software?utm_source=google&utm_campaign=codejet_retail_analytics&utm_content=a%26b&email=private%40example.com&next=https://bad.example")
         doc = Document(response.get_data(as_text=True))
         demo_links = [a["href"] for a in doc.matching("a") if a.get("href", "").startswith("/demo")]
-        self.assertGreater(len(demo_links), 2)
+        # Retail landing is self-contained; the next step no longer redirects to /demo.
+        self.assertEqual(demo_links, [])
         for link in demo_links:
             self.assertEqual(parse_qs(urlsplit(link).query), {
                 "utm_source": ["google"], "utm_campaign": ["codejet_retail_analytics"], "utm_content": ["a&b"]})
         self.assertNotIn("private@example", response.get_data(as_text=True))
         self.assertEqual(doc.matching("link", rel="canonical")[0]["href"], ORIGIN + "/retail-analytics-software")
         self.assertIn("no-store", response.headers["Cache-Control"])
+
+    def test_retail_analytics_landing_has_inline_video_and_form_without_demo_redirect(self):
+        response = self.get('/retail-analytics-software?utm_source=google&utm_medium=cpc&utm_campaign=pilot')
+        self.assertEqual(response.status_code, 200)
+        body = response.get_data(as_text=True)
+        doc = Document(body)
+        self.assertEqual(len(doc.matching('iframe', id='stream-player')), 1)
+        self.assertEqual(len(doc.matching('button', id='demo-play')), 1)
+        self.assertEqual(len(doc.matching('aside', id='demo-contact')), 1)
+        self.assertEqual(len(doc.matching('form', id='codejet-demo-form')), 1)
+        self.assertEqual(len(doc.matching('a', **{'class':'video-preview'})), 0)
+        self.assertIn('name="source_page" value="retail-analytics-software"', body)
+        self.assertIn('name="utm_campaign" value="pilot"', body)
+        self.assertIn('name="utm_medium" value="cpc"', body)
+        self.assertIn('codejet-demo.js', body)
+        self.assertIn('name="company"', body)
+        self.assertIn('name="message"', body)
+        self.assertNotIn('href="/demo" aria-label="Watch the CodeJet', body)
 
     def test_demo_requires_click_to_play_with_sound_and_contact_form_is_on_the_page(self):
         response = self.get('/demo?utm_source=google&utm_medium=cpc&utm_campaign=retail_analytics')

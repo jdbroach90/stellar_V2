@@ -6,7 +6,7 @@
     {% include 'search/meta.html' %}
     {% include 'search/google_tag.html' %}
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/codejet-search.css') }}?v=20261123b">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/codejet-search.css') }}?v=20261125a">
     {% block extra_head %}{% endblock %}
 </head>
 <body>
@@ -20,7 +20,7 @@
             <nav aria-label="Main navigation">
                 <a href="{{ campaign_url('/retail-analytics-software') }}"{% if page_path == '/retail-analytics-software' %} aria-current="page"{% endif %}>Platform</a>
                 <a href="{{ campaign_url('/retail-data-questions') }}"{% if page_path == '/retail-data-questions' %} aria-current="page"{% endif %}>Retail questions</a>
-                <a class="header-cta" href="{{ campaign_url('/demo') }}"{% if page_path == '/demo' %} aria-current="page"{% endif %}>Watch demo</a>
+                <a class="header-cta" href="{% if page_path == '/retail-analytics-software' %}#retail-video{% else %}{{ campaign_url('/demo') }}{% endif %}"{% if page_path == '/demo' %} aria-current="page"{% endif %}>Watch CodeJet</a>
             </nav>
         </div>
     </header>
@@ -38,8 +38,8 @@
     </footer>
     {% block scripts %}{% endblock %}
     {% if cj_analytics_enabled %}
-    <script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}"
-            data-cj-analytics data-cj-page="{{ page_path }}"{% if page_path == '/demo' %} data-cj-video-id="{{ video_id }}"{% endif %}></script>
+    <script defer src="{{ url_for('static', filename='assets/js/codejet-analytics.js') }}?v=20261125a"
+            data-cj-analytics data-cj-page="{{ page_path }}"{% if page_path in ('/demo', '/retail-analytics-software') %} data-cj-video-id="{{ video_id }}"{% endif %}></script>
     {% endif %}
 </body>
 </html>

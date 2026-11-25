@@ -30,8 +30,17 @@ class ConversionContractTests(unittest.TestCase):
         server = (ROOT / 'server.py').read_text()
         self.assertIn('connection.send_message', server)
         self.assertLess(server.index('connection.send_message'), server.index('lead_transaction_id ='))
-        self.assertIn('source_page == "demo" and (not company or len(message_body) < 10)', server)
+        self.assertIn('source_page in {"demo", "retail-analytics-software"} and (not company or len(message_body) < 10)', server)
         self.assertIn('secrets.token_hex(16)', server)
+        self.assertIn('"retail-analytics-software"', server)
+
+    def test_retail_landing_has_visitor_entered_company_and_message(self):
+        html = (ROOT / 'templates/search/_retail_inline_form.html').read_text()
+        self.assertRegex(html, r'name="company"[^>]*\brequired\b')
+        self.assertRegex(html, r'<textarea name="message"[^>]*\brequired\b')
+        self.assertIn('name="source_page" value="retail-analytics-software"', html)
+        self.assertIn('data-cj-demo-form', html)
+        self.assertNotIn('dataLayer.push', html)
 
 if __name__ == '__main__':
     unittest.main()

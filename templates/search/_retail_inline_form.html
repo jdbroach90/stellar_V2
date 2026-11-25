@@ -1,0 +1,41 @@
+{# This is an ordinary contact form, not an ad conversion until the server
+   validates reCAPTCHA, validates all fields and Gmail accepts the message. #}
+<section class="shell retail-contact-section" aria-labelledby="retail-contact-heading">
+    <div class="retail-contact-intro">
+        <p class="eyebrow">Built around your business</p>
+        <h2 id="retail-contact-heading">Bring your reports. Ask better retail questions.</h2>
+        <p>CodeJet is a retail intelligence platform that works with the reporting definitions and sources your team already trusts. Start with one concrete use case—store sales, category margins, inventory, or a reporting question that takes too long.</p>
+        <ul class="retail-proof-list">
+            <li>Use your existing reports and approved definitions</li>
+            <li>Ask follow-up questions in plain English</li>
+            <li>Evaluate one useful workflow before a broader rollout</li>
+        </ul>
+        <p class="retail-contact-note">Prefer to email directly? <a href="mailto:sales@codejet.app">sales@codejet.app</a></p>
+    </div>
+    <aside class="demo-contact-card" id="demo-contact" aria-labelledby="retail-form-heading">
+        <p class="eyebrow">Talk with CodeJet</p>
+        <h2 id="retail-form-heading">Could CodeJet work with your data?</h2>
+        <p>Tell us what your retail team wants to answer faster. We’ll follow up about a practical first use case.</p>
+        <form id="codejet-demo-form" class="demo-contact-form" action="{{ url_for('send_email') }}" method="post"
+              data-cj-demo-form data-site-key="{{ recaptcha_site_key }}">
+            <div class="demo-form-names">
+                <label>First name <input type="text" name="first_name" autocomplete="given-name" maxlength="100" required></label>
+                <label>Last name <input type="text" name="last_name" autocomplete="family-name" maxlength="100" required></label>
+            </div>
+            <label>Work email <input type="email" name="email" autocomplete="email" maxlength="254" required></label>
+            <label>Company <input type="text" name="company" autocomplete="organization" maxlength="120" required></label>
+            <label>What reporting question would you like to answer faster?
+                <textarea name="message" rows="3" minlength="10" maxlength="4000" required placeholder="For example: Why did margins fall at certain stores while sales grew?"></textarea>
+            </label>
+            <input type="hidden" name="source_page" value="retail-analytics-software">
+            {% for field in ('utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term') %}
+            <input type="hidden" name="{{ field }}" value="{{ request.args.get(field, '')[:100] }}">
+            {% endfor %}
+            <input type="hidden" name="demo_qualified_token" value="">
+            <input type="hidden" name="g-recaptcha-response" value="">
+            <p class="demo-form-error" role="alert" hidden>Verification could not be completed. Please try again or email sales@codejet.app.</p>
+            <button class="button primary demo-submit" type="submit">Discuss Your Retail Data</button>
+        </form>
+        <p class="demo-contact-alt">No obligation. <a href="mailto:sales@codejet.app">sales@codejet.app</a></p>
+    </aside>
+</section>

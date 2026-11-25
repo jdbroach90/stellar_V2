@@ -42,7 +42,7 @@ function harness(options = {}) {
     Object.assign(player, options.playerState || {});
     const page = options.page || '/demo';
     const tag = {getAttribute(name) {
-        return {'data-cj-page': page, 'data-cj-video-id': page === '/demo' ? '38ccab99e8156adae4abcfbb1d36cc0f' : ''}[name];
+        return {'data-cj-page': page, 'data-cj-video-id': (page === '/demo' || page === '/retail-analytics-software') ? '38ccab99e8156adae4abcfbb1d36cc0f' : ''}[name];
     }};
     const document = {
         referrer: options.referrer || '',
@@ -84,7 +84,7 @@ function harness(options = {}) {
         setTimeout: window.setTimeout,
         Stream: () => player
     });
-    if (page === '/demo') vm.runInContext(demoScript, context);
+    if (page === '/demo' || page === '/retail-analytics-software') vm.runInContext(demoScript, context);
     vm.runInContext(tracker, context);
     async function settle() { for (let i = 0; i < 40; i++) await Promise.resolve(); }
     async function advance(ms) {
@@ -378,4 +378,15 @@ test('private and arbitrary page names cannot initialize telemetry', async () =>
         await h.settle();
         assert.equal(h.calls.length, 0);
     }
+});
+
+test('retail analytics landing records video playback on its own URL without a redirect', async () => {
+    const h = harness({page: '/retail-analytics-software', search: '?utm_source=google&utm_medium=cpc'});
+    await h.settle();
+    h.player.emit('playing');
+    await h.settle();
+    const start = h.events().find(e => e.event_type === 'video_started');
+    assert.ok(start);
+    assert.equal(start.page, '/retail-analytics-software');
+    assert.equal(start.video_id, '38ccab99e8156adae4abcfbb1d36cc0f');
 });

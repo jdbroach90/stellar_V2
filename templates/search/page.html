@@ -1,15 +1,31 @@
 {% extends 'search/base.html' %}
+{% block extra_head %}
+{% if page_path == '/retail-analytics-software' %}
+<link rel="preconnect" href="https://customer-0k2chsytrbkmpgjr.cloudflarestream.com">
+<script defer src="https://www.google.com/recaptcha/api.js?render={{ recaptcha_site_key|urlencode }}"></script>
+{% endif %}
+{% endblock %}
 {% block content %}
-<section class="hero shell">
+<section class="hero shell{% if page_path == '/retail-analytics-software' %} retail-landing-hero{% endif %}">
     <div class="hero-copy">
         <p class="eyebrow">{{ page.eyebrow }}</p>
         <h1>{{ page.h1 }}</h1>
         <p class="lead">{{ page.lead }}</p>
         <div class="actions">
+            {% if page_path == '/retail-analytics-software' %}
+            <a class="button primary" href="#retail-video">Watch CodeJet Here</a>
+            <a class="text-link" href="#demo-contact">Talk about your reporting</a>
+            {% else %}
             <a class="button primary" href="{{ campaign_url(page.primary_cta.href) }}">{{ page.primary_cta.label }}</a>
             <a class="text-link" href="{{ campaign_url(page.secondary_cta.href) }}">{{ page.secondary_cta.label }}</a>
+            {% endif %}
         </div>
     </div>
+    {% if page_path == '/retail-analytics-software' %}
+    <aside class="hero-demo retail-inline-video" id="retail-video" aria-label="CodeJet retail analytics software video">
+        {% include 'search/_retail_inline_player.html' %}
+    </aside>
+    {% else %}
     <aside class="hero-demo" aria-label="See CodeJet in action">
         <div class="preview-top"><span>SEE THE APPROACH</span><span>CodeJet demo</span></div>
         <a class="video-preview" href="{{ campaign_url('/demo') }}" aria-label="Watch the CodeJet retail intelligence demo">
@@ -18,7 +34,11 @@
         </a>
         <div class="preview-copy"><h2>Your reports. Your definitions.<br>A more direct way to ask.</h2><p>See how CodeJet approaches retail questions with the business context behind the numbers.</p></div>
     </aside>
+    {% endif %}
 </section>
+{% if page_path == '/retail-analytics-software' %}
+{% include 'search/_retail_inline_form.html' %}
+{% endif %}
 <div class="context-strip"><div class="shell"><span>Built for retail teams</span><span>Existing reporting context</span><span>Approved data and definitions</span></div></div>
 <div class="shell article-layout">
     <article class="article-copy" aria-label="{{ page.h1 }}">
@@ -35,7 +55,7 @@
         <h2 id="question-heading">{{ page.questions_heading }}</h2>
         <p class="muted">{{ page.questions_intro }}</p>
         <ul class="question-list">{% for question in page.questions %}<li>{{ question }}</li>{% endfor %}</ul>
-        <a class="button primary" href="{{ campaign_url('/demo') }}">See the CodeJet demo</a>
+        <a class="button primary" href="{% if page_path == '/retail-analytics-software' %}#demo-contact{% else %}{{ campaign_url('/demo') }}{% endif %}">{% if page_path == '/retail-analytics-software' %}Discuss these questions{% else %}See CodeJet in action{% endif %}</a>
     </aside>
 </div>
 <section class="faq-section shell" aria-labelledby="faq-title">
@@ -43,8 +63,15 @@
     <div class="faq-list">{% for faq in page.faqs %}<details><summary>{{ faq.question }}</summary><p>{{ faq.answer }}</p></details>{% endfor %}</div>
 </section>
 <section class="shell next-step" aria-labelledby="next-title">
-    <div><p class="eyebrow">Start with one useful question</p><h2 id="next-title">See what an AI partnership could look like.</h2><p>Watch the demo, then bring us a reporting question your team keeps coming back to.</p></div>
-    <div class="actions"><a class="button primary" href="{{ campaign_url('/demo') }}">Watch the CodeJet demo</a><a class="text-link" href="{{ campaign_url('/#contact') }}">Discuss your use case</a></div>
+    <div><p class="eyebrow">Start with one useful question</p><h2 id="next-title">See what an AI partnership could look like.</h2><p>See CodeJet in action, then bring us a reporting question your team keeps coming back to.</p></div>
+    <div class="actions"><a class="button primary" href="{% if page_path == '/retail-analytics-software' %}#retail-video{% else %}{{ campaign_url('/demo') }}{% endif %}">See CodeJet in action</a><a class="text-link" href="{% if page_path == '/retail-analytics-software' %}#demo-contact{% else %}{{ campaign_url('/#contact') }}{% endif %}">Discuss your use case</a></div>
 </section>
 <nav class="shell related" aria-label="Related reading"><h2>Explore more</h2>{% for link in page.related_links %}<a href="{{ campaign_url(link.href) }}">{{ link.label }}</a>{% endfor %}</nav>
+{% endblock %}
+
+{% block scripts %}
+{% if page_path == '/retail-analytics-software' %}
+<script src="https://embed.cloudflarestream.com/embed/sdk.latest.js"></script>
+<script src="{{ url_for('static', filename='assets/js/codejet-demo.js') }}?v=20261125a"></script>
+{% endif %}
 {% endblock %}

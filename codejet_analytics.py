@@ -396,7 +396,8 @@ def event():
     event_id = _uuid(data["event_id"])
     visit_id = _visit_id(data["visit_token"], s)
     if (not isinstance(data["event_type"], str) or data["event_type"] not in EVENT_TYPES
-            or data["page"] != "/demo" or data["video_id"] != VIDEO_ID):
+            or data["page"] not in {"/demo", "/retail-analytics-software"}
+            or data["video_id"] != VIDEO_ID):
         raise AnalyticsError(400, "Invalid video event.")
     position = _metric(data.get("position_seconds"))
     duration = _metric(data.get("duration_seconds"))

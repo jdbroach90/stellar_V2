@@ -1,0 +1,32 @@
+{# One native click-to-play player on the commercial retail analytics page.
+   Keep IDs aligned with codejet-demo.js; no navigation to /demo is required. #}
+<div class="preview-top"><span>SEE RETAIL INTELLIGENCE IN ACTION</span><span>80-second product overview</span></div>
+<div id="demo-video-shell" class="video-player demo-play-locked" aria-label="CodeJet retail analytics video">
+    <iframe id="stream-player" title="CodeJet retail analytics software in action"
+            src="{{ video_embed }}?poster={{ video_thumbnail|urlencode }}&amp;autoplay=false&amp;muted=false&amp;startTime=0"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+            loading="eager" allowfullscreen></iframe>
+    <button id="demo-play" class="demo-play-cover" type="button"
+            aria-label="Play the CodeJet retail analytics overview with sound">
+        <img src="{{ video_thumbnail }}" alt="" class="demo-play-poster" loading="eager">
+        <span class="demo-play-copy">
+            <span class="demo-play-symbol" aria-hidden="true">&#9654;</span>
+            <span class="demo-play-headline">See CodeJet answer retail questions</span>
+            <span class="demo-play-caption">Play with sound · about 80 seconds</span>
+        </span>
+    </button>
+    <div id="demo-video-ended" class="video-end-card" hidden aria-live="polite" aria-label="Video finished">
+        <div class="video-end-inner">
+            <p class="eyebrow">See how it fits your reports</p>
+            <h2>What could your team ask CodeJet?</h2>
+            <a class="button primary" href="#demo-contact">Discuss your retail data</a>
+            <button type="button" class="demo-replay" id="demo-replay">Watch again</button>
+        </div>
+    </div>
+</div>
+<div class="retail-video-under">
+    <span>Plays right here. No registration required to watch.</span>
+    <a href="#demo-contact">Contact CodeJet Sales</a>
+</div>
+<p id="demo-play-error" class="demo-play-error" hidden role="status">If playback does not start, use the player's native controls.</p>
+<noscript><style>.demo-play-cover{display:none!important}.video-player.demo-play-locked iframe{visibility:visible!important;opacity:1!important;pointer-events:auto!important}</style><p>JavaScript is needed for the inline player. <a href="{{ video_embed }}">Open the product overview</a> directly.</p></noscript>

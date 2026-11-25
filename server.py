@@ -24,6 +24,7 @@ init_seo(app)
 
 RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
 RECAPTCHA_SITE_KEY = os.getenv("RECAPTCHA_SITE_KEY", "6LehmW0rAAAAANOuTO8pxfN_WL28pYoIggjREAnT")
+app.config["RECAPTCHA_SITE_KEY"] = RECAPTCHA_SITE_KEY
 SMTP_EMAIL = os.getenv("cj_email")
 SMTP_PASS = os.getenv("cj_password")
 CONTACT_RECIPIENT = (os.getenv("CJ_CONTACT_RECIPIENT") or "jbroach@codejet.app").strip()
@@ -170,7 +171,7 @@ def send_email():
 
     # The paid-search demo form intentionally requires a company and a genuine,
     # visitor-entered reporting question; the legacy homepage form is unchanged.
-    if source_page == "demo" and (not company or len(message_body) < 10):
+    if source_page in {"demo", "retail-analytics-software"} and (not company or len(message_body) < 10):
         return failure("Please provide your company and a short message about your reporting needs.", 400)
 
     # Reject headers with control characters rather than silently modifying input.
@@ -194,7 +195,7 @@ def send_email():
         DEMO_ENGAGEMENT_SECRET,
         request.form.get("demo_qualified_token", ""),
         request.cookies.get(COOKIE_NAME, ""),
-    ) if source_page == "demo" else None)
+    ) if source_page in {"demo", "retail-analytics-software"} else None)
 
     if not SMTP_EMAIL or not SMTP_PASS:
         app.logger.error("SMTP configuration is missing")
@@ -211,11 +212,11 @@ def send_email():
         context = []
         if company:
             context.append(f"Company: {company}")
-        if source_page == "demo":
-            context.append("Source: CodeJet demo form")
+        if source_page in {"demo", "retail-analytics-software"}:
+            context.append("Source: " + ("Retail analytics landing page" if source_page == "retail-analytics-software" else "CodeJet demo form"))
             if qualified_demo_id:
                 context.append("Demo engagement: click-to-play and >=50% browser-reported playback")
-            for key in ("utm_source", "utm_medium", "utm_campaign", "utm_content"):
+            for key in ("utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"):
                 value = (request.form.get(key) or "").strip()
                 if 0 < len(value) <= 100 and not any(ord(c) < 32 or ord(c) == 127 for c in value):
                     context.append(f"{key}: {value}")
@@ -228,7 +229,7 @@ def send_email():
             connection.send_message(email, from_addr=SMTP_EMAIL, to_addrs=[CONTACT_RECIPIENT])
         # Records SMTP acceptance only, not end-to-end mailbox delivery. No visitor PII logged.
         app.logger.info("Contact inquiry accepted by Gmail SMTP (source=%s; destination=%s)",
-                        "demo" if source_page == "demo" else "website", CONTACT_RECIPIENT)
+                        source_page if source_page in {"demo", "retail-analytics-software"} else "website", CONTACT_RECIPIENT)
     except SMTPResponseException as exc:
         # The SMTP response text may contain sensitive context; only log its code.
         app.logger.error("Contact email rejected by SMTP (code=%s)", exc.smtp_code)
@@ -244,7 +245,7 @@ def send_email():
     # This is an acceptance signal, not proof of final inbox delivery.
     lead_transaction_id = "cjlead_" + secrets.token_hex(16)
     return render_template("email_success.html", result=message, lead_accepted=True,
-                           lead_source="demo" if source_page == "demo" else "homepage",
+                           lead_source=source_page if source_page in {"demo", "retail-analytics-software"} else "homepage",
                            lead_transaction_id=lead_transaction_id,
                            qualified_demo_id=qualified_demo_id), 200, {"Cache-Control": "no-store"}
 

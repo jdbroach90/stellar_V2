@@ -216,7 +216,7 @@
             pending.push({attempts: 0, body: Object.assign({
                 event_id: uuid(),
                 event_type: type,
-                page: '/demo',
+                page: page,
                 video_id: videoId
             }, metrics)});
             flush();
@@ -325,7 +325,7 @@
         }
 
         var initialized = initialise(false);
-        if (page === '/demo' && videoId) attachPlayer(window.codejetDemoPlayer);
+        if ((page === '/demo' || page === '/retail-analytics-software') && videoId) attachPlayer(window.codejetDemoPlayer);
         initialized.then(function (ok) { if (ok) flush(); });
     } catch (_) {
         // Analytics is optional; the page and Cloudflare player remain usable.

@@ -186,3 +186,38 @@ ul { padding-left: 1.3rem; }
     opacity: 0 !important;
     pointer-events: none !important;
 }
+
+/* Paid-search retail analytics funnel: inline video + qualified form, on ONE page. */
+.retail-landing-hero { align-items: start; padding-block: 48px 34px; gap: 42px; }
+.retail-landing-hero .hero-copy { padding-top: 24px; }
+.retail-landing-hero .lead { max-width: 540px; }
+.retail-inline-video { scroll-margin-top: 20px; }
+.retail-inline-video .video-player { border-radius: 0; box-shadow: none; }
+.retail-inline-video .demo-play-headline { font-size: clamp(16px,2.1vw,24px); }
+.retail-inline-video .demo-play-symbol { width: 66px; height: 66px; }
+.retail-video-under { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 19px; font-size: 13px; background: #fff; }
+.retail-video-under a { color: var(--red-dark); font-weight: 700; }
+.retail-contact-section { display: grid; grid-template-columns: minmax(0,1fr) 435px; align-items: start; gap: 60px; padding-block: 8px 60px; }
+.retail-contact-intro { max-width: 600px; padding-top: 20px; }
+.retail-contact-intro h2 { font-size: clamp(25px,2.7vw,36px); }
+.retail-contact-intro p { font-size: 16px; }
+.retail-proof-list { list-style: none; padding: 0; margin: 22px 0; }
+.retail-proof-list li { position: relative; padding: 7px 0 7px 32px; color: #29323d; font-weight: 600; }
+.retail-proof-list li:before { content: '✓'; position: absolute; left: 0; font-weight: 900; color: var(--red); }
+.retail-contact-note { margin-top: 25px; }
+.retail-contact-note a { color: var(--red-dark); font-weight: 700; }
+.retail-contact-section .demo-contact-card { padding: 24px; }
+.retail-contact-section .demo-contact-card h2 { font-size: 25px; }
+@media(max-width: 960px) {
+  .retail-landing-hero { gap: 25px; }
+  .retail-contact-section { grid-template-columns: minmax(0,1fr) 390px; gap: 30px; }
+}
+@media(max-width: 740px) {
+  .retail-landing-hero { padding-block: 36px 22px; }
+  .retail-landing-hero .hero-copy { padding-top: 0; }
+  .retail-inline-video { max-width: 100%; }
+  .retail-contact-section { grid-template-columns: 1fr; gap: 12px; padding-block: 18px 40px; }
+  .retail-contact-intro { padding-top: 0; }
+  .retail-contact-section .demo-contact-card { max-width: 560px; width: 100%; margin-inline: auto; }
+  .retail-video-under { align-items: start; flex-wrap: wrap; }
+}

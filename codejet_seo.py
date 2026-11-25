@@ -201,7 +201,9 @@ def init_seo(app):
     app.jinja_env.globals["campaign_url"] = campaign_url
 
     def search_page():
-        return render_template("search/page.html", page=PAGES[request.path], **public_context(request.path))
+        return render_template("search/page.html", page=PAGES[request.path],
+                               recaptcha_site_key=current_app.config.get("RECAPTCHA_SITE_KEY", ""),
+                               **public_context(request.path))
 
     def canonical_trailing_slash():
         return redirect(campaign_url(request.path.rstrip("/")), code=308)
